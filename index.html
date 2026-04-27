@@ -63,18 +63,15 @@ html,body{height:100%;overflow:hidden;background:var(--dark);font-family:'DM San
 #pg-wrap{position:fixed;top:0;left:0;right:0;z-index:200;height:3px;background:rgba(255,255,255,0.06)}
 #pg-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--fuel2),var(--fuel));transition:width .55s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--fuel-glow)}
 
-/* ── LOGO TOP ── */
+/* ── LOGO INLINE ── */
 .top-logo {
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
   width: 48px;
   height: 48px;
-  z-index: 150;
   border-radius: 8px;
   box-shadow: 0 0 15px var(--fuel-glow);
   object-fit: cover;
+  margin: 0 auto 10px;
+  display: block;
 }
 
 /* ── SCREENS ── */
@@ -82,7 +79,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);font-family:'DM San
 .scr{
   position:absolute;inset:0;
   display:flex;flex-direction:column;align-items:center;
-  padding:20px 20px 28px;padding-top:80px; /* Ajustado para a logo */
+  padding:20px 20px 28px; /* Ajustado para a logo inline */
   opacity:0;transform:translateX(44px);
   pointer-events:none;transition:opacity var(--t),transform var(--t);
   overflow-y:auto;-webkit-overflow-scrolling:touch;
@@ -214,12 +211,11 @@ h1 .g{color:var(--green)}
 .step-i{font-size:11.5px;color:var(--muted);text-align:center}
 
 /* mobile height fix */
-@media(max-height:680px){.scr{justify-content:flex-start;padding-top:84px}}
+@media(max-height:680px){.scr{justify-content:flex-start}}
 </style>
 </head>
 <body>
 <div id="pg-wrap"><div id="pg-bar"></div></div>
-<img src="shell--600.png" class="top-logo" alt="Shell Logo">
 <div id="app"></div>
 <script>
 // ─── TRACKING & CAPI ENGINE ──────────────────────────────────────────────────
@@ -302,7 +298,7 @@ function goTo(idx) {
     case 2: trackEvent('Lead_Quiz', stepData); break;
     case 3: trackEvent('Lead_Idade', stepData); break;
     case 4: trackEvent('Lead_Contato', stepData); break;
-    case 5: trackEvent('Lead', stepData); break; // Lead concluído após enviar contato
+    case 5: trackEvent('Lead', stepData); break; 
     case 6: trackEvent('ViewResult', stepData); break;
     case 7: trackEvent('ViewSecret', stepData); break;
     case 8: trackEvent('InitiateCheckout', { content_name: 'Analise Seg', value: 21.63, currency: 'BRL' }); break;
@@ -345,6 +341,7 @@ function build(idx){
 // ─── S0 – HOOK ───────────────────────────────────────────────────────────────
 function s0(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="tag"><span class="dot"></span>Análise Segura</div>
     <h1>Você pode estar <em>pagando mais caro no combustível</em> sem perceber</h1>
     <p class="sub">Descubra quanto você pode <b>economizar por mês</b> com descontos exclusivos em postos parceiros.</p>
@@ -373,6 +370,7 @@ function s0(s){
 // ─── S1 – NOME ───────────────────────────────────────────────────────────────
 function s1(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="step-i">Passo 1 de 8</div>
     <h1>Como podemos <em>te chamar?</em></h1>
     <p class="sub">Sua análise será personalizada com base no seu perfil de consumo.</p>
@@ -410,6 +408,7 @@ function s2(s){
   function render(){
     const q=qs[qi];
     s.innerHTML=`<div class="box">
+      <img src="shell--600.png" class="top-logo" alt="Shell Logo">
       <div class="step-i">Pergunta ${qi+1} de ${qs.length}</div>
       <h1>${q.txt}</h1>
       <div class="opts">${q.opts.map(([v,l])=>`<div class="opt${ans[q.key]===v?' sel':''}" data-v="${v}"><div class="chk"></div><span>${l}</span></div>`).join('')}</div>
@@ -427,6 +426,7 @@ function s2(s){
 // ─── S3 – FAIXA ETÁRIA ──────────────────────────────────────────────────────
 function s3(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="step-i">Quase lá!</div>
     <h1>Para <em>melhorar a precisão</em> da análise</h1>
     <p class="sub">Selecione sua faixa de idade, <span class="nm">${state.name}</span>:</p>
@@ -445,6 +445,7 @@ function s3(s){
 // ─── S4 – CONTATO ─────────────────────────────────────────────────────────────
 function s4(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="step-i">Finalizando análise</div>
     <h1>Onde enviar seu <em>resultado?</em></h1>
     <p class="sub">Estamos finalizando sua análise personalizada de economia, <span class="nm">${state.name}</span>.</p>
@@ -480,6 +481,7 @@ function s4(s){
 // ─── S5 – PROCESSAMENTO ──────────────────────────────────────────────────────
 function s5(s){
   s.innerHTML=`<div class="box" style="gap:22px">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="tag"><span class="dot"></span>Processando</div>
     <h1>Analisando seu <em>perfil de consumo</em></h1>
     <div class="card" style="display:flex;flex-direction:column;gap:14px">
@@ -506,6 +508,7 @@ function s5(s){
 // ─── S6 – RESULTADO ──────────────────────────────────────────────────────────
 function s6(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="tag"><span class="dot"></span>Resultado pronto</div>
     <h1><em>${state.name}</em>, sua análise está pronta!</h1>
     <div class="res-box">
@@ -537,6 +540,7 @@ function s6(s){
 // ─── S7 – QUEBRA DE PADRÃO ───────────────────────────────────────────────────
 function s7(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="secret">
       <div style="font-size:36px;margin-bottom:8px">🔐</div>
       <h1 style="font-size:21px">Esses descontos <em>não estão disponíveis</em> diretamente nos postos</h1>
@@ -558,6 +562,7 @@ function s7(s){
 // ─── S8 – OFERTA ─────────────────────────────────────────────────────────────
 function s8(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="tag"><span class="dot"></span>Oferta exclusiva</div>
     <h1>Ative seu acesso ao <em>Clube de Descontos em Combustível</em></h1>
     <div class="card price-card">
@@ -585,6 +590,7 @@ function s8(s){
 // ─── S9 – CPF ────────────────────────────────────────────────────────────────
 function s9(s){
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <h1>Quase lá, <em>${state.name}!</em></h1>
     <p class="sub">Para gerar seu acesso e liberar o pagamento via <b>PIX</b>, confirme seu CPF.</p>
     <div class="card" style="display:flex;align-items:center;gap:11px">
@@ -610,6 +616,7 @@ function s9(s){
 // ─── S10 – CRIAR TRANSAÇÃO ──────────────────────────────────────────────────
 function s10(s){
   s.innerHTML=`<div class="box" style="align-items:center;text-align:center;gap:22px">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div style="font-size:46px">⚡</div>
     <h1>Gerando seu <em>PIX</em>...</h1>
     <p class="sub">Criando sua cobrança exclusiva. Aguarde alguns segundos.</p>
@@ -665,6 +672,7 @@ function s11(s){
   const txid     = state.transaction_id   || '—';
 
   s.innerHTML=`<div class="box">
+    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
     <div class="tag"><span class="dot"></span>Pagamento PIX</div>
     <h1><em>${state.name}</em>, seu PIX está pronto!</h1>
     <div class="timer">
