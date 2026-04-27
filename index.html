@@ -218,25 +218,33 @@ h1 .g{color:var(--green)}
 <div id="pg-wrap"><div id="pg-bar"></div></div>
 <div id="app"></div>
 <script>
-// ─── TRACKING & CAPI ENGINE ──────────────────────────────────────────────────
+// ─── TRACKING & CAPI ENGINE (VERSÃO OTIMIZADA) ───────────────────────────────
 function getCookie(name) {
   let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   return match ? match[2] : null;
 }
 
 function trackEvent(eventName, data = {}) {
+  // SEGURANÇA: Bloqueia qualquer evento de compra para evitar duplicidade com UTMify
+  if (eventName.toLowerCase() === 'purchase') return;
+
   try {
-    // 1. Browser Pixel FBQ
+    // 1. Gera o ID ÚNICO antes de tudo
+    const eventId = 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+
+    // 2. Browser Pixel FBQ (Enviando o eventID para o Meta cruzar os dados)
     if (typeof fbq === 'function') {
       const stdEvents = ['ViewContent', 'Lead', 'InitiateCheckout', 'AddPaymentInfo'];
+      const eventOptions = { eventID: eventId }; 
+
       if (stdEvents.includes(eventName)) {
-        fbq('track', eventName, data);
+        fbq('track', eventName, data, eventOptions);
       } else {
-        fbq('trackCustom', eventName, data);
+        fbq('trackCustom', eventName, data, eventOptions);
       }
     }
 
-    // 2. Conversion API (CAPI) via Vercel Serverless Function
+    // 3. Preparação para Conversion API (CAPI)
     let fbcValue = getCookie('_fbc') || '';
     if (!fbcValue && window.location.search.includes('fbclid')) {
       fbcValue = 'fb.1.' + Date.now() + '.' + new URLSearchParams(window.location.search).get('fbclid');
@@ -244,26 +252,28 @@ function trackEvent(eventName, data = {}) {
 
     const payload = {
       event_name: eventName,
-      event_id: 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+      event_id: eventId, // O MESMO ID USADO ACIMA
       page_url: window.location.href,
       user_agent: navigator.userAgent,
       fbp: getCookie('_fbp') || '',
       fbc: fbcValue,
-      cpf: state.cpf || '',
+      cpf: (typeof state !== 'undefined' && state.cpf) ? state.cpf : '',
       content_name: data.content_name || eventName,
       value: data.value || 0,
       currency: data.currency || 'BRL'
     };
 
+    // 4. Envio para o seu backend capi.js
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(e => console.log('CAPI falhou silenciosamente', e));
+    }).catch(e => console.log('Erro CAPI:', e));
 
-  } catch(e) {}
+  } catch(e) {
+    console.error('Erro no rastreio:', e);
+  }
 }
-
 // ─── STATE ───────────────────────────────────────────────────────────────────
 const state = {
   name:'', email:'', phone:'', cpf:'', age:'',
