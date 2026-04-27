@@ -20,8 +20,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid JSON' });
   }
 
-  const pixel_id = 'SEU_PIXEL_ID';
-  const access_token = 'SEU_ACCESS_TOKEN';
+  const pixel_id = '775805315465656';
+  const access_token = 'EAALT3tlhOToBReZASjX39otMwYTvUXFR06Js3UxZB3DPx9NcbI9xtepj1OB95PVJ5bEl5eZCV4ZA0AtJreI1xNJPxfNZB8VmOuSzJfZCGUvrDnZAvIY5qlQy67B93zh3IlANZAqPyoesNNFmgDt8WC2ZA4mn8Iab3LR916jWWRi92zl8eXKTshH5ZC246hfMHSZCZBQmAgZDZD
+';
 
   // ── EXTRAÇÃO DE IP E USER AGENT ──
   let ip = req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '';
