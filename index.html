@@ -1619,16 +1619,20 @@ function getUTMParams() {
     utm_content:     params.get('utm_content')     || '{{ad.name}}',
     utm_ad_id:       params.get('utm_ad_id')       || '{{ad.id}}',
     utm_term:        params.get('utm_term')        || '{{placement}}',
+    // ESTES TRÊS SÃO OBRIGATÓRIOS PARA A UTMIFY:
+    xcod:            params.get('xcod')            || '',
+    sck:             params.get('sck')             || '',
+    fbclid:          params.get('fbclid')          || ''
   };
 }
 
-async function openPixModal(order) {
-  currentOrderPhone = order.telefone;
+let pixPollInterval = null;
+let currentTxId = null;
 
+async function openPixModal(order) {
   document.getElementById('pixOrderDesc').textContent = order.product;
   document.getElementById('pixName').textContent = '👋 Olá, ' + order.nome.split(' ')[0] + '!';
-  document.getElementById('pixPrice').textContent =
-    'R$ ' + order.price.toFixed(2).replace('.',',');
+  document.getElementById('pixPrice').textContent = 'R$ ' + order.price.toFixed(2).replace('.',',');
   document.getElementById('pixCode').textContent = 'Gerando...';
   document.getElementById('pixStatus').className = 'pix-status';
   document.getElementById('pixStatus').innerHTML = '<span class="spin">⟳</span> Aguardando pagamento...';
@@ -1638,6 +1642,7 @@ async function openPixModal(order) {
   try {
     const utms = getUTMParams();
 
+    // INSERIMOS OS PARÂMETROS DA UTMIFY NA REQUISIÇÃO
     const params = new URLSearchParams({
       product:         order.productKey || '',
       name:            order.nome,
@@ -1653,6 +1658,9 @@ async function openPixModal(order) {
       utm_content:     utms.utm_content,
       utm_ad_id:       utms.utm_ad_id,
       utm_term:        utms.utm_term,
+      xcod:            utms.xcod,
+      sck:             utms.sck,
+      fbclid:          utms.fbclid
     });
 
     const res = await fetch('https://pix-api.jogodobicho704.workers.dev/?' + params.toString());
@@ -1671,8 +1679,6 @@ async function openPixModal(order) {
       document.getElementById('pixCode').textContent = 'Código indisponível. Entre em contato pelo WhatsApp.';
     }
 
-    // EVENTO 4: Lead (Disparado com segurança SOMENTE APÓS O FETCH funcionar)
-    // Esse recuo de tempo impede conflito de navegação e garante que a UTMify registre.
     trackEvent('Lead', {
       content_name: order.product,
       value: order.price,
