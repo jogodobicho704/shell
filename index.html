@@ -3,14 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Clube de Descontos em Combustível</title>
+<meta name="theme-color" content="#1a0a00">
+<title>Sabor Brasileiro • Marmitas de Churrasco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+<!-- ========================================
+     1. SCRIPT UTMIFY - CAPTURAR UTMs (PRIMEIRO)
+     ======================================== -->
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
   data-utmify-prevent-subids
   async
   defer
 ></script>
+<!-- ========================================
+     2. FACEBOOK PIXEL PADRÃO (PageView)
+     ======================================== -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '26526640770318634');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=26526640770318634&ev=PageView&noscript=1"
+/></noscript>
+<!-- ========================================
+     3. PIXEL UTMIFY COM FACEBOOK (SEGUNDO)
+     Deve vir DEPOIS do Facebook base
+     ======================================== -->
 <script>
   window.pixelId = "69e38ec2db04a358c41c2a71";
   var a = document.createElement("script");
@@ -19,727 +48,1713 @@
   a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
   document.head.appendChild(a);
 </script>
-<script>
-!function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)
-}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init', '775805315465656'); 
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=775805315465656&ev=PageView&noscript=1"
-/></noscript>
-
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
+/* =============================================
+   CSS VARIABLES & RESET
+============================================= */
 :root {
-  --fuel: #E8B400;
-  --fuel2: #FF8C00;
-  --fuel-glow: rgba(232,180,0,0.22);
-  --green: #00C97A;
-  --green-glow: rgba(0,201,122,0.2);
-  --dark:  #0C0C0A;
-  --dark2: #141410;
-  --dark3: #1C1C16;
-  --card:  rgba(255,255,255,0.04);
-  --brd:   rgba(255,255,255,0.08);
-  --text:  #F5F2E8;
-  --muted: #8A8570;
-  --danger:#FF4D4D;
-  --r: 16px;
-  --t: 0.36s cubic-bezier(.4,0,.2,1);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--dark);font-family:'DM Sans',sans-serif;color:var(--text)}
-
-/* ── PROGRESS ── */
-#pg-wrap{position:fixed;top:0;left:0;right:0;z-index:200;height:3px;background:rgba(255,255,255,0.06)}
-#pg-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--fuel2),var(--fuel));transition:width .55s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px var(--fuel-glow)}
-
-/* ── LOGO INLINE ── */
-.top-logo {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px var(--fuel-glow);
-  object-fit: cover;
-  margin: 0 auto 10px;
-  display: block;
+  --brand:       #e8300a;
+  --brand-dark:  #b02008;
+  --brand-glow:  rgba(232,48,10,0.25);
+  --gold:        #f5a623;
+  --gold-light:  #ffd166;
+  --bg:          #0f0600;
+  --surface:     #1c0d03;
+  --surface2:    #2a1505;
+  --text:        #fff8f3;
+  --muted:       #c4a98a;
+  --border:      rgba(245,166,35,0.18);
+  --green:       #22c55e;
+  --radius:      16px;
+  --shadow:      0 4px 24px rgba(0,0,0,0.5);
 }
 
-/* ── SCREENS ── */
-#app{width:100%;height:100%;position:relative;overflow:hidden}
-.scr{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;
-  padding:20px 20px 28px; /* Ajustado para a logo inline */
-  opacity:0;transform:translateX(44px);
-  pointer-events:none;transition:opacity var(--t),transform var(--t);
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Nunito',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
 }
-.scr.active{opacity:1;transform:translateX(0);pointer-events:all}
-.scr.exit{opacity:0;transform:translateX(-44px);pointer-events:none}
-.box{width:100%;max-width:440px;display:flex;flex-direction:column;gap:18px}
 
-/* ── TYPOGRAPHY ── */
-.tag{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(232,180,0,0.10);border:1px solid rgba(232,180,0,0.28);
-  color:var(--fuel);font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:100px;width:fit-content
+/* =============================================
+   STICKY TOP BAR
+============================================= */
+.topbar {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  background:rgba(15,6,0,0.95);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 16px;
 }
-.tag .dot{width:6px;height:6px;background:var(--fuel);border-radius:50%;animation:blink 1.6s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
-h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(22px,5.8vw,30px);line-height:1.22;color:var(--text)}
-h1 em{font-style:normal;color:var(--fuel)}
-h1 .g{color:var(--green)}
-.sub{font-size:14.5px;color:var(--muted);line-height:1.65}
-.sub b{color:var(--text)}
-.nm{color:var(--fuel);font-weight:700}
-
-/* ── CARD ── */
-.card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:18px}
-.divider{height:1px;background:var(--brd)}
-
-/* ── BUTTONS ── */
-.btn{
-  width:100%;padding:17px 22px;
-  background:linear-gradient(135deg,var(--fuel2),var(--fuel));
-  color:#000;font-family:'Sora',sans-serif;font-weight:700;font-size:15.5px;
-  border:none;border-radius:14px;cursor:pointer;
-  box-shadow:0 4px 22px var(--fuel-glow);
-  transition:transform .18s,opacity .18s;position:relative;overflow:hidden;
-  -webkit-user-select:none;user-select:none
+.topbar-brand { display:flex; align-items:center; gap:10px; }
+.topbar-logo {
+  width:38px; height:38px; border-radius:50%;
+  object-fit:cover; border:2px solid var(--gold);
 }
-.btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.btn.sec{background:var(--card);color:var(--text);border:1px solid var(--brd);box-shadow:none;font-size:14px;padding:14px}
-
-/* ── INPUTS ── */
-.field{display:flex;flex-direction:column;gap:7px}
-.field label{font-size:12.5px;color:var(--muted);font-weight:500}
-.field input{
-  width:100%;padding:15px 14px;background:rgba(255,255,255,0.05);
-  border:1px solid var(--brd);border-radius:12px;
-  color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;
-  outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none
+.topbar-name { font-weight:800; font-size:15px; color:var(--text); line-height:1.1; }
+.topbar-sub  { font-size:11px; color:var(--green); font-weight:700; }
+.topbar-open {
+  display:flex; align-items:center; gap:6px;
+  background:var(--green); color:#fff;
+  border-radius:20px; padding:5px 12px;
+  font-size:12px; font-weight:800;
+  animation:pulse-green 2s infinite;
 }
-.field input:focus{border-color:var(--fuel);box-shadow:0 0 0 3px rgba(232,180,0,0.10)}
-.field input.er{border-color:var(--danger)}
-.emsg{font-size:12px;color:var(--danger);display:none}
-.emsg.show{display:block}
-
-/* ── OPTIONS ── */
-.opts{display:flex;flex-direction:column;gap:9px}
-.opt{
-  padding:13px 15px;background:var(--card);border:1px solid var(--brd);
-  border-radius:12px;cursor:pointer;transition:all .18s;
-  display:flex;align-items:center;gap:11px;font-size:14.5px;font-weight:500
+@keyframes pulse-green {
+  0%,100%{ box-shadow:0 0 0 0 rgba(34,197,94,0.5); }
+  50%    { box-shadow:0 0 0 6px rgba(34,197,94,0); }
 }
-.opt:active{transform:scale(.98)}
-.opt.sel{border-color:var(--fuel);background:rgba(232,180,0,0.07);box-shadow:0 0 0 1px rgba(232,180,0,0.25)}
-.chk{width:20px;height:20px;border-radius:50%;border:2px solid var(--brd);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s}
-.opt.sel .chk{background:var(--fuel);border-color:var(--fuel)}
-.opt.sel .chk::after{content:'✓';font-size:10px;color:#000;font-weight:900}
+.dot { width:7px; height:7px; border-radius:50%; background:#fff; }
 
-/* ── PROGRESS BAR (proc) ── */
-.pbwrap{background:var(--dark3);border-radius:100px;height:7px;overflow:hidden}
-.pb{height:100%;width:0%;background:linear-gradient(90deg,var(--fuel2),var(--fuel));border-radius:100px;transition:width .35s ease}
-.pmsg{font-size:13.5px;color:var(--muted);min-height:20px}
-
-/* ── RESULT ── */
-.res-box{
-  background:linear-gradient(135deg,rgba(0,201,122,0.10),rgba(0,180,100,0.04));
-  border:1px solid rgba(0,201,122,0.28);border-radius:var(--r);padding:22px;text-align:center
+/* =============================================
+   HERO SECTION
+============================================= */
+.hero {
+  margin-top:60px;
+  background:linear-gradient(160deg,#2a0d03 0%,#0f0600 60%);
+  padding:24px 16px 28px;
+  position:relative; overflow:hidden;
 }
-.res-val{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(26px,7.5vw,38px);color:var(--green);text-shadow:0 0 28px var(--green-glow)}
-.res-lbl{font-size:13px;color:var(--muted);margin-top:5px}
-
-/* economy bar */
-.eco-bar-wrap{background:var(--dark3);border-radius:100px;height:10px;overflow:hidden;margin-top:14px}
-.eco-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--green),#00FFB2);border-radius:100px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
-
-/* ── BENEFITS ── */
-.bens{display:flex;flex-direction:column;gap:10px}
-.ben{display:flex;align-items:flex-start;gap:11px;font-size:14px;line-height:1.5}
-.bico{width:28px;height:28px;border-radius:8px;background:rgba(232,180,0,0.10);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
-
-/* ── PRICE ── */
-.price-card{text-align:center;padding:18px}
-.p-old{font-size:13px;color:var(--muted);text-decoration:line-through}
-.p-new{font-family:'Sora',sans-serif;font-weight:800;font-size:40px;color:var(--text);line-height:1.1}
-.p-new sup{font-size:18px;vertical-align:top;margin-top:6px;display:inline-block}
-.p-new sub{font-size:18px;vertical-align:bottom}
-.p-type{font-size:12.5px;color:var(--muted);margin-top:4px}
-.badge{display:inline-block;background:var(--fuel);color:#000;font-size:11px;font-weight:700;padding:4px 11px;border-radius:100px;margin-top:7px}
-
-/* ── SECRET ── */
-.secret{border:1px dashed rgba(232,180,0,0.35);border-radius:var(--r);padding:20px;background:rgba(232,180,0,0.03);text-align:center}
-
-/* ── PIX / CHECKOUT ── */
-.pix-code{
-  background:var(--dark3);border:1px solid var(--brd);border-radius:12px;
-  padding:13px 14px;font-family:monospace;font-size:11px;color:var(--muted);
-  word-break:break-all;line-height:1.7;max-height:76px;overflow:hidden;position:relative
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 80% 20%,rgba(232,48,10,0.12),transparent 65%);
+  pointer-events:none;
 }
-.pix-code::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:linear-gradient(transparent,var(--dark3))}
-.qr-wrap{display:flex;justify-content:center;padding:14px;background:#fff;border-radius:12px}
-.qr-wrap img{width:176px;height:176px;display:block;border-radius:4px}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--gold); color:#1a0a00;
+  border-radius:20px; padding:5px 14px;
+  font-size:12px; font-weight:900;
+  text-transform:uppercase; letter-spacing:.5px;
+  margin-bottom:14px;
+}
+.hero-badge .fire { font-size:14px; }
+.hero h1 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,10vw,52px);
+  line-height:1;
+  color:var(--text);
+  margin-bottom:8px;
+}
+.hero h1 span { color:var(--brand); }
+.hero-sub {
+  font-size:15px; color:var(--muted); font-weight:600;
+  margin-bottom:20px; line-height:1.5;
+}
+.hero-sub strong { color:var(--gold-light); }
+.hero-stats {
+  display:flex; gap:16px; margin-bottom:22px;
+  flex-wrap:wrap;
+}
+.stat {
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:700; color:var(--text);
+}
+.stat-icon { font-size:15px; }
+.hero-img-wrap {
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 8px 40px rgba(232,48,10,0.3);
+  margin-top:4px;
+  position:relative;
+}
+.hero-img-wrap img {
+  width:100%; display:block;
+  object-fit:cover; max-height:260px;
+}
+.hero-img-badge {
+  position:absolute; bottom:12px; right:12px;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  border:1px solid var(--gold);
+  border-radius:12px; padding:6px 12px;
+  font-size:12px; font-weight:800; color:var(--gold);
+}
 
-/* ── TIMER ── */
-.timer{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 15px;background:rgba(255,77,77,0.07);border:1px solid rgba(255,77,77,0.2);border-radius:10px}
-#tdisp{font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:var(--danger);min-width:50px;text-align:center}
-.tlbl{font-size:12.5px;color:var(--muted)}
+/* =============================================
+   URGENCY BANNER
+============================================= */
+.urgency-banner {
+  background:linear-gradient(90deg,var(--brand-dark),var(--brand));
+  padding:12px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
+}
+.urgency-text {
+  font-size:13px; font-weight:800; color:#fff;
+  flex:1;
+}
+.urgency-text span { font-size:11px; font-weight:600; opacity:.9; display:block; }
+#countdown {
+  background:rgba(0,0,0,0.3);
+  border-radius:10px; padding:6px 12px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px; color:#fff; letter-spacing:2px;
+  white-space:nowrap;
+}
 
-/* ── STATUS ── */
-.status{display:flex;align-items:center;gap:7px;justify-content:center;font-size:13px;color:var(--muted)}
-.sdot{width:8px;height:8px;border-radius:50%;background:var(--fuel);animation:blink 1.2s infinite}
-.sdot.ok{background:var(--green);animation:none}
+/* =============================================
+   SECTION HEADERS
+============================================= */
+.section { padding:0 16px; }
+.section-head {
+  display:flex; align-items:center; gap:10px;
+  padding:20px 0 16px;
+}
+.section-head h2 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px; color:var(--text); letter-spacing:.5px;
+}
+.section-pill {
+  background:var(--brand); color:#fff;
+  border-radius:20px; padding:3px 10px;
+  font-size:11px; font-weight:900; text-transform:uppercase;
+}
 
-/* ── PROOF ── */
-.proof{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--muted)}
-.avts{display:flex}
-.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--dark);margin-left:-5px;font-size:9px;font-weight:700;color:#000;display:flex;align-items:center;justify-content:center}
-.step-i{font-size:11.5px;color:var(--muted);text-align:center}
+/* =============================================
+   PRODUCT CARDS
+============================================= */
+.card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:14px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+  -webkit-tap-highlight-color:transparent;
+  position:relative;
+}
+.card:active { transform:scale(.98); }
+.card.featured {
+  border-color:var(--gold);
+  box-shadow:0 0 0 1px var(--gold),0 8px 32px rgba(245,166,35,0.2);
+}
+.card-ribbon {
+  position:absolute; top:12px; left:12px; z-index:2;
+  background:var(--gold); color:#1a0a00;
+  border-radius:8px; padding:4px 10px;
+  font-size:11px; font-weight:900; text-transform:uppercase;
+  display:flex; align-items:center; gap:4px;
+}
+.card-img {
+  width:100%; height:180px;
+  object-fit:cover; display:block;
+}
+.card-body { padding:14px; }
+.card-title {
+  font-size:16px; font-weight:800; color:var(--text);
+  margin-bottom:4px; line-height:1.3;
+}
+.card-desc {
+  font-size:12px; color:var(--muted);
+  font-weight:600; margin-bottom:10px;
+}
+.card-social-proof {
+  font-size:11px; color:var(--muted); font-style:italic;
+  margin-bottom:10px; padding:6px 10px;
+  background:rgba(245,166,35,0.08);
+  border-left:3px solid var(--gold);
+  border-radius:0 6px 6px 0;
+}
+.card-pricing {
+  display:flex; align-items:flex-end; gap:10px; margin-bottom:14px;
+}
+.price-old {
+  font-size:13px; color:var(--muted);
+  text-decoration:line-through; font-weight:600;
+}
+.price-new {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:30px; color:var(--brand); line-height:1;
+}
+.price-new small {
+  font-family:'Nunito',sans-serif;
+  font-size:13px; font-weight:800; vertical-align:super;
+}
+.price-badge {
+  background:var(--green); color:#fff;
+  border-radius:6px; padding:3px 7px;
+  font-size:11px; font-weight:900;
+  margin-left:auto;
+}
+.card-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+.tag {
+  font-size:11px; font-weight:700;
+  padding:3px 8px; border-radius:20px;
+  background:var(--surface2); color:var(--muted);
+}
+.tag.highlight { background:rgba(232,48,10,0.15); color:var(--brand); }
+.scarcity {
+  display:flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:800; color:var(--brand);
+  margin-bottom:12px;
+}
+.scarcity-bar-wrap {
+  height:5px; background:var(--surface2); border-radius:3px;
+  flex:1; overflow:hidden;
+}
+.scarcity-bar {
+  height:100%; border-radius:3px;
+  background:linear-gradient(90deg,var(--brand),var(--gold));
+  transition:width .5s;
+}
+.btn-order {
+  width:100%;
+  background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+  color:#fff; border:none; border-radius:12px;
+  padding:16px; font-size:16px; font-weight:900;
+  cursor:pointer; letter-spacing:.3px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 4px 16px var(--brand-glow);
+  transition:transform .12s,box-shadow .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn-order:active { transform:scale(.97); box-shadow:0 2px 8px var(--brand-glow); }
+.btn-pix { font-size:13px; color:rgba(255,255,255,0.7); }
 
-/* mobile height fix */
-@media(max-height:680px){.scr{justify-content:flex-start}}
+/* =============================================
+   TRUST STRIP
+============================================= */
+.trust-strip {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:10px; padding:20px 16px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin:8px 0;
+}
+.trust-item {
+  display:flex; flex-direction:column; align-items:center;
+  gap:5px; text-align:center;
+}
+.trust-icon { font-size:22px; }
+.trust-label { font-size:11px; font-weight:800; color:var(--text); }
+.trust-sub  { font-size:10px; color:var(--muted); font-weight:600; }
+
+/* =============================================
+   REVIEWS
+============================================= */
+.reviews { padding:0 16px 8px; }
+.reviews-head {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 0 4px;
+}
+.reviews-head h2 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22px;
+}
+.rating-big {
+  display:flex; align-items:baseline; gap:6px;
+}
+.rating-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px; color:var(--gold);
+}
+.stars { font-size:16px; color:var(--gold); }
+.rating-count { font-size:12px; color:var(--muted); font-weight:700; }
+.review-scroll {
+  display:flex; gap:12px;
+  overflow-x:auto; padding:12px 0 16px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.review-scroll::-webkit-scrollbar { display:none; }
+.review-card {
+  min-width:240px; background:var(--surface);
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:14px; flex-shrink:0;
+}
+.review-top { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.review-img {
+  width:40px; height:40px; border-radius:50%;
+  object-fit:cover; border:2px solid var(--gold);
+  flex-shrink:0;
+}
+.review-name { font-size:14px; font-weight:800; }
+.review-stars { font-size:12px; color:var(--gold); }
+.review-text { font-size:13px; color:var(--muted); line-height:1.5; font-weight:600; }
+
+/* =============================================
+   STICKY CTA BAR
+============================================= */
+.sticky-cta {
+  position:fixed; bottom:0; left:0; right:0; z-index:100;
+  background:rgba(15,6,0,0.97);
+  backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  padding:12px 16px 16px;
+}
+.sticky-cta-inner {
+  display:flex; gap:10px; align-items:center;
+}
+.sticky-price {
+  flex-shrink:0;
+}
+.sticky-price-label { font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; }
+.sticky-price-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px; color:var(--brand); line-height:1;
+}
+.btn-sticky {
+  flex:1;
+  background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+  color:#fff; border:none; border-radius:12px;
+  padding:14px 16px; font-size:15px; font-weight:900;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px;
+  box-shadow:0 4px 20px var(--brand-glow);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .12s;
+}
+.btn-sticky:active { transform:scale(.97); }
+
+/* =============================================
+   MODAL — PRODUCT DETAIL
+============================================= */
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:200;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  overflow-y:auto;
+}
+.modal-overlay.open { display:flex; align-items:flex-end; }
+.modal {
+  background:var(--surface);
+  border-radius:24px 24px 0 0;
+  width:100%; max-height:92vh;
+  overflow-y:auto;
+  animation:slideUp .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes slideUp {
+  from { transform:translateY(100%); opacity:0; }
+  to   { transform:translateY(0);    opacity:1; }
+}
+.modal-handle {
+  width:40px; height:4px; background:var(--muted);
+  border-radius:2px; margin:12px auto 0;
+}
+.modal-img {
+  width:100%; height:200px; object-fit:cover; display:block;
+}
+.modal-content { padding:20px; }
+.modal-title { font-family:'Bebas Neue',sans-serif; font-size:26px; margin-bottom:4px; }
+.modal-desc { font-size:13px; color:var(--muted); font-weight:600; margin-bottom:16px; }
+.modal-pricing { margin-bottom:20px; }
+.modal-price-old { font-size:14px; color:var(--muted); text-decoration:line-through; font-weight:600; }
+.modal-price-new {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px; color:var(--brand); line-height:1;
+}
+.modal-section { margin-bottom:20px; }
+.modal-section-head {
+  font-size:14px; font-weight:900; color:var(--gold);
+  text-transform:uppercase; letter-spacing:.5px;
+  margin-bottom:4px; display:flex; align-items:center; gap:8px;
+}
+.modal-section-sub { font-size:11px; color:var(--muted); font-weight:600; margin-bottom:10px; }
+.option-grid { display:flex; flex-direction:column; gap:8px; }
+.option-item {
+  display:flex; align-items:center; gap:12px;
+  background:var(--surface2); border-radius:10px; padding:12px;
+  cursor:pointer; border:1.5px solid transparent;
+  transition:border-color .15s, background .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.option-item.selected {
+  border-color:var(--brand);
+  background:rgba(232,48,10,0.1);
+}
+.option-check {
+  width:22px; height:22px; border-radius:50%;
+  border:2px solid var(--muted); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; color:#fff; transition:all .15s;
+}
+.option-item.selected .option-check {
+  background:var(--brand); border-color:var(--brand);
+}
+.option-label { font-size:14px; font-weight:700; flex:1; }
+.option-price { font-size:13px; color:var(--green); font-weight:800; }
+.modal-obs {
+  width:100%; background:var(--surface2); border:1.5px solid var(--border);
+  border-radius:10px; padding:12px; color:var(--text);
+  font-family:'Nunito',sans-serif; font-size:14px;
+  resize:none; margin-bottom:16px; min-height:60px;
+}
+.modal-obs:focus { outline:none; border-color:var(--gold); }
+.modal-total {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:16px;
+}
+.modal-total-label { font-size:14px; font-weight:700; color:var(--muted); }
+.modal-total-price {
+  font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--brand);
+}
+.btn-confirm {
+  width:100%; background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+  color:#fff; border:none; border-radius:14px;
+  padding:18px; font-size:17px; font-weight:900;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 6px 24px var(--brand-glow);
+  -webkit-tap-highlight-color:transparent;
+}
+.modal-close-btn {
+  position:absolute; top:12px; right:16px;
+  background:rgba(0,0,0,0.5); border:none; color:#fff;
+  width:36px; height:36px; border-radius:50%; font-size:18px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  z-index:10;
+}
+
+/* =============================================
+   PIX MODAL
+============================================= */
+.pix-modal {
+  display:none; position:fixed; inset:0; z-index:300;
+  background:rgba(0,0,0,0.92); align-items:center; justify-content:center;
+  padding:16px;
+}
+.pix-modal.open { display:flex; }
+.pix-box {
+  background:var(--surface); border-radius:24px;
+  padding:28px 20px; width:100%; max-width:400px;
+  text-align:center;
+  animation:fadeScale .3s ease;
+}
+@keyframes fadeScale {
+  from { transform:scale(.9); opacity:0; }
+  to   { transform:scale(1);  opacity:1; }
+}
+.pix-logo { font-size:48px; margin-bottom:12px; }
+.pix-title {
+  font-family:'Bebas Neue',sans-serif; font-size:28px;
+  color:var(--text); margin-bottom:4px;
+}
+.pix-sub { font-size:13px; color:var(--muted); font-weight:600; margin-bottom:8px; }
+.pix-name { font-size:14px; color:var(--gold); font-weight:900; margin-bottom:12px; }
+.pix-price {
+  font-family:'Bebas Neue',sans-serif; font-size:48px;
+  color:var(--brand); margin-bottom:20px; line-height:1;
+}
+.pix-code-label { font-size:12px; color:var(--muted); font-weight:700; margin-bottom:6px; }
+.pix-code-box {
+  background:var(--surface2); border-radius:10px; padding:10px 14px;
+  display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  border:1px solid var(--border);
+}
+.pix-code-text {
+  font-size:11px; color:var(--muted); font-weight:700;
+  word-break:break-all; flex:1; text-align:left;
+  font-family:monospace;
+}
+.btn-copy {
+  background:var(--gold); color:#1a0a00; border:none;
+  border-radius:8px; padding:8px 14px;
+  font-size:12px; font-weight:900; cursor:pointer;
+  flex-shrink:0;
+}
+.pix-status {
+  border-radius:12px; padding:12px 16px;
+  font-size:13px; font-weight:800;
+  background:rgba(245,166,35,0.1);
+  border:1px solid rgba(245,166,35,0.3);
+  color:var(--gold); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px; justify-content:center;
+}
+.pix-status.paid {
+  background:rgba(34,197,94,0.1);
+  border-color:rgba(34,197,94,0.3);
+  color:var(--green);
+}
+.spin {
+  display:inline-block;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.btn-close-pix {
+  background:var(--surface2); color:var(--muted); border:none;
+  border-radius:10px; padding:12px 20px; font-size:14px;
+  font-weight:700; cursor:pointer; width:100%;
+  margin-top:4px;
+}
+/* =============================================
+   SUCCESS MODAL
+============================================= */
+.success-modal {
+  display:none; position:fixed; inset:0; z-index:400;
+  background:rgba(0,0,0,0.95); align-items:center; justify-content:center;
+  padding:20px;
+}
+.success-modal.open { display:flex; }
+.success-box {
+  background:var(--surface); border-radius:24px;
+  padding:32px 24px; text-align:center; width:100%; max-width:360px;
+}
+.success-icon { font-size:64px; margin-bottom:16px; animation:bounce 1s ease; }
+@keyframes bounce {
+  0%,100%{ transform:scale(1); }
+  50%    { transform:scale(1.2); }
+}
+.success-title {
+  font-family:'Bebas Neue',sans-serif; font-size:32px; color:var(--green);
+  margin-bottom:8px;
+}
+.success-text { font-size:15px; color:var(--muted); font-weight:600; line-height:1.6; margin-bottom:24px; }
+.btn-whatsapp {
+  width:100%; background:#25D366; color:#fff; border:none;
+  border-radius:14px; padding:16px; font-size:16px; font-weight:900;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-bottom:10px; box-shadow:0 4px 16px rgba(37,211,102,0.3);
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+.footer {
+  padding:24px 16px 100px;
+  border-top:1px solid var(--border);
+  text-align:center;
+}
+.footer-logo {
+  width:60px; height:60px; border-radius:50%; margin:0 auto 12px;
+  border:2px solid var(--gold);
+}
+.footer-name { font-family:'Bebas Neue',sans-serif; font-size:24px; margin-bottom:4px; }
+.footer-slogan { font-size:13px; color:var(--muted); font-weight:600; margin-bottom:20px; }
+.footer-info { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.footer-info-item {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  font-size:13px; color:var(--muted); font-weight:600;
+}
+.footer-info-icon { font-size:15px; }
+.footer-pay {
+  display:flex; gap:8px; justify-content:center; margin-bottom:20px; flex-wrap:wrap;
+}
+.pay-badge {
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:8px; padding:6px 14px;
+  font-size:12px; font-weight:800;
+}
+.footer-copy { font-size:11px; color:var(--surface2); margin-top:12px; }
+
+/* Spacer for sticky */
+.spacer-bottom { height:80px; }
+
+/* =============================================
+   UTILITIES
+============================================= */
+.divider {
+  height:1px; background:var(--border);
+  margin:4px 0;
+}
 </style>
 </head>
 <body>
-<div id="pg-wrap"><div id="pg-bar"></div></div>
-<div id="app"></div>
+
+<header class="topbar">
+  <div class="topbar-brand">
+    <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" class="topbar-logo" onerror="this.style.display='none'">
+    <div>
+      <div class="topbar-name">Sabor Brasileiro</div>
+      <div class="topbar-sub">● Almoço & Jantar</div>
+    </div>
+  </div>
+  <div class="topbar-open">
+    <div class="dot"></div>
+    Aberto
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge">
+    <span class="fire">🔥</span>
+    Promoção Relâmpago • Só Hoje
+  </div>
+  <h1>PAGUE 1,<br><span>LEVE 2</span></h1>
+  <p class="hero-sub">
+    Marmitas de <strong>Churrasco de Verdade</strong><br>
+    com 9 complementos grátis. Entrega Grátis!
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-icon">⭐</span> 5,0 (1.360 avaliações)</div>
+    <div class="stat"><span class="stat-icon">🛵</span> 40–60 min</div>
+    <div class="stat"><span class="stat-icon">✅</span> Entrega Grátis</div>
+  </div>
+  <div class="hero-img-wrap">
+    <img src="./images/costela.jpg" alt="Churrasco Sabor Brasileiro" loading="eager" onerror="this.src='./images/sabor.jpeg'">
+    <div class="hero-img-badge">🍖 Feito na Hora</div>
+  </div>
+</section>
+
+<div class="urgency-banner">
+  <div class="urgency-text">
+    ⚡ Promoção acaba em:
+    <span>Preços voltam ao normal depois disso</span>
+  </div>
+  <div id="countdown">00:00</div>
+</div>
+
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-icon">🚀</div>
+    <div class="trust-label">Entrega Grátis</div>
+    <div class="trust-sub">Para sua região</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🔒</div>
+    <div class="trust-label">100% Seguro</div>
+    <div class="trust-sub">Pix protegido</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">⭐</div>
+    <div class="trust-label">5,0 Estrelas</div>
+    <div class="trust-sub">+3.000 pedidos</div>
+  </div>
+</div>
+
+<div class="section" id="pague-1-leve-2">
+  <div class="section-head">
+    <h2>🎉 PAGUE 1, LEVE 2</h2>
+    <div class="section-pill">Oferta</div>
+  </div>
+
+  <div class="card" onclick="openModal('pequena')">
+    <img src="./images/pequena.jpg" alt="2 Marmitex Pequena Churrasco" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Pequena com Churrasco</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Entrega Grátis</span>
+        <span class="tag">9 Acomp.</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 39,80</div>
+          <div class="price-new"><small>R$</small> 23,90</div>
+        </div>
+        <div class="price-badge">-40%</div>
+      </div>
+      <button class="btn-order" aria-label="Pedir 2 Marmitex Pequena">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('grande')">
+    <img src="./images/grande.jpg" alt="2 Marmitex Grande Churrasco" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Grande com Churrasco</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Entrega Grátis</span>
+        <span class="tag">9 Acomp.</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 43,80</div>
+          <div class="price-new"><small>R$</small> 28,90</div>
+        </div>
+        <div class="price-badge">-34%</div>
+      </div>
+      <div class="scarcity">
+        🔥 Apenas 32 restando!
+        <div class="scarcity-bar-wrap">
+          <div class="scarcity-bar" style="width:68%"></div>
+        </div>
+      </div>
+      <button class="btn-order" aria-label="Pedir 2 Marmitex Grande">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card featured" onclick="openModal('kit3')">
+    <div class="card-ribbon">⭐ MAIS VENDIDO</div>
+    <img src="./images/kitnovo.jpg" alt="Kit Família Grande Churrasco" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">3 Kit Família Grande com Churrasco</div>
+      <div class="card-desc">🎁 9 Complementos Grátis • Mais que o dobro do Combo 1 por apenas R$8 a mais!</div>
+      <div class="card-social-proof">
+        💬 "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!"
+      </div>
+      <div class="card-tags">
+        <span class="tag highlight">Melhor Oferta</span>
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Família</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 59,80</div>
+          <div class="price-new"><small>R$</small> 39,90</div>
+        </div>
+        <div class="price-badge">-33%</div>
+      </div>
+      <div class="scarcity">
+        🔥 Apenas 16 disponíveis!
+        <div class="scarcity-bar-wrap">
+          <div class="scarcity-bar" style="width:84%"></div>
+        </div>
+      </div>
+      <button class="btn-order" style="background:linear-gradient(135deg,#f5a623,#d4890d);color:#1a0a00;" aria-label="Pedir Kit Família">
+        ⭐ Quero Este! <span style="font-size:12px;color:rgba(26,10,0,0.7)">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('milanesa')">
+    <img src="./images/milanesa.jpg" alt="2 Marmitex Milanesa" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Grande com Bife Milanesa Frango</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Entrega Grátis</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 39,80</div>
+          <div class="price-new"><small>R$</small> 23,90</div>
+        </div>
+        <div class="price-badge">-40%</div>
+      </div>
+      <button class="btn-order" aria-label="Pedir Milanesa">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('strog')">
+    <img src="./images/strog.jpg" alt="2 Marmitex Strogonof" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Grande com Strogonof</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Entrega Grátis</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 45,80</div>
+          <div class="price-new"><small>R$</small> 25,90</div>
+        </div>
+        <div class="price-badge">-43%</div>
+      </div>
+      <button class="btn-order" aria-label="Pedir Strogonof">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card" onclick="openModal('costela')">
+    <img src="./images/costela.jpg" alt="2 Marmitex Costela" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Grande de Costela Assada</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag">Entrega Grátis</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 49,80</div>
+          <div class="price-new"><small>R$</small> 29,90</div>
+        </div>
+        <div class="price-badge">-40%</div>
+      </div>
+      <div class="scarcity">
+        🔥 Acabando!
+        <div class="scarcity-bar-wrap">
+          <div class="scarcity-bar" style="width:90%"></div>
+        </div>
+      </div>
+      <button class="btn-order" aria-label="Pedir Costela">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card featured" onclick="openModal('parmegiana')">
+    <div class="card-ribbon">🏆 MAIS PEDIDA</div>
+    <img src="./images/parmegiana.jpg" alt="2 Marmitex Parmegiana" class="card-img" loading="lazy">
+    <div class="card-body">
+      <div class="card-title">2 Marmitex Grande Parmegiana Frango</div>
+      <div class="card-desc">🎁 9 Complementos Grátis</div>
+      <div class="card-social-proof">
+        💬 "A melhor Parmegiana da Cidade!"
+      </div>
+      <div class="card-tags">
+        <span class="tag highlight">Apenas Pix</span>
+        <span class="tag highlight">Campeã de Vendas</span>
+      </div>
+      <div class="card-pricing">
+        <div>
+          <div class="price-old">de R$ 35,80</div>
+          <div class="price-new"><small>R$</small> 25,90</div>
+        </div>
+        <div class="price-badge">-28%</div>
+      </div>
+      <div class="scarcity">
+        🔥 Apenas 8 disponíveis!
+        <div class="scarcity-bar-wrap">
+          <div class="scarcity-bar" style="width:93%"></div>
+        </div>
+      </div>
+      <button class="btn-order" aria-label="Pedir Parmegiana">
+        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+      </button>
+    </div>
+  </div>
+
+</div><div class="reviews">
+  <div class="reviews-head">
+    <h2>O que falam de nós</h2>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+    <div class="rating-big">
+      <div class="rating-num">5,0</div>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="rating-count">1.360 avaliações</div>
+      </div>
+    </div>
+    <div style="flex:1;font-size:12px;color:var(--muted);font-weight:600;">
+      3.007 avaliações no total • últimos 90 dias
+    </div>
+  </div>
+  <div class="review-scroll" id="reviewScroll">
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato1.webp" class="review-img" alt="Carlos" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Carlos M.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Simplesmente perfeito! A comida é deliciosa, bem temperada e sempre quentinha."</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato2.webp" class="review-img" alt="Ana Paula" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Ana Paula S.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Entrega rápida e marmita super bem servida! Dá para ver que os ingredientes são frescos."</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato3.webp" class="review-img" alt="Rodrigo" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Rodrigo L.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Sabor de comida caseira que lembra a da minha mãe! Sempre no capricho 👏"</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato4.webp" class="review-img" alt="Fernanda" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Fernanda R.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Melhor custo-benefício! Porção generosa, comida deliciosa e preço justo. Recomendo!"</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato5.webp" class="review-img" alt="Marcos" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Marcos P.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Já pedi em várias marmitarias, mas essa aqui superou todas! Sabor incrível."</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato6.webp" class="review-img" alt="Juliana" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Juliana C.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Variedade no cardápio, tempero na medida certa e sempre entregam no horário."</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato7.webp" class="review-img" alt="Rafael" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Rafael T.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Bom, barato e entrega rápida. Não tem erro, semana que vem peço de novo 👍"</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <img src="./images/relato8.webp" class="review-img" alt="Iana" loading="lazy" onerror="this.style.background='#2a1505';this.src=''">
+        <div>
+          <div class="review-name">Iana</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-text">"Pedi pela primeira vez e todo mundo gostou, vamos pedir mais!"</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;padding-bottom:8px;">
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:12px;">
+    <div style="font-size:28px;margin-bottom:8px;">🔥</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:6px;">PROMOÇÃO ACABANDO!</div>
+    <div style="font-size:14px;color:var(--muted);font-weight:600;margin-bottom:16px;line-height:1.5;">
+      Aproveite o <strong style="color:var(--gold)">Pague 1 Leve 2</strong><br>antes que os combos esgotem.
+    </div>
+    <button class="btn-order" onclick="document.getElementById('pague-1-leve-2').scrollIntoView({behavior:'smooth'})">
+      🛒 Ver Todas as Marmitas
+    </button>
+  </div>
+</div>
+
+<footer class="footer">
+  <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" class="footer-logo" onerror="this.style.display='none'">
+  <div class="footer-name">Sabor Brasileiro</div>
+  <div class="footer-slogan">Feito com carinho, temperado com sabor!</div>
+  <div class="footer-info">
+    <div class="footer-info-item"><span class="footer-info-icon">🕐</span> Aberto todos os dias</div>
+    <div class="footer-info-item"><span class="footer-info-icon">🛵</span> Entrega Grátis para sua região</div>
+    <div class="footer-info-item"><span class="footer-info-icon">⏱️</span> 40 a 60 minutos</div>
+    <div class="footer-info-item"><span class="footer-info-icon">📦</span> Pedido mínimo: R$ 10,00</div>
+  </div>
+  <div style="font-size:13px;color:var(--muted);font-weight:700;margin-bottom:10px;">Formas de pagamento:</div>
+  <div class="footer-pay">
+    <div class="pay-badge" style="color:var(--green);">🔑 Pix</div>
+    <div class="pay-badge">🏍️ Motoboy</div>
+    <div class="pay-badge">🏠 Retirada</div>
+  </div>
+  <div class="footer-copy">© Sabor Brasileiro • Todos os direitos reservados</div>
+</footer>
+
+<div class="spacer-bottom"></div>
+
+<div class="sticky-cta">
+  <div class="sticky-cta-inner">
+    <div class="sticky-price">
+      <div class="sticky-price-label">A partir de</div>
+      <div class="sticky-price-num">R$23,90</div>
+    </div>
+    <button class="btn-sticky" onclick="document.getElementById('pague-1-leve-2').scrollIntoView({behavior:'smooth'})">
+      🍱 Pedir Agora
+    </button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="productModal" role="dialog" aria-modal="true">
+  <div class="modal" id="modalContent">
+    <div class="modal-handle"></div>
+    <button class="modal-close-btn" onclick="closeModal()" style="position:sticky;top:8px;left:calc(100% - 52px);margin-right:16px;margin-bottom:-44px;z-index:10;">✕</button>
+    <img id="modalImg" src="" alt="" class="modal-img">
+    
+    <div class="modal-content">
+      <div class="modal-title" id="modalTitle">Título</div>
+      <div class="modal-desc" id="modalDesc">Descrição</div>
+      <div class="modal-pricing">
+        <div class="modal-price-old" id="modalPriceOld"></div>
+        <div class="modal-price-new" id="modalPriceNew"></div>
+      </div>
+
+      <div id="step1">
+        <div class="modal-section" id="sectionAcomp">
+          <div class="modal-section-head">🍚 Acompanhamentos</div>
+          <div class="modal-section-sub">Escolha até 6 opções</div>
+          <div class="option-grid" id="gridAcomp">
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Arroz">
+              <div class="option-check">✓</div>
+              <div class="option-label">Arroz Branco</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Arroz Integral">
+              <div class="option-check">✓</div>
+              <div class="option-label">Arroz Integral</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Feijão em Caldo">
+              <div class="option-check">✓</div>
+              <div class="option-label">Feijão em Caldo</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Feijão Tropeiro">
+              <div class="option-check">✓</div>
+              <div class="option-label">Feijão Tropeiro</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Purê de Batata">
+              <div class="option-check">✓</div>
+              <div class="option-label">Purê de Batata</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Farofa c/ Ovos e Bacon">
+              <div class="option-check">✓</div>
+              <div class="option-label">Farofa c/ Ovos e Bacon</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Macarrão Alho e Óleo">
+              <div class="option-check">✓</div>
+              <div class="option-label">Macarrão Alho e Óleo</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Tutu de Feijão">
+              <div class="option-check">✓</div>
+              <div class="option-label">Tutu de Feijão</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section" id="sectionCarne">
+          <div class="modal-section-head">🥩 Carne</div>
+          <div class="modal-section-sub">Escolha até 3 opções (~150g cada)</div>
+          <div class="option-grid" id="gridCarne">
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Cupim">
+              <div class="option-check">✓</div>
+              <div class="option-label">Cupim</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Fraldinha">
+              <div class="option-check">✓</div>
+              <div class="option-label">Fraldinha</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Filé ao Alho">
+              <div class="option-check">✓</div>
+              <div class="option-label">Filé ao Alho</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Contra Filé">
+              <div class="option-check">✓</div>
+              <div class="option-label">Contra Filé</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Calabresa 2 un.">
+              <div class="option-check">✓</div>
+              <div class="option-label">Calabresa (2 un.)</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Medalhão de Frango 5 un.">
+              <div class="option-check">✓</div>
+              <div class="option-label">Medalhão de Frango (5 un.)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section" id="sectionSalada">
+          <div class="modal-section-head">🥗 Salada</div>
+          <div class="modal-section-sub">Escolha até 4 opções</div>
+          <div class="option-grid" id="gridSalada">
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Vinagrete">
+              <div class="option-check">✓</div>
+              <div class="option-label">Vinagrete</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Maionese c/ Batata e Ovos">
+              <div class="option-check">✓</div>
+              <div class="option-label">Maionese c/ Batata e Ovos</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Salpicão">
+              <div class="option-check">✓</div>
+              <div class="option-label">Salpicão</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Alface">
+              <div class="option-check">✓</div>
+              <div class="option-label">Alface</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Tomate">
+              <div class="option-check">✓</div>
+              <div class="option-label">Tomate</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Pepino">
+              <div class="option-check">✓</div>
+              <div class="option-label">Pepino</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Brócolis c/ Ovos de Codorna">
+              <div class="option-check">✓</div>
+              <div class="option-label">Brócolis c/ Ovos de Codorna</div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'salada',4)" data-val="Repolho">
+              <div class="option-check">✓</div>
+              <div class="option-label">Repolho</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-section" id="sectionTurbine">
+          <div class="modal-section-head">⚡ Turbine sua Marmita</div>
+          <div class="modal-section-sub">Escolha 1 opção — Grátis no 1º pedido!</div>
+          <div class="option-grid" id="gridTurbine">
+            <div class="option-item" onclick="toggleOption(this,'turbine',1)" data-val="Ovo Frito">
+              <div class="option-check">✓</div>
+              <div class="option-label">Ovo Frito (1 un.) <span style="color:var(--green);font-size:11px;">GRÁTIS</span></div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'turbine',1)" data-val="Banana à Milanesa">
+              <div class="option-check">✓</div>
+              <div class="option-label">Banana à Milanesa <span style="color:var(--green);font-size:11px;">GRÁTIS</span></div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'turbine',1)" data-val="Fricassê de Frango">
+              <div class="option-check">✓</div>
+              <div class="option-label">Fricassê de Frango (70g) <span style="color:var(--green);font-size:11px;">GRÁTIS</span></div>
+            </div>
+            <div class="option-item" onclick="toggleOption(this,'turbine',1)" data-val="Lasanha 4 Queijos">
+              <div class="option-check">✓</div>
+              <div class="option-label">Lasanha 4 Queijos (70g) <span style="color:var(--green);font-size:11px;">GRÁTIS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="step2" style="display:none;">
+        <div class="modal-section">
+          <div class="modal-section-head">👤 Seus Dados</div>
+          <div class="modal-section-sub">Para confirmar seu pedido</div>
+          <input type="text" id="inputNome" placeholder="Seu nome completo"
+            style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;margin-bottom:10px;"
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          <input type="email" id="inputEmail" placeholder="Seu e-mail"
+            style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;margin-bottom:10px;"
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          <input type="tel" id="inputTelefone" placeholder="WhatsApp (com DDD)"
+            style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;margin-bottom:10px;"
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          <input type="text" id="inputCPF" placeholder="CPF (somente números)"
+            maxlength="14"
+            style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;margin-bottom:10px;"
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-head">📍 Seu Endereço</div>
+          <div class="modal-section-sub">Para calcular entrega grátis</div>
+          <input type="text" id="inputEndereco" placeholder="Rua, número e bairro"
+            style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 12px;color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;"
+            onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-head">📝 Observações</div>
+          <textarea class="modal-obs" id="inputObs" placeholder="Alguma observação? (opcional)" maxlength="140"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-total">
+        <div class="modal-total-label">Total do Pedido</div>
+        <div class="modal-total-price" id="modalTotalPrice">R$ 0,00</div>
+      </div>
+
+      <button class="btn-confirm" id="btnContinue" onclick="goToStep2()">
+        ➡️ Continuar
+      </button>
+
+      <div id="btnConfirmContainer" style="display:none;">
+        <button class="btn-confirm" id="btnConfirm" onclick="confirmOrder()">
+          🔑 Gerar Pix e Finalizar
+        </button>
+        <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;font-weight:600;">
+          🔒 Pagamento 100% seguro via Pix
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pix-modal" id="pixModal">
+  <div class="pix-box">
+    <div class="pix-logo">🔑</div>
+    <div class="pix-title">Pague com Pix</div>
+    <div class="pix-sub" id="pixOrderDesc">2 Marmitex com Churrasco</div>
+    <div class="pix-name" id="pixName"></div>
+    <div class="pix-price" id="pixPrice">R$ 28,90</div>
+
+    <div class="pix-code-label">Copie o código Pix abaixo:</div>
+    <div class="pix-code-box">
+      <div class="pix-code-text" id="pixCode">Aguardando...</div>
+      <button class="btn-copy" onclick="copyPix()">Copiar</button>
+    </div>
+
+    <div class="pix-status" id="pixStatus">
+      <span class="spin">⟳</span> Aguardando pagamento...
+    </div>
+
+    <div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:14px;line-height:1.5;">
+      ⏱️ Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
+    </div>
+
+    <button class="btn-close-pix" onclick="closePixModal()">Cancelar e voltar</button>
+  </div>
+</div>
+
+<div class="success-modal" id="successModal">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Pedido Confirmado!</div>
+    <div class="success-text">
+      Seu pagamento foi recebido com sucesso!<br>
+      Sua marmita está sendo preparada com carinho.<br><br>
+      <strong style="color:var(--gold);">Tempo estimado: 40–60 minutos</strong>
+    </div>
+    <button class="btn-whatsapp" onclick="openWhatsApp()">
+      💬 Ver status no WhatsApp
+    </button>
+    <button class="btn-close-pix" onclick="closeSuccess()">Fechar</button>
+  </div>
+</div>
+
 <script>
-// ─── TRACKING & CAPI ENGINE (VERSÃO OTIMIZADA) ───────────────────────────────
+/* =============================================
+   TRACKING & CONVERSION EVENTS - FUNIL COMPLETO
+============================================= */
 function getCookie(name) {
-  let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  return match ? match[2] : null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
 }
 
-function trackEvent(eventName, data = {}) {
-  // SEGURANÇA: Bloqueia qualquer evento de compra para evitar duplicidade com UTMify
-  if (eventName.toLowerCase() === 'purchase') return;
-
-  try {
-    // 1. Gera o ID ÚNICO antes de tudo
-    const eventId = 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-
-    // 2. Browser Pixel FBQ (Enviando o eventID para o Meta cruzar os dados)
-    if (typeof fbq === 'function') {
-      const stdEvents = ['ViewContent', 'Lead', 'InitiateCheckout', 'AddPaymentInfo'];
-      const eventOptions = { eventID: eventId }; 
-
-      if (stdEvents.includes(eventName)) {
-        fbq('track', eventName, data, eventOptions);
-      } else {
-        fbq('trackCustom', eventName, data, eventOptions);
-      }
-    }
-
-    // 3. Preparação para Conversion API (CAPI)
-    let fbcValue = getCookie('_fbc') || '';
-    if (!fbcValue && window.location.search.includes('fbclid')) {
-      fbcValue = 'fb.1.' + Date.now() + '.' + new URLSearchParams(window.location.search).get('fbclid');
-    }
-
-    const payload = {
-      event_name: eventName,
-      event_id: eventId, // O MESMO ID USADO ACIMA
-      page_url: window.location.href,
-      user_agent: navigator.userAgent,
-      fbp: getCookie('_fbp') || '',
-      fbc: fbcValue,
-      cpf: (typeof state !== 'undefined' && state.cpf) ? state.cpf : '',
-      content_name: data.content_name || eventName,
-      value: data.value || 0,
-      currency: data.currency || 'BRL'
-    };
-
-    // 4. Envio para o seu backend capi.js
-    fetch('/api/capi', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(e => console.log('Erro CAPI:', e));
-
-  } catch(e) {
-    console.error('Erro no rastreio:', e);
+function trackEvent(eventName, eventData = {}) {
+  // FBQ (Pixel de Navegador)
+  if (window.fbq) {
+    const fbqData = {};
+    if (eventData.value) fbqData.value = eventData.value;
+    if (eventData.currency) fbqData.currency = eventData.currency;
+    if (eventData.content_name) fbqData.content_name = eventData.content_name;
+    fbq('track', eventName, fbqData);
   }
+
+  // CAPI (Servidor com dados de usuário quando disponíveis)
+  const payload = {
+    event_name: eventName,
+    page_url: window.location.href,
+    fbp: getCookie('_fbp'),
+    fbc: getCookie('_fbc'),
+    value: eventData.value,
+    currency: eventData.currency,
+    content_name: eventData.content_name,
+    name: eventData.name || null,
+    email: eventData.email || null,
+    phone: eventData.phone || null,
+    cpf: eventData.cpf || null,
+  };
+
+  fetch('/api/capi', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(err => console.error('CAPI erro:', err));
 }
-// ─── STATE ───────────────────────────────────────────────────────────────────
-const state = {
-  name:'', email:'', phone:'', cpf:'', age:'',
-  quiz:{ vehicles:'', fuel:'', spend:'' },
-  savings:{ min:0, max:0 },
-  transaction_id:'', pix_copia_e_cola:'', pix_qr_code:'', pix_base64:'',
+
+/* =============================================
+   PRODUTO DATA
+============================================= */
+const PRODUCTS = {
+  pequena: {
+    title: '2 Marmitex Pequena com Churrasco',
+    desc: '🎁 9 Complementos Grátis • 2 marmitas no tamanho Pequeno',
+    img: './images/pequena.jpg',
+    priceOld: 'R$ 39,80',
+    priceNew: 'R$ 23,90',
+    priceVal: 23.90,
+  },
+  grande: {
+    title: '2 Marmitex Grande com Churrasco',
+    desc: '🎁 9 Complementos Grátis • 2 marmitas no tamanho Grande',
+    img: './images/grande.jpg',
+    priceOld: 'R$ 43,80',
+    priceNew: 'R$ 28,90',
+    priceVal: 28.90,
+  },
+  kit3: {
+    title: '3 Kit Família Grande com Churrasco',
+    desc: '🎁 9 Complementos Grátis • 3 marmitas para a família toda!',
+    img: './images/kitnovo.jpg',
+    priceOld: 'R$ 59,80',
+    priceNew: 'R$ 39,90',
+    priceVal: 39.90,
+  },
+  milanesa: {
+    title: '2 Marmitex Grande com Bife Milanesa Frango',
+    desc: '🎁 9 Complementos Grátis • Milanesa crocante e saborosa',
+    img: './images/milanesa.jpg',
+    priceOld: 'R$ 39,80',
+    priceNew: 'R$ 23,90',
+    priceVal: 23.90,
+  },
+  strog: {
+    title: '2 Marmitex Grande com Strogonof',
+    desc: '🎁 9 Complementos Grátis • Strogonof cremoso com fritas palha',
+    img: './images/strog.jpg',
+    priceOld: 'R$ 45,80',
+    priceNew: 'R$ 25,90',
+    priceVal: 25.90,
+  },
+  costela: {
+    title: '2 Marmitex Grande de Costela Assada',
+    desc: '🎁 9 Complementos Grátis • Costela assada desossada',
+    img: './images/costela.jpg',
+    priceOld: 'R$ 49,80',
+    priceNew: 'R$ 29,90',
+    priceVal: 29.90,
+  },
+  parmegiana: {
+    title: '2 Marmitex Grande Parmegiana Frango',
+    desc: '🎁 9 Complementos Grátis • A mais pedida do cardápio!',
+    img: './images/parmegiana.jpg',
+    priceOld: 'R$ 35,80',
+    priceNew: 'R$ 25,90',
+    priceVal: 25.90,
+  },
 };
 
-// ─── PROGRESS MAP ────────────────────────────────────────────────────────────
-const PROG = [0,8,16,30,42,54,64,72,80,87,92,96,100];
-let CUR = 0;
-let _timer = null;
-
-// ─── ENGINE ──────────────────────────────────────────────────────────────────
-const app = document.getElementById('app');
-const pgBar = document.getElementById('pg-bar');
-
-function goTo(idx) {
-  const old = app.querySelector('.scr.active');
-  if (old) { old.classList.remove('active'); old.classList.add('exit'); setTimeout(()=>old.remove(), 400); }
-  CUR = idx;
-  pgBar.style.width = (PROG[idx] || 0) + '%';
-  const el = build(idx);
-  app.appendChild(el);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('active')));
-
-  // Trigger Pixel & CAPI por Etapa
-  const stepData = { content_name: 'Etapa_' + idx };
-  switch(idx) {
-    case 0: trackEvent('ViewContent', stepData); break;
-    case 1: trackEvent('StartLead_Nome', stepData); break;
-    case 2: trackEvent('Lead_Quiz', stepData); break;
-    case 3: trackEvent('Lead_Idade', stepData); break;
-    case 4: trackEvent('Lead_Contato', stepData); break;
-    case 5: trackEvent('Lead', stepData); break; 
-    case 6: trackEvent('ViewResult', stepData); break;
-    case 7: trackEvent('ViewSecret', stepData); break;
-    case 8: trackEvent('InitiateCheckout', { content_name: 'Analise Seg', value: 21.63, currency: 'BRL' }); break;
-    case 9: trackEvent('AddPaymentInfo_CPF', stepData); break;
-    case 10: trackEvent('AddPaymentInfo', { content_name: 'Gerando_PIX', value: 21.63, currency: 'BRL' }); break;
+/* =============================================
+   COUNTDOWN TIMER
+============================================= */
+(function initCountdown() {
+  const KEY = 'sb_deadline';
+  let deadline = sessionStorage.getItem(KEY);
+  if (!deadline) {
+    deadline = Date.now() + 12 * 60 * 1000;
+    sessionStorage.setItem(KEY, deadline);
   }
-}
+  deadline = parseInt(deadline);
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1).toLowerCase() : ''; }
-function onlyNums(s){ return s.replace(/\D/g,''); }
-function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim()); }
-function validCPF(c){
-  c = onlyNums(c);
-  if(c.length!==11||/^(\d)\1+$/.test(c)) return false;
-  let s=0; for(let i=0;i<9;i++) s+=+c[i]*(10-i); let r=s%11; let d1=r<2?0:11-r;
-  if(+c[9]!==d1) return false;
-  s=0; for(let i=0;i<10;i++) s+=+c[i]*(11-i); r=s%11; let d2=r<2?0:11-r;
-  return +c[10]===d2;
-}
-function calcSavings(){
-  let base = 60;
-  if(state.quiz.spend==='200-500') base=80;
-  else if(state.quiz.spend==='500-1000') base=140;
-  else if(state.quiz.spend==='+1000') base=200;
-  if(state.quiz.vehicles==='2') base+=20;
-  else if(state.quiz.vehicles==='3+') base+=40;
-  state.savings.min = base + 10;
-  state.savings.max = base + 120;
-}
-
-// ─── BUILDER ROUTER ──────────────────────────────────────────────────────────
-function build(idx){
-  const s = document.createElement('div');
-  s.className = 'scr';
-  const fn = [s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11][idx];
-  return fn ? fn(s) : s;
-}
-
-// ─── S0 – HOOK ───────────────────────────────────────────────────────────────
-function s0(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="tag"><span class="dot"></span>Análise Fuel</div>
-    <h1>Você pode estar perdendo <em>até R$300 por mês</em> sem perceber</h1>
-    <p class="sub">Descubra em menos de <b>1 minuto</b> quanto você pode economizar com descontos na sua região.</p>
-    <div class="card">
-      <div class="bens">
-        <div class="ben"><div class="bico">⛽</div><div>Veja quanto você pode economizar todo mês</div></div>
-        <div class="ben"><div class="bico">🏷️</div><div>Acesso a descontos reais em postos próximos</div></div>
-        <div class="ben"><div class="bico">🔒</div><div>Sem compromisso e 100% seguro</div></div>
-      </div>
-    </div>
-    <button class="btn" id="b0">Ver quanto posso economizar →</button>
-    <div class="proof">
-      <div class="avts">
-        <div class="av" style="background:#E8B400">M</div>
-        <div class="av" style="background:#FF8C00">J</div>
-        <div class="av" style="background:#00C97A">R</div>
-        <div class="av" style="background:#4EA8DE">A</div>
-      </div>
-      <span>+8.700 motoristas economizando este mês</span>
-    </div>
-  </div>`;
-  s.querySelector('#b0').onclick=()=>goTo(1);
-  return s;
-}
-
-// ─── S1 – NOME ───────────────────────────────────────────────────────────────
-function s1(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="step-i">Passo 1 de 8</div>
-    <h1>Como podemos <em>te chamar?</em></h1>
-    <p class="sub">Sua análise será personalizada com base no seu perfil de consumo.</p>
-    <div class="field">
-      <label>Nome e sobrenome</label>
-      <input type="text" id="iname" placeholder="Digite seu nome..." autocomplete="given-name">
-      <span class="emsg" id="ename">Por favor, insira seu nome.</span>
-    </div>
-    <button class="btn" id="b1" disabled>Continuar →</button>
-  </div>`;
-  const inp=s.querySelector('#iname'), btn=s.querySelector('#b1'), err=s.querySelector('#ename');
-  inp.oninput=()=>{ inp.classList.remove('er'); err.classList.remove('show'); btn.disabled=inp.value.trim().length<2; };
-  inp.onkeydown=e=>{ if(e.key==='Enter'&&!btn.disabled) btn.click(); };
-  btn.onclick=()=>{
-    const v=inp.value.trim();
-    if(v.length<2){ inp.classList.add('er'); err.classList.add('show'); return; }
-    btn.disabled=true; state.name=cap(v); goTo(2);
-  };
-  setTimeout(()=>inp.focus(),500);
-  return s;
-}
-
-// ─── S2 – QUIZ ───────────────────────────────────────────────────────────────
-function s2(s){
-  const qs=[
-    { key:'vehicles', txt:`Quantos veículos você possui, <span class="nm">${state.name}</span>?`,
-      opts:[['1','🚗 1 veículo'],['2','🚗🚗 2 veículos'],['3+','🚛 3 ou mais']] },
-    { key:'fuel', txt:'Qual combustível você usa mais?',
-      opts:[['gasolina','⛽ Gasolina'],['etanol','🌿 Etanol'],['diesel','🚚 Diesel'],['flex','🔀 Flex (varia)']] },
-    { key:'spend', txt:'Quanto gasta em média com combustível por mês?',
-      opts:[['ate200','Até R$ 200'],['200-500','R$ 200 – R$ 500'],['500-1000','R$ 500 – R$ 1.000'],['+1000','Acima de R$ 1.000']] },
-  ];
-  let qi=0;
-  const ans={...state.quiz};
-  function render(){
-    const q=qs[qi];
-    s.innerHTML=`<div class="box">
-      <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-      <div class="step-i">Pergunta ${qi+1} de ${qs.length}</div>
-      <h1>${q.txt}</h1>
-      <div class="opts">${q.opts.map(([v,l])=>`<div class="opt${ans[q.key]===v?' sel':''}" data-v="${v}"><div class="chk"></div><span>${l}</span></div>`).join('')}</div>
-      <button class="btn" id="bq" ${ans[q.key]?'':'disabled'}>Continuar →</button>
-    </div>`;
-    const btn=s.querySelector('#bq');
-    s.querySelectorAll('.opt').forEach(el=>{
-      el.onclick=()=>{ s.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); ans[q.key]=el.dataset.v; btn.disabled=false; };
-    });
-    btn.onclick=()=>{ if(!ans[q.key]) return; btn.disabled=true; state.quiz[q.key]=ans[q.key]; qi++; qi<qs.length?render():goTo(3); };
+  function tick() {
+    const diff = deadline - Date.now();
+    if (diff <= 0) {
+      deadline = Date.now() + 12 * 60 * 1000;
+      sessionStorage.setItem(KEY, deadline);
+    }
+    const m = Math.floor(diff / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('countdown').textContent =
+      String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
   }
-  render(); return s;
-}
+  tick();
+  setInterval(tick, 1000);
+})();
 
-// ─── S3 – FAIXA ETÁRIA ──────────────────────────────────────────────────────
-function s3(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="step-i">Quase lá!</div>
-    <h1>Para <em>melhorar a precisão</em> da análise</h1>
-    <p class="sub">Selecione sua faixa de idade, <span class="nm">${state.name}</span>:</p>
-    <div class="opts">
-      ${[['18-24','18 a 24 anos'],['25-34','25 a 34 anos'],['35-44','35 a 44 anos'],['45+','45 anos ou mais']]
-        .map(([v,l])=>`<div class="opt" data-v="${v}"><div class="chk"></div><span>${l}</span></div>`).join('')}
-    </div>
-    <button class="btn" id="b3" disabled>Continuar →</button>
-  </div>`;
-  const btn=s.querySelector('#b3');
-  s.querySelectorAll('.opt').forEach(el=>{ el.onclick=()=>{ s.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); state.age=el.dataset.v; btn.disabled=false; }; });
-  btn.onclick=()=>{ btn.disabled=true; goTo(4); };
-  return s;
-}
+/* =============================================
+   MODAL - EVENTO 1: ViewContent
+============================================= */
+let currentProduct = null;
+let selections = { acomp:[], carne:[], salada:[], turbine:[] };
 
-// ─── S4 – CONTATO ─────────────────────────────────────────────────────────────
-function s4(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="step-i">Finalizando análise</div>
-    <h1>Onde enviar seu <em>resultado?</em></h1>
-    <p class="sub">Estamos finalizando sua análise personalizada de economia, <span class="nm">${state.name}</span>.</p>
-    <div class="field">
-      <label>E-mail</label>
-      <input type="email" id="iemail" placeholder="seu@email.com" autocomplete="email" inputmode="email">
-      <span class="emsg" id="eemail">E-mail inválido.</span>
-    </div>
-    <div class="field">
-      <label>WhatsApp / Telefone</label>
-      <input type="tel" id="iphone" placeholder="(11) 91234-5678" autocomplete="tel" inputmode="numeric">
-      <span class="emsg" id="ephone">Número inválido (mínimo 10 dígitos).</span>
-    </div>
-    <button class="btn" id="b4" disabled>Ver meu resultado →</button>
-    <p style="font-size:11px;color:var(--muted);text-align:center">🔒 Dados protegidos · Sem spam</p>
-  </div>`;
-  const ei=s.querySelector('#iemail'), pi=s.querySelector('#iphone');
-  const ee=s.querySelector('#eemail'), ep=s.querySelector('#ephone');
-  const btn=s.querySelector('#b4');
-  function chk(){ btn.disabled=!(ei.value.trim()&&pi.value.replace(/\D/g,'').length>=10); }
-  ei.oninput=()=>{ ei.classList.remove('er'); ee.classList.remove('show'); chk(); };
-  pi.oninput=()=>{ pi.value=onlyNums(pi.value).slice(0,11); pi.classList.remove('er'); ep.classList.remove('show'); chk(); };
-  btn.onclick=()=>{
-    let ok=true;
-    if(!validEmail(ei.value)){ ei.classList.add('er'); ee.classList.add('show'); ok=false; }
-    if(onlyNums(pi.value).length<10){ pi.classList.add('er'); ep.classList.add('show'); ok=false; }
-    if(!ok) return;
-    btn.disabled=true; state.email=ei.value.trim(); state.phone=onlyNums(pi.value); goTo(5);
-  };
-  return s;
-}
+function openModal(productId) {
+  const p = PRODUCTS[productId];
+  if (!p) return;
+  currentProduct = { ...p, productKey: productId };
 
-// ─── S5 – PROCESSAMENTO ──────────────────────────────────────────────────────
-function s5(s){
-  s.innerHTML=`<div class="box" style="gap:22px">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="tag"><span class="dot"></span>Processando</div>
-    <h1>Analisando seu <em>perfil de consumo</em></h1>
-    <div class="card" style="display:flex;flex-direction:column;gap:14px">
-      <div class="pbwrap"><div class="pb" id="ppb"></div></div>
-      <div class="pmsg" id="ppm">Iniciando análise...</div>
-    </div>
-    <div class="card">
-      <div class="bens">
-        <div class="ben"><div class="bico">⛽</div><div>Analisando consumo mensal...</div></div>
-        <div class="ben"><div class="bico">🗺️</div><div>Buscando parcerias com postos na sua região...</div></div>
-        <div class="ben"><div class="bico">💰</div><div>Calculando economia potencial...</div></div>
-      </div>
-    </div>
-  </div>`;
-  calcSavings();
-  const pb=s.querySelector('#ppb'), pm=s.querySelector('#ppm');
-  const steps=[[0,'Iniciando análise...'],[18,'Analisando consumo mensal...'],[36,'Buscando parcerias com postos na sua região...'],[58,'Cruzando dados do seu perfil...'],[74,'Calculando economia potencial...'],[88,'Preparando resultado personalizado...'],[96,'Finalizando...']];
-  let i=0;
-  function tick(){ if(i>=steps.length){ setTimeout(()=>goTo(6),500); return; } const[p,m]=steps[i]; pb.style.width=p+'%'; pm.textContent=m; i++; setTimeout(tick,i===1?350:680); }
-  setTimeout(tick,250);
-  return s;
-}
+  // Reseta os passos visualmente
+  document.getElementById('step1').style.display = 'block';
+  document.getElementById('btnContinue').style.display = 'flex';
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('btnConfirmContainer').style.display = 'none';
 
-// ─── S6 – RESULTADO ──────────────────────────────────────────────────────────
-function s6(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="tag"><span class="dot"></span>Resultado pronto</div>
-    <h1><em>${state.name}</em>, sua análise está pronta!</h1>
-    <div class="res-box">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Você pode economizar em combustível</div>
-      <div class="res-val" id="rval">R$ 0</div>
-      <div class="res-lbl">por mês com descontos exclusivos em postos</div>
-      <div class="eco-bar-wrap"><div class="eco-bar" id="ebar"></div></div>
-    </div>
-    <div class="card">
-      <div style="font-size:12.5px;color:var(--muted);margin-bottom:11px">📋 Com base nas suas respostas:</div>
-      <div class="bens">
-        <div class="ben"><div class="bico">🚗</div><div>Perfil com ${state.quiz.vehicles} veículo${state.quiz.vehicles!=='1'?'s':''} identificado</div></div>
-        <div class="ben"><div class="bico">⛽</div><div>Consumo de ${state.quiz.fuel||'combustível'} analisado</div></div>
-        <div class="ben"><div class="bico">📊</div><div>Potencial de economia acima da média nacional</div></div>
-      </div>
-    </div>
-    <button class="btn" id="b6">Ver como acessar esses descontos →</button>
-  </div>`;
-  const rv=s.querySelector('#rval'), eb=s.querySelector('#ebar');
-  const target=state.savings.max;
-  let cur=0; const st=Date.now(); const dur=1100;
-  function count(){ const p=Math.min(1,(Date.now()-st)/dur); cur=Math.round(p*target); rv.textContent=`R$ ${state.savings.min} – R$ ${cur}`; if(p<1) requestAnimationFrame(count); else rv.textContent=`R$ ${state.savings.min} – R$ ${target}`; }
-  setTimeout(count,300);
-  setTimeout(()=>{ eb.style.width=Math.min(95,Math.round((state.savings.max/350)*100))+'%'; },400);
-  s.querySelector('#b6').onclick=()=>goTo(7);
-  return s;
-}
-
-// ─── S7 – QUEBRA DE PADRÃO ───────────────────────────────────────────────────
-function s7(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="secret">
-      <div style="font-size:36px;margin-bottom:8px">🔐</div>
-      <h1 style="font-size:21px">Esses descontos <em>não estão disponíveis</em> diretamente nos postos</h1>
-      <p class="sub" style="margin-top:11px">Eles fazem parte de <b>parcerias exclusivas</b> com redes de combustível — acessíveis apenas para membros cadastrados.</p>
-    </div>
-    <div class="card">
-      <div class="bens">
-        <div class="ben"><div class="bico">🚫</div><div>Não disponível para o público geral</div></div>
-        <div class="ben"><div class="bico">✅</div><div>Exclusivo para membros do Clube</div></div>
-        <div class="ben"><div class="bico">🔄</div><div>Novos postos e descontos adicionados toda semana</div></div>
-      </div>
-    </div>
-    <button class="btn" id="b7">Quero meu acesso exclusivo →</button>
-  </div>`;
-  s.querySelector('#b7').onclick=()=>goTo(8);
-  return s;
-}
-
-// ─── S8 – OFERTA ─────────────────────────────────────────────────────────────
-function s8(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="tag"><span class="dot"></span>Oferta exclusiva</div>
-    <h1>Ative seu acesso ao <em>Clube de Descontos em Combustível</em></h1>
-    <div class="card price-card">
-      <div class="p-old">Acesso avulso: R$ 49,90</div>
-      <div class="p-new"><sup>R$</sup>21<sub>,63</sub></div>
-      <div class="p-type">ativação única · sem mensalidade</div>
-      <div class="badge">⚡ Oferta por tempo limitado</div>
-    </div>
-    <div class="card">
-      <div style="font-size:12.5px;color:var(--muted);margin-bottom:11px">O que você recebe ao ativar:</div>
-      <div class="bens">
-        <div class="ben"><div class="bico">⛽</div><div><b>Descontos exclusivos</b> em postos parceiros da sua região</div></div>
-        <div class="ben"><div class="bico">💸</div><div><b>Economia de R$ ${state.savings.min}–R$ ${state.savings.max}/mês</b> no seu combustível</div></div>
-        <div class="ben"><div class="bico">⚡</div><div><b>Acesso imediato</b> após confirmação do pagamento</div></div>
-        <div class="ben"><div class="bico">🔄</div><div><b>Atualizações frequentes</b> de postos e promoções</div></div>
-      </div>
-    </div>
-    <button class="btn" id="b8">Quero ativar meu acesso 🚀</button>
-    <div class="proof"><span>⭐⭐⭐⭐⭐ 4.8 · Mais de 8.700 motoristas ativos</span></div>
-  </div>`;
-  s.querySelector('#b8').onclick=()=>goTo(9);
-  return s;
-}
-
-// ─── S9 – CPF ────────────────────────────────────────────────────────────────
-function s9(s){
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <h1>Quase lá, <em>${state.name}!</em></h1>
-    <p class="sub">Para gerar seu acesso, liberar os descontos e postos parceiros via <b>PIX</b>, confirme seu CPF.</p>
-    <div class="card" style="display:flex;align-items:center;gap:11px">
-      <span style="font-size:22px">🔒</span>
-      <span style="font-size:12.5px;color:var(--muted)">CPF usado apenas para identificação do pagamento. Dados criptografados.</span>
-    </div>
-    <div class="field">
-      <label>CPF (somente números)</label>
-      <input type="tel" id="icpf" placeholder="00000000000" inputmode="numeric" maxlength="11">
-      <span class="emsg" id="ecpf">CPF inválido. Verifique os dígitos.</span>
-    </div>
-    <button class="btn" id="b9" disabled>Gerar meu PIX →</button>
-  </div>`;
-  const inp=s.querySelector('#icpf'), btn=s.querySelector('#b9'), err=s.querySelector('#ecpf');
-  inp.oninput=()=>{ inp.value=onlyNums(inp.value).slice(0,11); inp.classList.remove('er'); err.classList.remove('show'); btn.disabled=inp.value.length<11; };
-  btn.onclick=()=>{
-    if(!validCPF(inp.value)){ inp.classList.add('er'); err.classList.add('show'); return; }
-    btn.disabled=true; btn.textContent='Processando...'; state.cpf=onlyNums(inp.value); goTo(10);
-  };
-  return s;
-}
-
-// ─── S10 – CRIAR TRANSAÇÃO ──────────────────────────────────────────────────
-function s10(s){
-  s.innerHTML=`<div class="box" style="align-items:center;text-align:center;gap:22px">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div style="font-size:46px">⚡</div>
-    <h1>Gerando seu <em>PIX</em>...</h1>
-    <p class="sub">Criando sua cobrança exclusiva. Aguarde alguns segundos.</p>
-    <div class="card" style="width:100%;display:flex;flex-direction:column;gap:12px">
-      <div class="pbwrap"><div class="pb" id="apb"></div></div>
-      <div class="pmsg" id="apm">Conectando ao servidor de pagamento...</div>
-    </div>
-    <div id="aerr" style="display:none;width:100%" class="card">
-      <p style="color:var(--danger);font-size:13.5px;margin-bottom:12px">⚠️ Não foi possível gerar a cobrança. Verifique os dados e tente novamente.</p>
-      <button class="btn" id="retry">Tentar novamente</button>
-    </div>
-  </div>`;
-  s.querySelector('#retry').onclick=()=>goTo(10);
-  const pb=s.querySelector('#apb'), pm=s.querySelector('#apm'), errBox=s.querySelector('#aerr');
-  const apiMsgs=['Conectando ao servidor...','Verificando seus dados...','Criando cobrança PIX...','Quase pronto...'];
-  let mi=0;
-  const mInt=setInterval(()=>{ if(mi<apiMsgs.length) pm.textContent=apiMsgs[mi++]; },750);
-  let fake=0; const fInt=setInterval(()=>{ fake=Math.min(fake+7,82); pb.style.width=fake+'%'; },350);
-
-  const url='https://pix-api.jogodobicho704.workers.dev/'
-    +'?name='+encodeURIComponent(state.name)
-    +'&email='+encodeURIComponent(state.email)
-    +'&phone='+encodeURIComponent(state.phone)
-    +'&document='+encodeURIComponent(state.cpf);
-
-  fetch(url)
-    .then(r=>{ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-    .then(json=>{
-      const d = (json && json.data) ? json.data : json;
-      if(!d) throw new Error('empty');
-      clearInterval(mInt); clearInterval(fInt);
-      pb.style.width='100%'; pm.textContent='Cobrança gerada com sucesso!';
-      state.transaction_id   = d.transaction_id || '';
-      state.pix_copia_e_cola = d.pix_copia_e_cola || '';
-      state.pix_qr_code      = d.pix_qr_code || '';      
-      state.pix_base64       = d.pix_base64 || '';       
-      setTimeout(()=>goTo(11), 700);
-    })
-    .catch(()=>{
-      clearInterval(mInt); clearInterval(fInt);
-      pm.textContent='Falha na conexão.';
-      errBox.style.display='block';
-    });
-  return s;
-}
-
-// ─── S11 – CHECKOUT PIX ──────────────────────────────────────────────────────
-function s11(s){
-  const qrUrl    = state.pix_qr_code || '';
-  const b64raw   = state.pix_base64  || '';
-  const qrSrc    = qrUrl ? qrUrl : (b64raw.length > 40 ? 'data:image/png;base64,' + b64raw : '');
-  const code     = state.pix_copia_e_cola || '';
-  const txid     = state.transaction_id   || '—';
-
-  s.innerHTML=`<div class="box">
-    <img src="shell--600.png" class="top-logo" alt="Shell Logo">
-    <div class="tag"><span class="dot"></span>Pagamento PIX</div>
-    <h1><em>${state.name}</em>, seu PIX está pronto!</h1>
-    <div class="timer">
-      <span>⏱</span>
-      <div id="tdisp">05:00</div>
-      <span class="tlbl">para concluir o pagamento</span>
-    </div>
-    ${qrSrc ? `<div class="qr-wrap"><img src="${qrSrc}" alt="QR Code PIX" onerror="this.parentElement.style.display='none'"></div>` : ''}
-    <div class="field">
-      <label>PIX Copia e Cola</label>
-      <div class="pix-code" id="pixcode">${code || '<em style="color:var(--muted)">Código não disponível</em>'}</div>
-    </div>
-    <button class="btn" id="copybtn">📋 Copiar código PIX</button>
-    <div class="status">
-      <div class="sdot" id="sdot"></div>
-      <span id="stxt">Aguardando pagamento...</span>
-    </div>
-    <div class="card" style="text-align:center">
-      <p style="font-size:12.5px;color:var(--muted)">Após o pagamento, seu acesso ao <b style="color:var(--fuel)">Clube</b> será liberado automaticamente.<br>Verifique o e-mail <b>${state.email}</b>.</p>
-    </div>
-    <div style="font-size:11px;color:var(--muted);text-align:center">ID: ${txid}</div>
-  </div>`;
-
-  // copy button
-  s.querySelector('#copybtn').addEventListener('click', function(){
-    if(!code){ this.textContent='⚠️ Código indisponível'; return; }
-    const self=this;
-    function done(){ self.textContent='✅ Copiado!'; setTimeout(()=>self.textContent='📋 Copiar código PIX',3000); }
-    if(navigator.clipboard && window.isSecureContext){
-      navigator.clipboard.writeText(code).then(done).catch(()=>{ fallbackCopy(code); done(); });
-    } else { fallbackCopy(code); done(); }
+  // EVENTO 1: ViewContent
+  trackEvent('ViewContent', {
+    content_name: p.title,
+    value: p.priceVal,
+    currency: 'BRL'
   });
 
-  function fallbackCopy(txt){
-    const ta=document.createElement('textarea');
-    ta.value=txt; ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
-  }
+  selections = { acomp:[], carne:[], salada:[], turbine:[] };
+  document.querySelectorAll('.option-item.selected').forEach(el => {
+    el.classList.remove('selected');
+  });
 
-  // countdown 5 min
-  _timer && clearInterval(_timer);
-  let secs=300;
-  const td=s.querySelector('#tdisp');
-  _timer=setInterval(()=>{
-    secs--;
-    if(secs<=0){ clearInterval(_timer); td.textContent='00:00'; td.style.color='#555'; return; }
-    td.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
-    if(secs<=60) td.style.color='var(--danger)';
-  },1000);
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalPriceOld').textContent = p.priceOld;
+  document.getElementById('modalPriceNew').innerHTML =
+    '<small>R$</small> ' + p.priceNew.replace('R$ ','');
+  document.getElementById('modalTotalPrice').textContent = p.priceNew;
+  document.getElementById('inputNome').value = '';
+  document.getElementById('inputEmail').value = '';
+  document.getElementById('inputTelefone').value = '';
+  document.getElementById('inputCPF').value = '';
+  document.getElementById('inputEndereco').value = '';
+  document.getElementById('inputObs').value = '';
 
-  return s;
+  const overlay = document.getElementById('productModal');
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.getElementById('modalContent').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
 }
 
-// ─── START ───────────────────────────────────────────────────────────────────
-goTo(0);
+function closeModal() {
+  document.getElementById('productModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('productModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function toggleOption(el, group, maxCount) {
+  const val = el.dataset.val;
+
+  if (el.classList.contains('selected')) {
+    el.classList.remove('selected');
+    selections[group] = selections[group].filter(v => v !== val);
+  } else {
+    if (selections[group].length >= maxCount) {
+      const firstVal = selections[group].shift();
+      const allItems = el.closest('.option-grid').querySelectorAll('.option-item');
+      allItems.forEach(item => {
+        if (item.dataset.val === firstVal) item.classList.remove('selected');
+      });
+    }
+    el.classList.add('selected');
+    selections[group].push(val);
+  }
+}
+
+/* =============================================
+   MUDANÇA DE PASSO - EVENTO 2: AddToCart
+============================================= */
+function goToStep2() {
+  if (!currentProduct) return;
+
+  // EVENTO 2: AddToCart (Usuário terminou as escolhas e avançou para dados)
+  trackEvent('AddToCart', {
+    content_name: currentProduct.title,
+    value: currentProduct.priceVal,
+    currency: 'BRL'
+  });
+
+  document.getElementById('step1').style.display = 'none';
+  document.getElementById('btnContinue').style.display = 'none';
+  document.getElementById('step2').style.display = 'block';
+  document.getElementById('btnConfirmContainer').style.display = 'block';
+
+  document.getElementById('modalContent').scrollTop = 0;
+}
+
+/* =============================================
+   FINALIZAR - EVENTO 3: InitiateCheckout
+============================================= */
+function confirmOrder() {
+  if (!currentProduct) return;
+
+  const nome     = document.getElementById('inputNome').value.trim();
+  const email    = document.getElementById('inputEmail').value.trim();
+  const telefone = document.getElementById('inputTelefone').value.trim();
+  const cpf      = document.getElementById('inputCPF').value.trim();
+  const endereco = document.getElementById('inputEndereco').value.trim();
+
+  function markError(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = 'var(--brand)';
+    el.focus();
+  }
+
+  if (!nome) { markError('inputNome'); return; }
+  if (!email || !email.includes('@')) { markError('inputEmail'); return; }
+  if (!telefone || telefone.replace(/\D/g,'').length < 10) { markError('inputTelefone'); return; }
+  if (!cpf || cpf.replace(/\D/g,'').length < 11) { markError('inputCPF'); return; }
+  if (!endereco) { markError('inputEndereco'); return; }
+
+  const order = {
+    product: currentProduct.title,
+    productKey: currentProduct.productKey,
+    price: currentProduct.priceVal,
+    acomp: selections.acomp,
+    carne: selections.carne,
+    salada: selections.salada,
+    turbine: selections.turbine,
+    nome,
+    email,
+    telefone: telefone.replace(/\D/g,''),
+    cpf: cpf.replace(/\D/g,''),
+    endereco,
+    obs: document.getElementById('inputObs').value.trim(),
+  };
+
+  window.currentOrderToPay = order;
+
+  // EVENTO 3: InitiateCheckout (Com dados REAIS preenchidos = ALTA CORRESPONDÊNCIA)
+  trackEvent('InitiateCheckout', {
+    content_name: order.product,
+    value: order.price,
+    currency: 'BRL',
+    name: order.nome,
+    email: order.email,
+    phone: order.telefone,
+    cpf: order.cpf
+  });
+
+  closeModal();
+  openPixModal(order);
+}
+
+/* =============================================
+   PIX MODAL — EVENTO 4: Lead (Utmify Fix)
+============================================= */
+let pixPollInterval = null;
+let currentTxId = null;
+let currentOrderPhone = '';
+
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source:      params.get('utm_source')      || 'facebook',
+    utm_medium:      params.get('utm_medium')      || '{{adset.name}}',
+    utm_campaign:    params.get('utm_campaign')    || '{{campaign.name}}',
+    utm_campaign_id: params.get('utm_campaign_id') || '{{campaign.id}}',
+    utm_adset:       params.get('utm_adset')       || '{{adset.name}}',
+    utm_adset_id:    params.get('utm_adset_id')    || '{{adset.id}}',
+    utm_content:     params.get('utm_content')     || '{{ad.name}}',
+    utm_ad_id:       params.get('utm_ad_id')       || '{{ad.id}}',
+    utm_term:        params.get('utm_term')        || '{{placement}}',
+  };
+}
+
+async function openPixModal(order) {
+  currentOrderPhone = order.telefone;
+
+  document.getElementById('pixOrderDesc').textContent = order.product;
+  document.getElementById('pixName').textContent = '👋 Olá, ' + order.nome.split(' ')[0] + '!';
+  document.getElementById('pixPrice').textContent =
+    'R$ ' + order.price.toFixed(2).replace('.',',');
+  document.getElementById('pixCode').textContent = 'Gerando...';
+  document.getElementById('pixStatus').className = 'pix-status';
+  document.getElementById('pixStatus').innerHTML = '<span class="spin">⟳</span> Aguardando pagamento...';
+  document.getElementById('pixModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const utms = getUTMParams();
+
+    const params = new URLSearchParams({
+      product:         order.productKey || '',
+      name:            order.nome,
+      email:           order.email,
+      phone:           order.telefone,
+      document:        order.cpf,
+      utm_source:      utms.utm_source,
+      utm_medium:      utms.utm_medium,
+      utm_campaign:    utms.utm_campaign,
+      utm_campaign_id: utms.utm_campaign_id,
+      utm_adset:       utms.utm_adset,
+      utm_adset_id:    utms.utm_adset_id,
+      utm_content:     utms.utm_content,
+      utm_ad_id:       utms.utm_ad_id,
+      utm_term:        utms.utm_term,
+    });
+
+    const res = await fetch('https://pix-api.jogodobicho704.workers.dev/?' + params.toString());
+
+    if (!res.ok) throw new Error('Erro na API (status ' + res.status + ')');
+    const json = await res.json();
+
+    if (!json.data) throw new Error('Resposta inválida do servidor');
+
+    const data = json.data;
+    currentTxId = data.transaction_id || data.event_id;
+
+    if (data.pix_copia_e_cola) {
+      document.getElementById('pixCode').textContent = data.pix_copia_e_cola;
+    } else {
+      document.getElementById('pixCode').textContent = 'Código indisponível. Entre em contato pelo WhatsApp.';
+    }
+
+    // EVENTO 4: Lead (Disparado com segurança SOMENTE APÓS O FETCH funcionar)
+    // Esse recuo de tempo impede conflito de navegação e garante que a UTMify registre.
+    trackEvent('Lead', {
+      content_name: order.product,
+      value: order.price,
+      currency: 'BRL',
+      name: order.nome,
+      email: order.email,
+      phone: order.telefone,
+      cpf: order.cpf
+    });
+
+    if (currentTxId) {
+      startPixPolling(currentTxId);
+    }
+
+  } catch (err) {
+    console.error('Erro Pix:', err);
+    document.getElementById('pixCode').textContent = 'Erro ao gerar. Entre em contato pelo WhatsApp.';
+  }
+}
+
+function startPixPolling(txid) {
+  if (pixPollInterval) clearInterval(pixPollInterval);
+  pixPollInterval = setInterval(async () => {
+    try {
+      const res = await fetch('https://pix-api.jogodobicho704.workers.dev/status/' + txid);
+      if (!res.ok) return;
+      const json = await res.json();
+      const status = (json.data?.payment_status || json.status || '').toLowerCase();
+      if (status === 'paid' || status === 'approved' || status === 'completed' || status === 'concluida' || status === 'recebida') {
+        clearInterval(pixPollInterval);
+        onPixPaid();
+      }
+    } catch(e) { /* silencioso */ }
+  }, 3000);
+}
+
+function onPixPaid() {
+  document.getElementById('pixStatus').className = 'pix-status paid';
+  document.getElementById('pixStatus').innerHTML = '✅ Pagamento confirmado!';
+
+  setTimeout(() => {
+    closePixModal();
+    document.getElementById('successModal').classList.add('open');
+  }, 1200);
+}
+
+function closePixModal() {
+  if (pixPollInterval) clearInterval(pixPollInterval);
+  document.getElementById('pixModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyPix() {
+  const code = document.getElementById('pixCode').textContent;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = code; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  const btn = document.querySelector('.btn-copy');
+  const orig = btn.textContent;
+  btn.textContent = '✅ Copiado!';
+  setTimeout(() => btn.textContent = orig, 2000);
+}
+
+/* =============================================
+   SUCCESS
+============================================= */
+function openWhatsApp() {
+  const phone = '5500000000000'; 
+  const msg = encodeURIComponent('Olá! Acabei de realizar um pedido e pagar pelo Pix. Pode confirmar?');
+  window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
+}
+
+function closeSuccess() {
+  document.getElementById('successModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
+
 </body>
 </html>
