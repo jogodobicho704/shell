@@ -414,7 +414,7 @@ body {
 .btn-sticky:active { transform:scale(.97); }
 
 /* =============================================
-   NOTIFICAÇÃO SOCIAL (NOVO) & GEO POPUP
+   NOTIFICAÇÃO SOCIAL & GEO POPUP
 ============================================= */
 .social-toast {
   position:fixed; bottom:90px; left:16px; right:16px; z-index:150;
@@ -1369,7 +1369,7 @@ body {
 
 <script>
 /* =============================================
-   1. GEO LOCATION SCRIPT (NOVO)
+   1. GEO LOCATION SCRIPT
 ============================================= */
 window.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -1393,9 +1393,9 @@ function closeGeoModal() {
 }
 
 /* =============================================
-   2. PROVA SOCIAL SCRIPT (NOVO)
+   2. PROVA SOCIAL SCRIPT
 ============================================= */
-const socialNames = ["Maria Laura", "João Pedro", "Ana Clara", "Lucas Silva", "Julia Santos", "Marcos Vinícius", "Fernanda Costa", "Rafael Almeida", "Beatriz Oliveira", "Gabriel Souza"];
+const socialNames = ["Maria Laura", "João Pedro", "Ana Clara", "Lucas Silva", "Julia Santos", "Marcos Vinícius", "Fernanda Costa", "Rafael Almeida", "Beatriz Oliveira", "Gabriel Souza", "Pedro Henrique", "Camila Alves", "Thiago Rodrigues", "Larissa Ferreira", "Bruno Lima", "Isabella Gomes", "Mateus Ribeiro", "Juliana Castro", "Felipe Martins", "Amanda Rocha"];
 const socialProducts = [
   "2 Marmitex Pequena Churrasco",
   "2 Marmitex Grande Churrasco",
@@ -1421,9 +1421,9 @@ function triggerSocialProof() {
   }, 4000);
 }
 
-// Inicia após 5 segundos, e repete a cada 10 segundos
+// Inicia após 5 segundos, e repete a cada 35 segundos
 setTimeout(() => {
-  setInterval(triggerSocialProof, 10000);
+  setInterval(triggerSocialProof, 35000);
   triggerSocialProof(); // primeira chamada
 }, 5000);
 
