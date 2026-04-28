@@ -8,9 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-<!-- ========================================
-     1. SCRIPT UTMIFY - CAPTURAR UTMs (PRIMEIRO)
-     ======================================== -->
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck
@@ -18,9 +15,6 @@
   async
   defer
 ></script>
-<!-- ========================================
-     2. FACEBOOK PIXEL PADRÃO (PageView)
-     ======================================== -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -36,10 +30,6 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=26526640770318634&ev=PageView&noscript=1"
 /></noscript>
-<!-- ========================================
-     3. PIXEL UTMIFY COM FACEBOOK (SEGUNDO)
-     Deve vir DEPOIS do Facebook base
-     ======================================== -->
 <script>
   window.pixelId = "69e38ec2db04a358c41c2a71";
   var a = document.createElement("script");
@@ -338,9 +328,9 @@ body {
 .trust-sub  { font-size:10px; color:var(--muted); font-weight:600; }
 
 /* =============================================
-   REVIEWS
+   REVIEWS (OTIMIZADO)
 ============================================= */
-.reviews { padding:0 16px 8px; }
+.reviews { padding:0 16px 8px; position:relative; }
 .reviews-head {
   display:flex; align-items:center; justify-content:space-between;
   padding:20px 0 4px;
@@ -359,16 +349,26 @@ body {
 .stars { font-size:16px; color:var(--gold); }
 .rating-count { font-size:12px; color:var(--muted); font-weight:700; }
 .review-scroll {
-  display:flex; gap:12px;
-  overflow-x:auto; padding:12px 0 16px;
+  display:flex; gap:16px;
+  overflow-x:auto; padding:12px 0 20px;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
+  scroll-snap-type: x mandatory;
 }
 .review-scroll::-webkit-scrollbar { display:none; }
 .review-card {
-  min-width:240px; background:var(--surface);
+  min-width:260px; background:linear-gradient(145deg, var(--surface), var(--surface2));
   border:1px solid var(--border); border-radius:var(--radius);
-  padding:14px; flex-shrink:0;
+  padding:16px; flex-shrink:0;
+  scroll-snap-align: start;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+.reviews::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; width: 40px;
+  background: linear-gradient(to right, transparent, var(--bg));
+  pointer-events: none;
 }
 .review-top { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .review-img {
@@ -414,6 +414,51 @@ body {
 .btn-sticky:active { transform:scale(.97); }
 
 /* =============================================
+   NOTIFICAÇÃO SOCIAL (NOVO) & GEO POPUP
+============================================= */
+.social-toast {
+  position:fixed; bottom:90px; left:16px; right:16px; z-index:150;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:12px; display:flex; align-items:center; gap:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  transform:translateY(150%); opacity:0;
+  transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  pointer-events:none;
+}
+.social-toast.show {
+  transform:translateY(0); opacity:1;
+}
+@media (min-width: 600px) {
+  .social-toast { left:auto; right:20px; bottom:20px; max-width:320px; }
+}
+.toast-img { width:44px; height:44px; border-radius:50%; object-fit:cover; border: 1.5px solid var(--gold); }
+.toast-text { font-size:13px; color:var(--text); line-height:1.4; font-weight:600; }
+.toast-text strong { color:var(--gold); }
+.toast-time { font-size:11px; color:var(--green); margin-top:2px; font-weight:700;}
+
+.geo-modal {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(4px);
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.geo-modal.open { display:flex; }
+.geo-box {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:24px; padding:28px 24px; text-align:center;
+  width:100%; max-width:340px; animation:slideDown .3s ease;
+}
+.geo-icon { font-size:40px; margin-bottom:12px; }
+.geo-text { font-size:18px; margin-bottom:24px; font-weight:600; line-height:1.4;}
+.geo-text strong { color:var(--gold); font-family:'Bebas Neue', sans-serif; font-size:24px; display:block; letter-spacing:1px; margin-top:6px;}
+.btn-geo {
+  background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+  color:#fff; border:none; border-radius:12px;
+  padding:14px 24px; font-weight:900; font-size:16px; width:100%; cursor:pointer;
+  box-shadow:0 4px 16px var(--brand-glow);
+}
+
+/* =============================================
    MODAL — PRODUCT DETAIL
 ============================================= */
 .modal-overlay {
@@ -433,6 +478,10 @@ body {
 }
 @keyframes slideUp {
   from { transform:translateY(100%); opacity:0; }
+  to   { transform:translateY(0);    opacity:1; }
+}
+@keyframes slideDown {
+  from { transform:translateY(-20px); opacity:0; }
   to   { transform:translateY(0);    opacity:1; }
 }
 .modal-handle {
@@ -513,7 +562,7 @@ body {
 }
 
 /* =============================================
-   PIX MODAL
+   PIX MODAL & SUCCESS MODAL CSS CONTINUES...
 ============================================= */
 .pix-modal {
   display:none; position:fixed; inset:0; z-index:300;
@@ -583,9 +632,6 @@ body {
   font-weight:700; cursor:pointer; width:100%;
   margin-top:4px;
 }
-/* =============================================
-   SUCCESS MODAL
-============================================= */
 .success-modal {
   display:none; position:fixed; inset:0; z-index:400;
   background:rgba(0,0,0,0.95); align-items:center; justify-content:center;
@@ -642,17 +688,8 @@ body {
   font-size:12px; font-weight:800;
 }
 .footer-copy { font-size:11px; color:var(--surface2); margin-top:12px; }
-
-/* Spacer for sticky */
 .spacer-bottom { height:80px; }
-
-/* =============================================
-   UTILITIES
-============================================= */
-.divider {
-  height:1px; background:var(--border);
-  margin:4px 0;
-}
+.divider { height:1px; background:var(--border); margin:4px 0; }
 </style>
 </head>
 <body>
@@ -913,7 +950,9 @@ body {
     </div>
   </div>
 
-</div><div class="reviews">
+</div>
+
+<div class="reviews">
   <div class="reviews-head">
     <h2>O que falam de nós</h2>
   </div>
@@ -1065,6 +1104,22 @@ body {
     <button class="btn-sticky" onclick="document.getElementById('pague-1-leve-2').scrollIntoView({behavior:'smooth'})">
       🍱 Pedir Agora
     </button>
+  </div>
+</div>
+
+<div class="geo-modal" id="geoModal">
+  <div class="geo-box">
+    <div class="geo-icon">📍</div>
+    <div class="geo-text">Identificamos que você está em:<strong id="geoCityState">Carregando...</strong></div>
+    <button class="btn-geo" onclick="closeGeoModal()">✓ Confirmar Região</button>
+  </div>
+</div>
+
+<div class="social-toast" id="socialToast">
+  <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" class="toast-img" onerror="this.style.display='none'">
+  <div>
+    <div class="toast-text" id="toastText"><strong>Maria Laura</strong> acabou de pedir...</div>
+    <div class="toast-time">✔︎ Verificado • agora mesmo</div>
   </div>
 </div>
 
@@ -1314,6 +1369,65 @@ body {
 
 <script>
 /* =============================================
+   1. GEO LOCATION SCRIPT (NOVO)
+============================================= */
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    if(data.city && data.region) {
+      document.getElementById('geoCityState').textContent = `${data.city} - ${data.region}`;
+      document.getElementById('geoModal').classList.add('open');
+    } else {
+      throw new Error("Localização não encontrada");
+    }
+  } catch(e) {
+    // Fallback caso a API falhe por Adblockers ou rate limit
+    document.getElementById('geoCityState').textContent = 'Franca - SP';
+    document.getElementById('geoModal').classList.add('open');
+  }
+});
+
+function closeGeoModal() {
+  document.getElementById('geoModal').classList.remove('open');
+}
+
+/* =============================================
+   2. PROVA SOCIAL SCRIPT (NOVO)
+============================================= */
+const socialNames = ["Maria Laura", "João Pedro", "Ana Clara", "Lucas Silva", "Julia Santos", "Marcos Vinícius", "Fernanda Costa", "Rafael Almeida", "Beatriz Oliveira", "Gabriel Souza"];
+const socialProducts = [
+  "2 Marmitex Pequena Churrasco",
+  "2 Marmitex Grande Churrasco",
+  "3 Kit Família Grande Churrasco",
+  "2 Marmitex Grande Milanesa",
+  "2 Marmitex Grande Strogonof",
+  "2 Marmitex Costela Assada",
+  "2 Marmitex Parmegiana Frango"
+];
+
+function triggerSocialProof() {
+  const toast = document.getElementById('socialToast');
+  const rName = socialNames[Math.floor(Math.random() * socialNames.length)];
+  const rProd = socialProducts[Math.floor(Math.random() * socialProducts.length)];
+  
+  document.getElementById('toastText').innerHTML = `<strong>${rName}</strong> acabou de pedir <br>${rProd}`;
+  
+  toast.classList.add('show');
+  
+  // Esconder após 4 segundos
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
+// Inicia após 5 segundos, e repete a cada 10 segundos
+setTimeout(() => {
+  setInterval(triggerSocialProof, 10000);
+  triggerSocialProof(); // primeira chamada
+}, 5000);
+
+/* =============================================
    TRACKING & CONVERSION EVENTS - FUNIL COMPLETO
 ============================================= */
 function getCookie(name) {
@@ -1324,7 +1438,6 @@ function getCookie(name) {
 }
 
 function trackEvent(eventName, eventData = {}) {
-  // FBQ (Pixel de Navegador)
   if (window.fbq) {
     const fbqData = {};
     if (eventData.value) fbqData.value = eventData.value;
@@ -1333,7 +1446,6 @@ function trackEvent(eventName, eventData = {}) {
     fbq('track', eventName, fbqData);
   }
 
-  // CAPI (Servidor com dados de usuário quando disponíveis)
   const payload = {
     event_name: eventName,
     page_url: window.location.href,
@@ -1455,13 +1567,11 @@ function openModal(productId) {
   if (!p) return;
   currentProduct = { ...p, productKey: productId };
 
-  // Reseta os passos visualmente
   document.getElementById('step1').style.display = 'block';
   document.getElementById('btnContinue').style.display = 'flex';
   document.getElementById('step2').style.display = 'none';
   document.getElementById('btnConfirmContainer').style.display = 'none';
 
-  // EVENTO 1: ViewContent
   trackEvent('ViewContent', {
     content_name: p.title,
     value: p.priceVal,
@@ -1477,8 +1587,7 @@ function openModal(productId) {
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalPriceOld').textContent = p.priceOld;
-  document.getElementById('modalPriceNew').innerHTML =
-    '<small>R$</small> ' + p.priceNew.replace('R$ ','');
+  document.getElementById('modalPriceNew').innerHTML = '<small>R$</small> ' + p.priceNew.replace('R$ ','');
   document.getElementById('modalTotalPrice').textContent = p.priceNew;
   document.getElementById('inputNome').value = '';
   document.getElementById('inputEmail').value = '';
@@ -1528,7 +1637,6 @@ function toggleOption(el, group, maxCount) {
 function goToStep2() {
   if (!currentProduct) return;
 
-  // EVENTO 2: AddToCart (Usuário terminou as escolhas e avançou para dados)
   trackEvent('AddToCart', {
     content_name: currentProduct.title,
     value: currentProduct.priceVal,
@@ -1585,7 +1693,6 @@ function confirmOrder() {
 
   window.currentOrderToPay = order;
 
-  // EVENTO 3: InitiateCheckout (Com dados REAIS preenchidos = ALTA CORRESPONDÊNCIA)
   trackEvent('InitiateCheckout', {
     content_name: order.product,
     value: order.price,
@@ -1619,17 +1726,12 @@ function getUTMParams() {
     utm_content:     params.get('utm_content')     || '{{ad.name}}',
     utm_ad_id:       params.get('utm_ad_id')       || '{{ad.id}}',
     utm_term:        params.get('utm_term')        || '{{placement}}',
-    // ESTES TRÊS SÃO OBRIGATÓRIOS PARA A UTMIFY:
-    xcod:            params.get('xcod')            || '',
-    sck:             params.get('sck')             || '',
-    fbclid:          params.get('fbclid')          || ''
   };
 }
 
-let pixPollInterval = null;
-let currentTxId = null;
-
 async function openPixModal(order) {
+  currentOrderPhone = order.telefone;
+
   document.getElementById('pixOrderDesc').textContent = order.product;
   document.getElementById('pixName').textContent = '👋 Olá, ' + order.nome.split(' ')[0] + '!';
   document.getElementById('pixPrice').textContent = 'R$ ' + order.price.toFixed(2).replace('.',',');
@@ -1642,7 +1744,6 @@ async function openPixModal(order) {
   try {
     const utms = getUTMParams();
 
-    // INSERIMOS OS PARÂMETROS DA UTMIFY NA REQUISIÇÃO
     const params = new URLSearchParams({
       product:         order.productKey || '',
       name:            order.nome,
@@ -1658,9 +1759,6 @@ async function openPixModal(order) {
       utm_content:     utms.utm_content,
       utm_ad_id:       utms.utm_ad_id,
       utm_term:        utms.utm_term,
-      xcod:            utms.xcod,
-      sck:             utms.sck,
-      fbclid:          utms.fbclid
     });
 
     const res = await fetch('https://pix-api.jogodobicho704.workers.dev/?' + params.toString());
@@ -1711,7 +1809,7 @@ function startPixPolling(txid) {
         clearInterval(pixPollInterval);
         onPixPaid();
       }
-    } catch(e) { /* silencioso */ }
+    } catch(e) {}
   }, 3000);
 }
 
