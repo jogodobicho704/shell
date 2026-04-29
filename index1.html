@@ -1192,7 +1192,7 @@
 
                     <div class="restaurant-header">
                         <div class="restaurant-name">Sabor Brasileiro</div>
-                        <div class="restaurant-location">📍 3.6 km de você</div>
+                        <div class="restaurant-location">📍 3.6km de você</div>
                         <div class="restaurant-tags">
                             <span>Marmita</span>
                             <span>Churrasco</span>
@@ -1441,11 +1441,11 @@
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">2</div>
-                            <div>Abra seu banco na opção Copia e Cola</div>
+                            <div>Abra o APP do seu Banco</div>
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">3</div>
-                            <div>Cola o PIX copiado</div>
+                            <div>Cole o PIX copiado</div>
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">4</div>
@@ -1961,4 +1961,26 @@
                 fbq('track', eventName, fbqData);
             }
 
-            const payloa*
+            const payload = {
+                event_name: eventName,
+                page_url: window.location.href,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc'),
+                value: eventData.value,
+                currency: eventData.currency,
+                content_name: eventData.content_name,
+                name: eventData.name || null,
+                email: eventData.email || null,
+                phone: eventData.phone || null,
+                cpf: eventData.cpf || null,
+            };
+
+            fetch('/api/capi', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error('CAPI erro:', err));
+        }
+    </script>
+</body>
+</html>
