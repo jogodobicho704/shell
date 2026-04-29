@@ -1782,10 +1782,18 @@
             scrollToTop();
         }
 
-        function scrollToTop() {
-            const content = document.getElementById('content');
-            content.scrollTop = 0;
+       function scrollToTop() {
+    // O setTimeout garante que o novo step já foi renderizado (display: block) antes de rolar
+    setTimeout(() => {
+        const content = document.getElementById('content');
+        if (content) {
+            // Rola o container do aplicativo para o topo suavemente
+            content.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        // Por garantia (especialmente em alguns navegadores mobile), rola o topo da janela
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50); 
+}
 
         function updateUI() {
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
