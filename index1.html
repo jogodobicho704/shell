@@ -132,12 +132,12 @@
 
         .banner-home {
             background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-            height: 200px;
+            height: 220px;
             position: relative;
             overflow: hidden;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-end;
+            justify-content: flex-start;
         }
 
         .banner-home::before {
@@ -154,8 +154,33 @@
             100% { transform: translate(50px, 50px); }
         }
 
+        .banner-home-logo {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .banner-home-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .banner-home-content {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 1;
             text-align: center;
             color: white;
@@ -245,6 +270,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            margin-bottom: 20px;
         }
 
         /* ===== PRODUCT CARDS ===== */
@@ -333,7 +359,7 @@
             color: #e63946;
         }
 
-        /* ===== REVIEWS ===== */
+        /* ===== REVIEWS SECTION ===== */
         .reviews-section {
             padding: 20px 16px;
             border-top: 1px solid #f0f0f0;
@@ -342,67 +368,26 @@
         .reviews-title {
             font-size: 16px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 12px;
         }
 
-        .reviews-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .reviews-stars {
-            font-size: 14px;
-            color: #ffc107;
-        }
-
-        .reviews-count {
-            font-size: 12px;
-            color: #999;
-        }
-
-        .reviews-scroll {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .reviews-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .review-card {
-            min-width: 200px;
+        .review-item {
             background: #f9f9f9;
-            border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 12px;
-            flex-shrink: 0;
+            margin-bottom: 12px;
+            border-left: 3px solid #ffc107;
         }
 
-        .review-top {
+        .review-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-header {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .review-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #e63946;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-            flex-shrink: 0;
+            margin-bottom: 6px;
         }
 
         .review-name {
@@ -507,72 +492,7 @@
             text-transform: uppercase;
         }
 
-        /* ===== KIT DELIVERY ===== */
-        .kit-section {
-            background: #f9f9f9;
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-        }
-
-        .kit-option {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-            cursor: pointer;
-        }
-
-        .kit-option:last-child {
-            margin-bottom: 0;
-        }
-
-        .kit-radio {
-            width: 22px;
-            height: 22px;
-            border: 2px solid #ddd;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2px;
-            cursor: pointer;
-        }
-
-        .kit-option.selected .kit-radio {
-            border-color: #e63946;
-            background: #e63946;
-            color: white;
-        }
-
-        .kit-content {
-            flex: 1;
-        }
-
-        .kit-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 2px;
-        }
-
-        .kit-desc {
-            font-size: 12px;
-            color: #999;
-        }
-
-        .kit-price {
-            font-size: 12px;
-            color: #4caf50;
-            font-weight: 700;
-        }
-
         /* ===== COMPLEMENTS ===== */
-        .complements-section {
-            padding: 0 16px;
-        }
-
         .option-grid {
             display: flex;
             flex-direction: column;
@@ -933,10 +853,6 @@
             font-weight: 700;
         }
 
-        .summary-discount {
-            color: #4caf50;
-        }
-
         .summary-divider {
             border-top: 1px solid #e0e0e0;
             margin: 8px 0;
@@ -1231,29 +1147,6 @@
             display: none;
         }
 
-        /* ===== LOGO BOTTOM LEFT ===== */
-        .logo-badge {
-            position: fixed;
-            bottom: 90px;
-            left: 16px;
-            width: 50px;
-            height: 50px;
-            background: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            z-index: 40;
-        }
-
-        .logo-badge img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         @media (max-width: 480px) {
             .container {
                 max-width: 100%;
@@ -1291,6 +1184,9 @@
                             <div class="banner-home-title">Sabor Brasileiro</div>
                             <div class="banner-home-subtitle">🍖 Feito na Hora • Entrega Grátis</div>
                         </div>
+                        <div class="banner-home-logo">
+                            <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
+                        </div>
                     </div>
 
                     <div class="restaurant-header">
@@ -1317,18 +1213,14 @@
                     <!-- REVIEWS SECTION -->
                     <div class="reviews-section">
                         <div class="reviews-title">O que falam de nós</div>
-                        <div class="reviews-rating">
-                            <span class="reviews-stars">★★★★★</span>
-                            <span class="reviews-count">5,0 (1.360 avaliações)</span>
-                        </div>
-                        <div class="reviews-scroll" id="reviewsScroll">
+                        <div id="reviewsContainer">
                             <!-- Reviews will be inserted here -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 1: PRODUCT DETAIL -->
+            <!-- STEP 1: PRODUCT DETAIL & COMPLEMENTS -->
             <div class="step step-1">
                 <div class="step-1-content">
                     <div class="product-detail-image">
@@ -1344,9 +1236,9 @@
                             <span class="price-detail-new" id="detailPriceNew"></span>
                         </div>
 
-                        <div class="section-title">🎁 Kit Delivery</div>
-                        <div class="section-subtitle">Escolha se deseja receber o Kit</div>
-                        <div class="kit-section" id="kitSection"></div>
+                        <div id="complementsSections">
+                            <!-- Complements will be inserted here -->
+                        </div>
 
                         <div class="obs-section">
                             <div class="section-title">Alguma observação?</div>
@@ -1357,40 +1249,34 @@
                 </div>
             </div>
 
-            <!-- STEP 2: COMPLEMENTS & ACCOUNT -->
+            <!-- STEP 2: ACCOUNT -->
             <div class="step step-2">
                 <div style="padding: 20px 16px;">
-                    <div class="complements-section">
-                        <div id="complementsSections">
-                            <!-- Complements will be inserted here -->
-                        </div>
+                    <div class="section-title" style="margin-top: 0;">Criar conta</div>
+                    <div style="font-size: 12px; color: #999; margin-bottom: 20px;">Para finalizar o pedido precisamos de alguns dados</div>
 
-                        <div class="section-title" style="margin-top: 30px;">Criar conta</div>
-                        <div style="font-size: 12px; color: #999; margin-bottom: 20px;">Para finalizar o pedido precisamos de alguns dados</div>
+                    <div class="field-group">
+                        <div class="field-label">CPF</div>
+                        <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
+                    </div>
 
-                        <div class="field-group">
-                            <div class="field-label">CPF</div>
-                            <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
-                        </div>
+                    <div class="field-group">
+                        <div class="field-label">Nome Completo</div>
+                        <input type="text" id="inputNome" placeholder="Seu nome completo">
+                    </div>
 
-                        <div class="field-group">
-                            <div class="field-label">Nome Completo</div>
-                            <input type="text" id="inputNome" placeholder="Seu nome completo">
-                        </div>
+                    <div class="field-group">
+                        <div class="field-label">E-Mail</div>
+                        <input type="email" id="inputEmail" placeholder="seu@email.com">
+                    </div>
 
-                        <div class="field-group">
-                            <div class="field-label">E-Mail</div>
-                            <input type="email" id="inputEmail" placeholder="seu@email.com">
-                        </div>
+                    <div class="field-group">
+                        <div class="field-label">Telefone / WhatsApp</div>
+                        <input type="tel" id="inputTelefone" placeholder="(11) 99999-9999">
+                    </div>
 
-                        <div class="field-group">
-                            <div class="field-label">Telefone / WhatsApp</div>
-                            <input type="tel" id="inputTelefone" placeholder="(11) 99999-9999">
-                        </div>
-
-                        <div style="font-size: 11px; color: #999; margin-top: 12px; line-height: 1.5; padding-bottom: 80px;">
-                            Ao continuar, você concorda com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong>.
-                        </div>
+                    <div style="font-size: 11px; color: #999; margin-top: 12px; line-height: 1.5; padding-bottom: 80px;">
+                        Ao continuar, você concorda com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong>.
                     </div>
                 </div>
             </div>
@@ -1586,11 +1472,6 @@
             </div>
         </div>
 
-        <!-- LOGO BADGE BOTTOM LEFT -->
-        <div class="logo-badge">
-            <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
-        </div>
-
         <!-- FOOTER -->
         <div class="footer" id="footer">
             <button class="btn btn-secondary" id="backFooterBtn" onclick="previousStep()" style="display:none;">Voltar</button>
@@ -1668,24 +1549,11 @@
         };
 
         const REVIEWS = [
-            { name: 'Carlos M.', stars: 5, text: 'Simplesmente perfeito! A comida é deliciosa, bem temperada e sempre quentinha.' },
-            { name: 'Ana Paula S.', stars: 5, text: 'Entrega rápida e marmita super bem servida! Dá para ver que os ingredientes são frescos.' },
-            { name: 'Rodrigo L.', stars: 5, text: 'Sabor de comida caseira que lembra a da minha mãe! Sempre no capricho 👏' },
-            { name: 'Fernanda R.', stars: 5, text: 'Melhor custo-benefício! Porção generosa, comida deliciosa e preço justo.' },
-            { name: 'Marcos P.', stars: 5, text: 'Já pedi em várias marmitarias, mas essa aqui superou todas! Sabor incrível.' }
-        ];
-
-        const KITS = [
-            {
-                name: 'Sim, quero o Kit delivery!',
-                desc: 'Hashi, shoyu, gengibre, wasabi e guardanapo',
-                price: 'Grátis'
-            },
-            {
-                name: 'Não quero o Kit delivery',
-                desc: 'Apenas o produto, sem acessórios',
-                price: 'Grátis'
-            }
+            { name: 'Carlos M.', text: 'Simplesmente perfeito! A comida é deliciosa, bem temperada e sempre quentinha.' },
+            { name: 'Ana Paula S.', text: 'Entrega rápida e marmita super bem servida! Dá para ver que os ingredientes são frescos.' },
+            { name: 'Rodrigo L.', text: 'Sabor de comida caseira que lembra a da minha mãe! Sempre no capricho 👏' },
+            { name: 'Fernanda R.', text: 'Melhor custo-benefício! Porção generosa, comida deliciosa e preço justo.' },
+            { name: 'Marcos P.', text: 'Já pedi em várias marmitarias, mas essa aqui superou todas! Sabor incrível.' }
         ];
 
         const COMPLEMENTS = [
@@ -1698,7 +1566,7 @@
         // ===== STATE =====
         let currentStep = 0;
         let currentProduct = null;
-        let selections = { kit: 0, acomp: [], carne: [], salada: [], turbine: [] };
+        let selections = { acomp: [], carne: [], salada: [], turbine: [] };
         let quantity = 1;
         let deliveryMethod = 'standard';
         let addressType = 'home';
@@ -1749,15 +1617,12 @@
         }
 
         function renderReviews() {
-            const container = document.getElementById('reviewsScroll');
+            const container = document.getElementById('reviewsContainer');
             container.innerHTML = REVIEWS.map(review => `
-                <div class="review-card">
-                    <div class="review-top">
-                        <div class="review-avatar">${review.name.charAt(0)}</div>
-                        <div>
-                            <div class="review-name">${review.name}</div>
-                            <div class="review-stars">${'★'.repeat(review.stars)}</div>
-                        </div>
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-name">${review.name}</div>
+                        <div class="review-stars">★★★★★</div>
                     </div>
                     <div class="review-text">"${review.text}"</div>
                 </div>
@@ -1767,7 +1632,7 @@
         function selectProduct(productId) {
             const p = PRODUCTS[productId];
             currentProduct = { ...p, productKey: productId };
-            selections = { kit: 0, acomp: [], carne: [], salada: [], turbine: [] };
+            selections = { acomp: [], carne: [], salada: [], turbine: [] };
             quantity = 1;
 
             trackEvent('ViewContent', {
@@ -1777,7 +1642,7 @@
             });
 
             renderProductDetail();
-            renderKits();
+            renderComplements();
             goToStep(1);
         }
 
@@ -1790,25 +1655,6 @@
             document.getElementById('detailServings').innerHTML = `👤 Serve ${p.servings} ${p.servings > 1 ? 'pessoas' : 'pessoa'}`;
             document.getElementById('detailPriceOld').textContent = `R$ ${p.priceOld.toFixed(2).replace('.',',')}`;
             document.getElementById('detailPriceNew').textContent = `R$ ${p.priceNew.toFixed(2).replace('.',',')}`;
-        }
-
-        function renderKits() {
-            const container = document.getElementById('kitSection');
-            container.innerHTML = KITS.map((kit, idx) => `
-                <div class="kit-option ${selections.kit === idx ? 'selected' : ''}" onclick="selectKit(${idx})">
-                    <div class="kit-radio"></div>
-                    <div class="kit-content">
-                        <div class="kit-name">${kit.name}</div>
-                        <div class="kit-desc">${kit.desc}</div>
-                        <div class="kit-price">${kit.price}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function selectKit(idx) {
-            selections.kit = idx;
-            renderKits();
         }
 
         function renderComplements() {
@@ -1888,7 +1734,6 @@
                     value: currentProduct.priceNew,
                     currency: 'BRL'
                 });
-                renderComplements();
                 goToStep(2);
             } else if (currentStep === 2) {
                 const nome = document.getElementById('inputNome').value.trim();
@@ -1953,7 +1798,7 @@
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
             document.querySelector(`.step-${currentStep}`).classList.add('active');
 
-            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Complementos & Conta', 'Endereço de entrega', 'Forma de entrega', 'Pagamento via PIX', 'Pedido Confirmado'];
+            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Criar conta', 'Endereço de entrega', 'Forma de entrega', 'Pagamento via PIX', 'Pedido Confirmado'];
             document.getElementById('headerTitle').textContent = titles[currentStep];
 
             document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
