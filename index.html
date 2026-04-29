@@ -281,20 +281,6 @@ body {
   background:var(--surface2); color:var(--muted);
 }
 .tag.highlight { background:rgba(232,48,10,0.15); color:var(--brand); }
-.scarcity {
-  display:flex; align-items:center; gap:6px;
-  font-size:12px; font-weight:800; color:var(--brand);
-  margin-bottom:12px;
-}
-.scarcity-bar-wrap {
-  height:5px; background:var(--surface2); border-radius:3px;
-  flex:1; overflow:hidden;
-}
-.scarcity-bar {
-  height:100%; border-radius:3px;
-  background:linear-gradient(90deg,var(--brand),var(--gold));
-  transition:width .5s;
-}
 .btn-order {
   width:100%;
   background:linear-gradient(135deg,var(--brand),var(--brand-dark));
@@ -307,7 +293,6 @@ body {
   -webkit-tap-highlight-color:transparent;
 }
 .btn-order:active { transform:scale(.97); box-shadow:0 2px 8px var(--brand-glow); }
-.btn-pix { font-size:13px; color:rgba(255,255,255,0.7); }
 
 /* =============================================
    TRUST STRIP
@@ -328,7 +313,7 @@ body {
 .trust-sub  { font-size:10px; color:var(--muted); font-weight:600; }
 
 /* =============================================
-   REVIEWS (OTIMIZADO)
+   REVIEWS
 ============================================= */
 .reviews { padding:0 16px 8px; position:relative; }
 .reviews-head {
@@ -446,17 +431,11 @@ body {
 .geo-box {
   background:var(--surface); border:1px solid var(--border);
   border-radius:24px; padding:28px 24px; text-align:center;
-  width:100%; max-width:340px; animation:slideDown .3s ease;
+  width:100%; max-width:340px; animation:slideDown .3s ease; position:relative;
 }
 .geo-icon { font-size:40px; margin-bottom:12px; }
-.geo-text { font-size:18px; margin-bottom:24px; font-weight:600; line-height:1.4;}
+.geo-text { font-size:18px; margin-bottom:0; font-weight:600; line-height:1.4;}
 .geo-text strong { color:var(--gold); font-family:'Bebas Neue', sans-serif; font-size:24px; display:block; letter-spacing:1px; margin-top:6px;}
-.btn-geo {
-  background:linear-gradient(135deg,var(--brand),var(--brand-dark));
-  color:#fff; border:none; border-radius:12px;
-  padding:14px 24px; font-weight:900; font-size:16px; width:100%; cursor:pointer;
-  box-shadow:0 4px 16px var(--brand-glow);
-}
 
 /* =============================================
    MODAL — PRODUCT DETAIL
@@ -562,7 +541,7 @@ body {
 }
 
 /* =============================================
-   PIX MODAL & SUCCESS MODAL CSS CONTINUES...
+   PAYMENT MODAL & SUCCESS MODAL
 ============================================= */
 .pix-modal {
   display:none; position:fixed; inset:0; z-index:300;
@@ -746,7 +725,7 @@ body {
   <div class="trust-item">
     <div class="trust-icon">🔒</div>
     <div class="trust-label">100% Seguro</div>
-    <div class="trust-sub">Pix protegido</div>
+    <div class="trust-sub">Pagamento Seguro</div>
   </div>
   <div class="trust-item">
     <div class="trust-icon">⭐</div>
@@ -767,7 +746,6 @@ body {
       <div class="card-title">2 Marmitex Pequena com Churrasco</div>
       <div class="card-desc">🎁 9 Complementos Grátis</div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Entrega Grátis</span>
         <span class="tag">9 Acomp.</span>
       </div>
@@ -779,7 +757,7 @@ body {
         <div class="price-badge">-40%</div>
       </div>
       <button class="btn-order" aria-label="Pedir 2 Marmitex Pequena">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -790,7 +768,6 @@ body {
       <div class="card-title">2 Marmitex Grande com Churrasco</div>
       <div class="card-desc">🎁 9 Complementos Grátis</div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Entrega Grátis</span>
         <span class="tag">9 Acomp.</span>
       </div>
@@ -801,14 +778,8 @@ body {
         </div>
         <div class="price-badge">-34%</div>
       </div>
-      <div class="scarcity">
-        🔥 Apenas 32 restando!
-        <div class="scarcity-bar-wrap">
-          <div class="scarcity-bar" style="width:68%"></div>
-        </div>
-      </div>
       <button class="btn-order" aria-label="Pedir 2 Marmitex Grande">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -824,7 +795,6 @@ body {
       </div>
       <div class="card-tags">
         <span class="tag highlight">Melhor Oferta</span>
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Família</span>
       </div>
       <div class="card-pricing">
@@ -834,14 +804,8 @@ body {
         </div>
         <div class="price-badge">-33%</div>
       </div>
-      <div class="scarcity">
-        🔥 Apenas 16 disponíveis!
-        <div class="scarcity-bar-wrap">
-          <div class="scarcity-bar" style="width:84%"></div>
-        </div>
-      </div>
       <button class="btn-order" style="background:linear-gradient(135deg,#f5a623,#d4890d);color:#1a0a00;" aria-label="Pedir Kit Família">
-        ⭐ Quero Este! <span style="font-size:12px;color:rgba(26,10,0,0.7)">• Pix</span>
+        ⭐ Quero Este!
       </button>
     </div>
   </div>
@@ -852,7 +816,6 @@ body {
       <div class="card-title">2 Marmitex Grande com Bife Milanesa Frango</div>
       <div class="card-desc">🎁 9 Complementos Grátis</div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Entrega Grátis</span>
       </div>
       <div class="card-pricing">
@@ -863,7 +826,7 @@ body {
         <div class="price-badge">-40%</div>
       </div>
       <button class="btn-order" aria-label="Pedir Milanesa">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -874,7 +837,6 @@ body {
       <div class="card-title">2 Marmitex Grande com Strogonof</div>
       <div class="card-desc">🎁 9 Complementos Grátis</div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Entrega Grátis</span>
       </div>
       <div class="card-pricing">
@@ -885,7 +847,7 @@ body {
         <div class="price-badge">-43%</div>
       </div>
       <button class="btn-order" aria-label="Pedir Strogonof">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -896,7 +858,6 @@ body {
       <div class="card-title">2 Marmitex Grande de Costela Assada</div>
       <div class="card-desc">🎁 9 Complementos Grátis</div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag">Entrega Grátis</span>
       </div>
       <div class="card-pricing">
@@ -906,14 +867,8 @@ body {
         </div>
         <div class="price-badge">-40%</div>
       </div>
-      <div class="scarcity">
-        🔥 Acabando!
-        <div class="scarcity-bar-wrap">
-          <div class="scarcity-bar" style="width:90%"></div>
-        </div>
-      </div>
       <button class="btn-order" aria-label="Pedir Costela">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -928,7 +883,6 @@ body {
         💬 "A melhor Parmegiana da Cidade!"
       </div>
       <div class="card-tags">
-        <span class="tag highlight">Apenas Pix</span>
         <span class="tag highlight">Campeã de Vendas</span>
       </div>
       <div class="card-pricing">
@@ -938,14 +892,8 @@ body {
         </div>
         <div class="price-badge">-28%</div>
       </div>
-      <div class="scarcity">
-        🔥 Apenas 8 disponíveis!
-        <div class="scarcity-bar-wrap">
-          <div class="scarcity-bar" style="width:93%"></div>
-        </div>
-      </div>
       <button class="btn-order" aria-label="Pedir Parmegiana">
-        🛒 Pedir Agora <span class="btn-pix">• Pix</span>
+        🛒 Pedir Agora
       </button>
     </div>
   </div>
@@ -1086,7 +1034,7 @@ body {
   </div>
   <div style="font-size:13px;color:var(--muted);font-weight:700;margin-bottom:10px;">Formas de pagamento:</div>
   <div class="footer-pay">
-    <div class="pay-badge" style="color:var(--green);">🔑 Pix</div>
+    <div class="pay-badge" style="color:var(--green);">💳 Cartão/Dinheiro</div>
     <div class="pay-badge">🏍️ Motoboy</div>
     <div class="pay-badge">🏠 Retirada</div>
   </div>
@@ -1109,9 +1057,9 @@ body {
 
 <div class="geo-modal" id="geoModal">
   <div class="geo-box">
+    <button onclick="closeGeoModal()" style="position:absolute;top:10px;right:15px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted);">&times;</button>
     <div class="geo-icon">📍</div>
     <div class="geo-text">Identificamos que você está em:<strong id="geoCityState">Carregando...</strong></div>
-    <button class="btn-geo" onclick="closeGeoModal()">✓ Confirmar Região</button>
   </div>
 </div>
 
@@ -1140,37 +1088,37 @@ body {
       <div id="step1">
         <div class="modal-section" id="sectionAcomp">
           <div class="modal-section-head">🍚 Acompanhamentos</div>
-          <div class="modal-section-sub">Escolha até 6 opções</div>
+          <div class="modal-section-sub">Escolha até 4 opções</div>
           <div class="option-grid" id="gridAcomp">
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Arroz">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Arroz">
               <div class="option-check">✓</div>
               <div class="option-label">Arroz Branco</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Arroz Integral">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Arroz Integral">
               <div class="option-check">✓</div>
               <div class="option-label">Arroz Integral</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Feijão em Caldo">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Feijão em Caldo">
               <div class="option-check">✓</div>
               <div class="option-label">Feijão em Caldo</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Feijão Tropeiro">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Feijão Tropeiro">
               <div class="option-check">✓</div>
               <div class="option-label">Feijão Tropeiro</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Purê de Batata">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Purê de Batata">
               <div class="option-check">✓</div>
               <div class="option-label">Purê de Batata</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Farofa c/ Ovos e Bacon">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Farofa c/ Ovos e Bacon">
               <div class="option-check">✓</div>
               <div class="option-label">Farofa c/ Ovos e Bacon</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Macarrão Alho e Óleo">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Macarrão Alho e Óleo">
               <div class="option-check">✓</div>
               <div class="option-label">Macarrão Alho e Óleo</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'acomp',6)" data-val="Tutu de Feijão">
+            <div class="option-item" onclick="toggleOption(this,'acomp',4)" data-val="Tutu de Feijão">
               <div class="option-check">✓</div>
               <div class="option-label">Tutu de Feijão</div>
             </div>
@@ -1179,29 +1127,29 @@ body {
 
         <div class="modal-section" id="sectionCarne">
           <div class="modal-section-head">🥩 Carne</div>
-          <div class="modal-section-sub">Escolha até 3 opções (~150g cada)</div>
+          <div class="modal-section-sub">Escolha até 2 opções (~150g cada)</div>
           <div class="option-grid" id="gridCarne">
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Cupim">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Cupim">
               <div class="option-check">✓</div>
               <div class="option-label">Cupim</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Fraldinha">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Fraldinha">
               <div class="option-check">✓</div>
               <div class="option-label">Fraldinha</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Filé ao Alho">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Filé ao Alho">
               <div class="option-check">✓</div>
               <div class="option-label">Filé ao Alho</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Contra Filé">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Contra Filé">
               <div class="option-check">✓</div>
               <div class="option-label">Contra Filé</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Calabresa 2 un.">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Calabresa 2 un.">
               <div class="option-check">✓</div>
               <div class="option-label">Calabresa (2 un.)</div>
             </div>
-            <div class="option-item" onclick="toggleOption(this,'carne',3)" data-val="Medalhão de Frango 5 un.">
+            <div class="option-item" onclick="toggleOption(this,'carne',2)" data-val="Medalhão de Frango 5 un.">
               <div class="option-check">✓</div>
               <div class="option-label">Medalhão de Frango (5 un.)</div>
             </div>
@@ -1315,10 +1263,10 @@ body {
 
       <div id="btnConfirmContainer" style="display:none;">
         <button class="btn-confirm" id="btnConfirm" onclick="confirmOrder()">
-          🔑 Gerar Pix e Finalizar
+          ✅ Finalizar Pedido
         </button>
         <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px;font-weight:600;">
-          🔒 Pagamento 100% seguro via Pix
+          🔒 Pagamento 100% seguro
         </div>
       </div>
     </div>
@@ -1327,13 +1275,13 @@ body {
 
 <div class="pix-modal" id="pixModal">
   <div class="pix-box">
-    <div class="pix-logo">🔑</div>
-    <div class="pix-title">Pague com Pix</div>
+    <div class="pix-logo">💳</div>
+    <div class="pix-title">Pagamento</div>
     <div class="pix-sub" id="pixOrderDesc">2 Marmitex com Churrasco</div>
     <div class="pix-name" id="pixName"></div>
     <div class="pix-price" id="pixPrice">R$ 28,90</div>
 
-    <div class="pix-code-label">Copie o código Pix abaixo:</div>
+    <div class="pix-code-label">Copie o código abaixo:</div>
     <div class="pix-code-box">
       <div class="pix-code-text" id="pixCode">Aguardando...</div>
       <button class="btn-copy" onclick="copyPix()">Copiar</button>
@@ -1377,14 +1325,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     const data = await res.json();
     if(data.city && data.region) {
       document.getElementById('geoCityState').textContent = `${data.city} - ${data.region}`;
-      document.getElementById('geoModal').classList.add('open');
     } else {
       throw new Error("Localização não encontrada");
     }
   } catch(e) {
-    // Fallback caso a API falhe por Adblockers ou rate limit
     document.getElementById('geoCityState').textContent = 'Franca - SP';
-    document.getElementById('geoModal').classList.add('open');
   }
 });
 
@@ -1601,6 +1546,9 @@ function openModal(productId) {
   overlay.scrollTop = 0;
   document.getElementById('modalContent').scrollTop = 0;
   document.body.style.overflow = 'hidden';
+
+  // Mostrar pop-up de localização após clicar em "Pedir"
+  document.getElementById('geoModal').classList.add('open');
 }
 
 function closeModal() {
@@ -1708,7 +1656,7 @@ function confirmOrder() {
 }
 
 /* =============================================
-   PIX MODAL — EVENTO 4: Lead (Utmify Fix)
+   PAYMENT MODAL — EVENTO 4: Lead (Utmify Fix)
 ============================================= */
 let pixPollInterval = null;
 let currentTxId = null;
@@ -1792,7 +1740,7 @@ async function openPixModal(order) {
     }
 
   } catch (err) {
-    console.error('Erro Pix:', err);
+    console.error('Erro de Pagamento:', err);
     document.getElementById('pixCode').textContent = 'Erro ao gerar. Entre em contato pelo WhatsApp.';
   }
 }
@@ -1850,7 +1798,7 @@ function copyPix() {
 ============================================= */
 function openWhatsApp() {
   const phone = '5500000000000'; 
-  const msg = encodeURIComponent('Olá! Acabei de realizar um pedido e pagar pelo Pix. Pode confirmar?');
+  const msg = encodeURIComponent('Olá! Acabei de realizar um pedido e pagar online. Pode confirmar?');
   window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
 }
 
