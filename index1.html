@@ -132,7 +132,7 @@
 
         .banner-home {
             background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-            height: 220px;
+            height: 200px;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -152,28 +152,6 @@
         @keyframes slide {
             0% { transform: translate(0, 0); }
             100% { transform: translate(50px, 50px); }
-        }
-
-        .banner-home-logo {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 2;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .banner-home-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .banner-home-content {
@@ -355,6 +333,95 @@
             color: #e63946;
         }
 
+        /* ===== REVIEWS ===== */
+        .reviews-section {
+            padding: 20px 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .reviews-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .reviews-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .reviews-stars {
+            font-size: 14px;
+            color: #ffc107;
+        }
+
+        .reviews-count {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .reviews-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .reviews-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            min-width: 200px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            flex-shrink: 0;
+        }
+
+        .review-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .review-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e63946;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .review-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .review-stars {
+            font-size: 11px;
+            color: #ffc107;
+        }
+
+        .review-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
         /* ===== STEP 1: PRODUCT DETAIL ===== */
         .step-1-content {
             padding: 0;
@@ -499,6 +566,66 @@
             font-size: 12px;
             color: #4caf50;
             font-weight: 700;
+        }
+
+        /* ===== COMPLEMENTS ===== */
+        .complements-section {
+            padding: 0 16px;
+        }
+
+        .option-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .option-item {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-item:hover {
+            border-color: #e63946;
+        }
+
+        .option-item.selected {
+            border-color: #e63946;
+            background: #fff5f6;
+        }
+
+        .option-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .option-item.selected .option-check {
+            background: #e63946;
+            border-color: #e63946;
+            color: white;
+        }
+
+        .option-label {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
         }
 
         /* ===== OBSERVATIONS ===== */
@@ -830,6 +957,22 @@
             text-align: center;
         }
 
+        .pix-greeting {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .pix-product {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
         .pix-timer {
             background: #fff3cd;
             border-radius: 10px;
@@ -884,8 +1027,8 @@
         }
 
         .pix-qr img {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
         }
 
         .pix-code-section {
@@ -912,6 +1055,26 @@
             word-break: break-all;
             line-height: 1.6;
             user-select: all;
+            margin-bottom: 12px;
+        }
+
+        .btn-copy {
+            width: 100%;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-copy:hover,
+        .btn-copy:active {
+            background: #d62828;
         }
 
         .pix-instructions {
@@ -946,63 +1109,6 @@
             justify-content: center;
             font-weight: 700;
             flex-shrink: 0;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            padding: 12px 16px 16px;
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-primary {
-            background: #e63946;
-            color: white;
-        }
-
-        .btn-primary:hover,
-        .btn-primary:active {
-            background: #d62828;
-        }
-
-        .btn-primary:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-            border: 1px solid #e0e0e0;
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:active {
-            background: #eeeeee;
-        }
-
-        .btn-full {
-            width: 100%;
         }
 
         .pix-status {
@@ -1064,8 +1170,88 @@
             margin-bottom: 20px;
         }
 
+        /* ===== FOOTER ===== */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 12px 16px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-primary {
+            background: #e63946;
+            color: white;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:active {
+            background: #d62828;
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:active {
+            background: #eeeeee;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
         .hidden {
             display: none;
+        }
+
+        /* ===== LOGO BOTTOM LEFT ===== */
+        .logo-badge {
+            position: fixed;
+            bottom: 90px;
+            left: 16px;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 40;
+        }
+
+        .logo-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         @media (max-width: 480px) {
@@ -1101,9 +1287,6 @@
             <div class="step step-0 active">
                 <div class="step-0-content">
                     <div class="banner-home">
-                        <div class="banner-home-logo">
-                            <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
-                        </div>
                         <div class="banner-home-content">
                             <div class="banner-home-title">Sabor Brasileiro</div>
                             <div class="banner-home-subtitle">🍖 Feito na Hora • Entrega Grátis</div>
@@ -1119,7 +1302,7 @@
                             <span>Brasileiro</span>
                         </div>
                         <div class="restaurant-stats">
-                            <div class="stat">⭐ <span class="rating">5,0</span> (1.360 avaliações)</div>
+                            <div class="stat">⭐ <span class="rating">5,0</span> (1.360)</div>
                             <div class="stat">🛵 30-40 min</div>
                             <div class="stat">🚗 Grátis</div>
                         </div>
@@ -1129,6 +1312,18 @@
 
                     <div class="products-grid" id="productsContainer">
                         <!-- Products will be inserted here -->
+                    </div>
+
+                    <!-- REVIEWS SECTION -->
+                    <div class="reviews-section">
+                        <div class="reviews-title">O que falam de nós</div>
+                        <div class="reviews-rating">
+                            <span class="reviews-stars">★★★★★</span>
+                            <span class="reviews-count">5,0 (1.360 avaliações)</span>
+                        </div>
+                        <div class="reviews-scroll" id="reviewsScroll">
+                            <!-- Reviews will be inserted here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1162,34 +1357,40 @@
                 </div>
             </div>
 
-            <!-- STEP 2: ACCOUNT -->
+            <!-- STEP 2: COMPLEMENTS & ACCOUNT -->
             <div class="step step-2">
                 <div style="padding: 20px 16px;">
-                    <div class="section-title" style="margin-top: 0;">Criar conta</div>
-                    <div style="font-size: 12px; color: #999; margin-bottom: 20px;">Para finalizar o pedido precisamos de alguns dados</div>
+                    <div class="complements-section">
+                        <div id="complementsSections">
+                            <!-- Complements will be inserted here -->
+                        </div>
 
-                    <div class="field-group">
-                        <div class="field-label">CPF</div>
-                        <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
-                    </div>
+                        <div class="section-title" style="margin-top: 30px;">Criar conta</div>
+                        <div style="font-size: 12px; color: #999; margin-bottom: 20px;">Para finalizar o pedido precisamos de alguns dados</div>
 
-                    <div class="field-group">
-                        <div class="field-label">Nome Completo</div>
-                        <input type="text" id="inputNome" placeholder="Seu nome completo">
-                    </div>
+                        <div class="field-group">
+                            <div class="field-label">CPF</div>
+                            <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
+                        </div>
 
-                    <div class="field-group">
-                        <div class="field-label">E-Mail</div>
-                        <input type="email" id="inputEmail" placeholder="seu@email.com">
-                    </div>
+                        <div class="field-group">
+                            <div class="field-label">Nome Completo</div>
+                            <input type="text" id="inputNome" placeholder="Seu nome completo">
+                        </div>
 
-                    <div class="field-group">
-                        <div class="field-label">Telefone / WhatsApp</div>
-                        <input type="tel" id="inputTelefone" placeholder="(11) 99999-9999">
-                    </div>
+                        <div class="field-group">
+                            <div class="field-label">E-Mail</div>
+                            <input type="email" id="inputEmail" placeholder="seu@email.com">
+                        </div>
 
-                    <div style="font-size: 11px; color: #999; margin-top: 12px; line-height: 1.5;">
-                        Ao continuar, você concorda com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong> da Hokkai Sushi.
+                        <div class="field-group">
+                            <div class="field-label">Telefone / WhatsApp</div>
+                            <input type="tel" id="inputTelefone" placeholder="(11) 99999-9999">
+                        </div>
+
+                        <div style="font-size: 11px; color: #999; margin-top: 12px; line-height: 1.5; padding-bottom: 80px;">
+                            Ao continuar, você concorda com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong>.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1244,6 +1445,8 @@
                             </button>
                         </div>
                     </div>
+
+                    <div style="padding-bottom: 80px;"></div>
                 </div>
             </div>
 
@@ -1271,7 +1474,7 @@
                                 <div class="delivery-info">
                                     <div class="delivery-title">Entrega Rápida</div>
                                     <div class="delivery-time">⏱️ 20-30 min</div>
-                                    <div class="delivery-price">+R$ 5,00</div>
+                                    <div class="delivery-price">Grátis</div>
                                 </div>
                             </div>
                             <div class="delivery-radio"></div>
@@ -1290,7 +1493,7 @@
                         </div>
                     </div>
 
-                    <div style="padding: 0 16px; margin-top: 20px;">
+                    <div style="padding: 0 16px; margin-top: 20px; padding-bottom: 80px;">
                         <div class="section-title">Resumo do pedido</div>
                         <div class="order-summary">
                             <div class="summary-item">
@@ -1300,12 +1503,7 @@
                             <div class="summary-divider"></div>
                             <div class="summary-item">
                                 <span class="summary-label">Entrega</span>
-                                <span class="summary-value" id="deliveryFee">Grátis</span>
-                            </div>
-                            <div class="summary-divider"></div>
-                            <div class="summary-item">
-                                <span class="summary-label">Desconto exclusivo</span>
-                                <span class="summary-value summary-discount" id="discount">-R$ 0,00</span>
+                                <span class="summary-value">Grátis</span>
                             </div>
                             <div class="summary-divider"></div>
                             <div class="summary-total">
@@ -1320,6 +1518,9 @@
             <!-- STEP 5: PAYMENT -->
             <div class="step step-5">
                 <div class="pix-section">
+                    <div class="pix-greeting">👋 Olá, <span id="pixName">João</span>!</div>
+                    <div class="pix-product" id="pixProduct">Seu pedido: Marmitex x1</div>
+
                     <div class="pix-timer">
                         <div class="pix-timer-label">⏰ PIX expira em</div>
                         <div class="pix-timer-value" id="countdown">30:00</div>
@@ -1332,12 +1533,13 @@
                     </div>
 
                     <div class="pix-qr">
-                        <img id="qrCode" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23fff' width='200' height='200'/%3E%3C/svg%3E" alt="QR Code PIX">
+                        <img id="qrCode" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect fill='%23fff' width='180' height='180' rx='10'/%3E%3Crect fill='%23e63946' x='20' y='20' width='140' height='140' rx='8'/%3E%3Crect fill='%23fff' x='30' y='30' width='120' height='120' rx='6'/%3E%3Ctext x='90' y='92' text-anchor='middle' font-size='16' font-family='Arial' fill='%23e63946' font-weight='bold'%3EQR PIX%3C/text%3E%3C/svg%3E" alt="QR Code PIX">
                     </div>
 
                     <div class="pix-code-section">
                         <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
                         <div class="pix-code-value" id="pixCode">Carregando...</div>
+                        <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
                     </div>
 
                     <div class="pix-status waiting" id="pixStatus">
@@ -1382,6 +1584,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- LOGO BADGE BOTTOM LEFT -->
+        <div class="logo-badge">
+            <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
         </div>
 
         <!-- FOOTER -->
@@ -1460,6 +1667,14 @@
             }
         };
 
+        const REVIEWS = [
+            { name: 'Carlos M.', stars: 5, text: 'Simplesmente perfeito! A comida é deliciosa, bem temperada e sempre quentinha.' },
+            { name: 'Ana Paula S.', stars: 5, text: 'Entrega rápida e marmita super bem servida! Dá para ver que os ingredientes são frescos.' },
+            { name: 'Rodrigo L.', stars: 5, text: 'Sabor de comida caseira que lembra a da minha mãe! Sempre no capricho 👏' },
+            { name: 'Fernanda R.', stars: 5, text: 'Melhor custo-benefício! Porção generosa, comida deliciosa e preço justo.' },
+            { name: 'Marcos P.', stars: 5, text: 'Já pedi em várias marmitarias, mas essa aqui superou todas! Sabor incrível.' }
+        ];
+
         const KITS = [
             {
                 name: 'Sim, quero o Kit delivery!',
@@ -1485,7 +1700,7 @@
         let currentProduct = null;
         let selections = { kit: 0, acomp: [], carne: [], salada: [], turbine: [] };
         let quantity = 1;
-        let deliveryMethod = 'standard'; // standard, fast, scheduled
+        let deliveryMethod = 'standard';
         let addressType = 'home';
         let pixPollInterval = null;
         let countdownInterval = null;
@@ -1493,6 +1708,7 @@
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', function() {
             renderProducts();
+            renderReviews();
             initCountdown();
         });
 
@@ -1530,6 +1746,22 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsScroll');
+            container.innerHTML = REVIEWS.map(review => `
+                <div class="review-card">
+                    <div class="review-top">
+                        <div class="review-avatar">${review.name.charAt(0)}</div>
+                        <div>
+                            <div class="review-name">${review.name}</div>
+                            <div class="review-stars">${'★'.repeat(review.stars)}</div>
+                        </div>
+                    </div>
+                    <div class="review-text">"${review.text}"</div>
+                </div>
+            `).join('');
         }
 
         function selectProduct(productId) {
@@ -1579,6 +1811,43 @@
             renderKits();
         }
 
+        function renderComplements() {
+            const container = document.getElementById('complementsSections');
+            container.innerHTML = COMPLEMENTS.map(comp => `
+                <div>
+                    <div class="section-title">${comp.title}</div>
+                    <div class="section-subtitle">${comp.subtitle}</div>
+                    <div class="option-grid">
+                        ${comp.options.map(opt => `
+                            <div class="option-item" onclick="toggleOption(this,'${comp.group}',${comp.max})" data-val="${opt}">
+                                <div class="option-check">✓</div>
+                                <div class="option-label">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleOption(el, group, maxCount) {
+            const val = el.dataset.val;
+
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selections[group] = selections[group].filter(v => v !== val);
+            } else {
+                if (selections[group].length >= maxCount) {
+                    const firstVal = selections[group].shift();
+                    const allItems = el.closest('.option-grid').querySelectorAll('.option-item');
+                    allItems.forEach(item => {
+                        if (item.dataset.val === firstVal) item.classList.remove('selected');
+                    });
+                }
+                el.classList.add('selected');
+                selections[group].push(val);
+            }
+        }
+
         function selectAddressType(type) {
             addressType = type;
             document.querySelectorAll('.address-type-btn').forEach(btn => {
@@ -1603,23 +1872,10 @@
 
         function updatePrices() {
             const basePrice = currentProduct.priceNew * quantity;
-            let deliveryFee = 0;
-            let discount = 0;
-
-            if (deliveryMethod === 'fast') {
-                deliveryFee = 5.00;
-            }
-
-            if (quantity >= 3) {
-                discount = basePrice * 0.10;
-            }
-
-            const total = basePrice + deliveryFee - discount;
+            const total = basePrice;
 
             document.getElementById('summaryLabel').textContent = `${currentProduct.title} x${quantity}`;
             document.getElementById('summaryValue').textContent = `R$ ${basePrice.toFixed(2).replace('.',',')}`;
-            document.getElementById('deliveryFee').textContent = deliveryFee > 0 ? `+R$ ${deliveryFee.toFixed(2).replace('.',',')}` : 'Grátis';
-            document.getElementById('discount').textContent = discount > 0 ? `-R$ ${discount.toFixed(2).replace('.',',')}` : '-R$ 0,00';
             document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
             document.getElementById('pixTotalPrice').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
         }
@@ -1632,6 +1888,7 @@
                     value: currentProduct.priceNew,
                     currency: 'BRL'
                 });
+                renderComplements();
                 goToStep(2);
             } else if (currentStep === 2) {
                 const nome = document.getElementById('inputNome').value.trim();
@@ -1672,6 +1929,10 @@
                     cpf: cpf.replace(/\D/g,'')
                 });
 
+                document.getElementById('pixName').textContent = nome.split(' ')[0];
+                document.getElementById('pixProduct').textContent = `Seu pedido: ${currentProduct.title} x${quantity}`;
+                updatePrices();
+
                 goToStep(5);
                 setTimeout(() => generatePixPayment(), 1500);
             }
@@ -1689,20 +1950,16 @@
         }
 
         function updateUI() {
-            // Hide all steps
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
             document.querySelector(`.step-${currentStep}`).classList.add('active');
 
-            // Update header
-            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Criar conta', 'Endereço de entrega', 'Forma de entrega', 'Pagamento via PIX', 'Pedido Confirmado'];
+            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Complementos & Conta', 'Endereço de entrega', 'Forma de entrega', 'Pagamento via PIX', 'Pedido Confirmado'];
             document.getElementById('headerTitle').textContent = titles[currentStep];
 
-            // Update progress dots
             document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
                 dot.classList.toggle('active', idx <= currentStep);
             });
 
-            // Update buttons
             const backBtn = document.getElementById('backBtn');
             const backFooterBtn = document.getElementById('backFooterBtn');
             const nextBtn = document.getElementById('nextBtn');
@@ -1793,6 +2050,24 @@
             setTimeout(() => goToStep(6), 1500);
         }
 
+        function copyPixCode() {
+            const code = document.getElementById('pixCode').textContent;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code);
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = code;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            const btn = event.target;
+            const orig = btn.textContent;
+            btn.textContent = '✅ Copiado!';
+            setTimeout(() => btn.textContent = orig, 2000);
+        }
+
         function openWhatsApp() {
             const phone = '5500000000000';
             const msg = encodeURIComponent('Olá! Finalizei meu pedido. Pode confirmar?');
@@ -1806,7 +2081,7 @@
                 const mins = Math.floor(timeLeft / 60);
                 const secs = timeLeft % 60;
                 const countdown = document.getElementById('countdown');
-                if (countdown) {
+                if (countdown && currentStep === 5) {
                     countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
                 }
                 timeLeft--;
