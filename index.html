@@ -1970,5 +1970,56 @@
             }).catch(err => console.error('CAPI erro:', err));
         }
     </script>
+    <script>
+    // PASSO 2: Bloqueio de cliques e atalhos
+    // Impede o botão direito do mouse
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
+    document.addEventListener('keydown', function(e) {
+        // Bloqueia F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+        // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+            e.preventDefault();
+            return false;
+        }
+        // Bloqueia Ctrl+U (Ver código fonte)
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+        // Bloqueia Ctrl+S (Salvar página)
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // PASSO 4: Armadilha de Debugger (Trava o Inspetor se ele for aberto)
+    // Esse código cria um loop que "pausa" o navegador de quem tenta inspecionar
+    (function() {
+        var pre_debugger = function() {
+            (function(a) {
+                (function() {
+                    (function() {
+                        debugger
+                    }
+                    ).apply()
+                }
+                ).apply()
+            }
+            )(function() {
+                pre_debugger()
+            })
+        };
+        try {
+            setInterval(pre_debugger, 500); // Executa a cada meio segundo
+        } catch (e) {}
+    })();
+</script>
 </body>
 </html>
