@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor Brasileiro - Funil de Marmita</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .funnel-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            gap: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-back {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .header-title {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            margin: 16px 0;
+            gap: 4px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            flex: 1;
+        }
+
+        .progress-dot.active {
+            background: #e63946;
+        }
+
+        .content {
+            flex: 1;
+            padding: 0 16px 16px;
+            overflow-y: auto;
+        }
+
+        /* STEP 1: Visualização do Produto */
+        .step-1 {
+            display: none;
+        }
+
+        .step-1.active {
+            display: block;
+        }
+
+        .banner {
+            width: calc(100% + 32px);
+            margin: -16px -16px 16px -16px;
+            height: 280px;
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .banner-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 40px;
+        }
+
+        .banner-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .restaurant-info {
+            margin-bottom: 20px;
+        }
+
+        .restaurant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .restaurant-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .restaurant-location {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #e63946;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .restaurant-tags {
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .restaurant-tags span {
+            display: inline-block;
+        }
+
+        .restaurant-tags span:not(:last-child)::after {
+            content: ' •';
+            margin-left: 8px;
+        }
+
+        .restaurant-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .minimum-order {
+            color: #666;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .product-servings {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .price-original {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .price-current {
+            font-size: 20px;
+            font-weight: 700;
+            color: #4caf50;
+        }
+
+        .product-action {
+            width: 100%;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .product-action:hover {
+            background: #d62828;
+        }
+
+        /* STEP 2: Selecionar Marmita */
+        .step-2 {
+            display: none;
+        }
+
+        .step-2.active {
+            display: block;
+        }
+
+        .selection-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .selection-item {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .selection-item.selected {
+            border-color: #e63946;
+            background: #fff5f6;
+        }
+
+        .selection-item-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .selection-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .selection-item.selected .selection-checkbox {
+            background: #e63946;
+            border-color: #e63946;
+            color: white;
+        }
+
+        .selection-details {
+            flex: 1;
+        }
+
+        .selection-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .selection-desc {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .selection-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4caf50;
+        }
+
+        /* STEP 3: Adicionar Itens */
+        .step-3 {
+            display: none;
+        }
+
+        .step-3.active {
+            display: block;
+        }
+
+        .kit-option {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .kit-option:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .kit-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .kit-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .kit-badge {
+            background: #333;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .kit-description {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .kit-price {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .kit-select-btn {
+            width: 100%;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .kit-select-btn:hover {
+            background: #d62828;
+        }
+
+        /* STEP 4: Escolher Kit Delivery */
+        .step-4 {
+            display: none;
+        }
+
+        .step-4.active {
+            display: block;
+        }
+
+        .delivery-option {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .delivery-option.selected {
+            border-color: #e63946;
+            background: #fff5f6;
+        }
+
+        .delivery-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            position: absolute;
+            right: 16px;
+            top: 16px;
+        }
+
+        .delivery-option.selected .delivery-radio {
+            background: #e63946;
+            border-color: #e63946;
+        }
+
+        .delivery-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .delivery-desc {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* STEP 5: Confirmar Localização */
+        .step-5 {
+            display: none;
+        }
+
+        .step-5.active {
+            display: block;
+        }
+
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .location-icon {
+            width: 32px;
+            height: 32px;
+            background: #e63946;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .location-text {
+            flex: 1;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            background: #e8e8e8;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-pin {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #e63946;
+            border-radius: 50%;
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(230, 57, 70, 0.3);
+        }
+
+        .location-adjust {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .location-adjust-text {
+            font-size: 13px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        /* STEP 6: Checkout */
+        .step-6 {
+            display: none;
+        }
+
+        .step-6.active {
+            display: block;
+        }
+
+        .order-summary {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .summary-item-name {
+            color: #333;
+        }
+
+        .summary-item-price {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .summary-divider {
+            border-top: 1px solid #f0f0f0;
+            margin: 12px 0;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 16px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #e63946;
+            background: white;
+            color: #e63946;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: #e63946;
+            color: white;
+        }
+
+        .quantity-display {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* STEP 7: Worker */
+        .step-7 {
+            display: none;
+        }
+
+        .step-7.active {
+            display: block;
+        }
+
+        .processing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+            text-align: center;
+        }
+
+        .processing-animation {
+            width: 80px;
+            height: 80px;
+            background: #e63946;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 24px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .processing-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .processing-subtext {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* STEP 8: PIX */
+        .step-8 {
+            display: none;
+        }
+
+        .step-8.active {
+            display: block;
+        }
+
+        .pix-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px;
+        }
+
+        .pix-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 24px;
+        }
+
+        .pix-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .pix-subtitle {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .pix-code {
+            width: 100%;
+            background: white;
+            border: 2px dashed #e63946;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .pix-code-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .pix-code-value {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            word-break: break-all;
+            line-height: 1.6;
+        }
+
+        .pix-copy-btn {
+            width: 100%;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .pix-copy-btn:hover {
+            background: #d62828;
+        }
+
+        .pix-qr {
+            width: 200px;
+            height: 200px;
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .pix-qr img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .footer {
+            padding: 16px;
+            gap: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #d62828;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #eeeeee;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .funnel-container {
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="funnel-container">
+        <!-- HEADER -->
+        <div class="header" id="header">
+            <button class="header-back" onclick="previousStep()" id="backBtn" style="display:none;">←</button>
+            <div class="header-title" id="headerTitle">Sabor Brasileiro</div>
+        </div>
+
+        <!-- PROGRESS INDICATOR -->
+        <div class="progress-indicator">
+            <div class="progress-dot active" id="dot0"></div>
+            <div class="progress-dot" id="dot1"></div>
+            <div class="progress-dot" id="dot2"></div>
+            <div class="progress-dot" id="dot3"></div>
+            <div class="progress-dot" id="dot4"></div>
+            <div class="progress-dot" id="dot5"></div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- STEP 1: Visualização do Produto -->
+            <div class="step-1 active">
+                <div class="banner">
+                    <div class="banner-content">
+                        <div class="banner-icon">🍱</div>
+                        <div class="banner-text">Tarde perfeita para um comida especial</div>
+                    </div>
+                </div>
+
+                <div class="restaurant-info">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">Sabor Brasileiro</div>
+                        <div class="restaurant-location">📍 São Paulo, SP</div>
+                    </div>
+                    <div class="restaurant-tags">
+                        <span>Marmita</span>
+                        <span>Brasileiro</span>
+                        <span>Churrasco</span>
+                    </div>
+                    <div class="restaurant-stats">
+                        <div class="stat">⭐ <span class="rating">4.9</span> (2.136 avaliações)</div>
+                        <div class="stat">🚗 Grátis</div>
+                        <div class="stat">⏱️ 25-45 min</div>
+                    </div>
+                    <div class="status-badge">ABERTO</div>
+                    <div class="minimum-order">Pedido mínimo R$ 20,00</div>
+                </div>
+
+                <div id="productsContainer">
+                    <!-- Products will be inserted here -->
+                </div>
+            </div>
+
+            <!-- STEP 2: Selecionar Marmita -->
+            <div class="step-2">
+                <div class="selection-title">Qual marmita você prefere?</div>
+                <div id="selectionsContainer">
+                    <!-- Selections will be inserted here -->
+                </div>
+            </div>
+
+            <!-- STEP 3: Adicionar Itens -->
+            <div class="step-3">
+                <div class="selection-title">Adicionar itens extras?</div>
+                <div id="kitsContainer">
+                    <!-- Kits will be inserted here -->
+                </div>
+            </div>
+
+            <!-- STEP 4: Escolher Kit Delivery -->
+            <div class="step-4">
+                <div class="selection-title">Escolha o kit delivery</div>
+                <div class="delivery-option selected" onclick="selectDeliveryOption(this, 'normal')">
+                    <div class="delivery-radio"></div>
+                    <div class="delivery-title">Entrega Normal</div>
+                    <div class="delivery-desc">Hashi, shoyu, gengibre, wasabi e guardanapo - Grátis</div>
+                </div>
+                <div class="delivery-option" onclick="selectDeliveryOption(this, 'premium')">
+                    <div class="delivery-radio"></div>
+                    <div class="delivery-title">Kit Premium</div>
+                    <div class="delivery-desc">Hashi, shoyu, gengibre, wasabi, guardanapo e molho especial - R$ 5,00</div>
+                </div>
+            </div>
+
+            <!-- STEP 5: Confirmar Localização -->
+            <div class="step-5">
+                <div class="selection-title">Confirmar localização</div>
+                <div class="location-header">
+                    <div class="location-icon">📍</div>
+                    <div class="location-text">Rua Roza Gonzales Meneghetti, 507 — Chacara Santo André, São Paulo</div>
+                </div>
+                <div class="map-container">
+                    <div class="map-pin">📍</div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.0859930589157!2d-46.5567!3d-23.6347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce89a6fd7e0001%3A0xf64f6f5f0f0f0f0f!2sRua%20Roza%20Gonzales%20Meneghetti%2C%20507%20-%20Chacara%20Santo%20Andr%C3%A9%2C%20S%C3%A3o%20Paulo!5e0!3m2!1spt-BR!2sbr!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="location-adjust">
+                    <div>Mova o mapa para ajustar</div>
+                    <div class="location-adjust-text">Posicione o pin no local exato da entrega</div>
+                </div>
+            </div>
+
+            <!-- STEP 6: Checkout -->
+            <div class="step-6">
+                <div class="selection-title">Resumo do pedido</div>
+                <div class="order-summary">
+                    <div class="summary-item">
+                        <span class="summary-item-name" id="summaryItem">Marmitex Pequena com Churrasco x1</span>
+                        <span class="summary-item-price" id="summaryPrice">R$ 16,90</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                        <span class="summary-item-name">Entrega</span>
+                        <span class="summary-item-price">Grátis</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="totalPrice">R$ 16,90</span>
+                    </div>
+                </div>
+
+                <div class="selection-title">Quantidade</div>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                    <div class="quantity-display" id="quantityDisplay">1</div>
+                    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                </div>
+            </div>
+
+            <!-- STEP 7: Worker -->
+            <div class="step-7">
+                <div class="processing-container">
+                    <div class="processing-animation">⏳</div>
+                    <div class="processing-text">Processando seu pedido...</div>
+                    <div class="processing-subtext">Por favor aguarde enquanto confirmamos seu pedido</div>
+                </div>
+            </div>
+
+            <!-- STEP 8: PIX -->
+            <div class="step-8">
+                <div class="pix-container">
+                    <div class="pix-icon">📱</div>
+                    <div class="pix-title">Pagamento via PIX</div>
+                    <div class="pix-subtitle">Escaneie o QR Code ou copie a chave PIX</div>
+                    
+                    <div class="pix-qr">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23fff' width='200' height='200'/%3E%3Crect fill='%23000' x='20' y='20' width='160' height='160'/%3E%3Crect fill='%23fff' x='30' y='30' width='140' height='140'/%3E%3Ctext x='100' y='105' text-anchor='middle' font-size='14' font-family='Arial' fill='%23000' font-weight='bold'%3EQR PIX%3C/text%3E%3C/svg%3E" alt="QR Code PIX">
+                    </div>
+
+                    <div class="pix-code">
+                        <div class="pix-code-label">Chave PIX (Copia e Cola)</div>
+                        <div class="pix-code-value" id="pixCode">00020126580014br.gov.bcb.pix0136a8c5c51f-5ae9-46d2-af37-abc123456789520400005303986540510.005802BR5913JOAO SILVA6009SAO PAULO62410503***63041D3D</div>
+                    </div>
+
+                    <button class="pix-copy-btn" onclick="copyPixCode()">📋 Copiar Código PIX</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer" id="footer">
+            <button class="btn-primary" id="nextBtn" onclick="nextStep()">Continuar</button>
+            <button class="btn-secondary hidden" id="backBtnFooter" onclick="previousStep()">Voltar</button>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let currentStep = 0;
+        let selectedProduct = null;
+        let selectedDeliveryOption = 'normal';
+        let quantity = 1;
+
+        const products = [
+            {
+                id: 1,
+                name: 'Marmitex Pequena com Churrasco',
+                description: 'Arroz, feijão, churrasco grelhado, salada fresca e limão. Servindo 1 pessoa.',
+                image: '🍱',
+                originalPrice: 24.90,
+                currentPrice: 16.90,
+                servings: 1
+            },
+            {
+                id: 2,
+                name: 'Marmitex Média com Churrasco',
+                description: 'Arroz, feijão, churrasco grelhado, salada fresca, batata frita e limão. Servindo 2 pessoas.',
+                image: '🍱',
+                originalPrice: 43.80,
+                currentPrice: 28.90,
+                servings: 2
+            }
+        ];
+
+        const kits = [
+            {
+                id: 1,
+                name: 'Kit Básico',
+                description: 'Talheres de plástico, guardanapo e molho de soja',
+                price: 'Grátis'
+            },
+            {
+                id: 2,
+                name: 'Kit Completo',
+                description: 'Talheres, guardanapo, molho de soja, gengibre e wasabi',
+                price: 'Grátis'
+            }
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            renderSelections();
+            renderKits();
+            updateUI();
+        });
+
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = products.map(product => `
+                <div class="product-card" onclick="selectProduct(${product.id})">
+                    <div class="product-image">
+                        <div style="font-size: 80px;">${product.image}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-servings">👤 Serve ${product.servings} ${product.servings > 1 ? 'pessoas' : 'pessoa'}</div>
+                        <div class="product-price">
+                            <span class="price-original">R$ ${product.originalPrice.toFixed(2)}</span>
+                            <span class="price-current">R$ ${product.currentPrice.toFixed(2)}</span>
+                        </div>
+                        <button class="product-action">Ver sacola</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderSelections() {
+            const container = document.getElementById('selectionsContainer');
+            container.innerHTML = products.map((product, index) => `
+                <div class="selection-item ${selectedProduct === index ? 'selected' : ''}" onclick="selectProductForStep2(${index})">
+                    <div class="selection-item-content">
+                        <div class="selection-checkbox">
+                            ${selectedProduct === index ? '✓' : ''}
+                        </div>
+                        <div class="selection-details">
+                            <div class="selection-name">${product.name}</div>
+                            <div class="selection-desc">Serve ${product.servings} ${product.servings > 1 ? 'pessoas' : 'pessoa'}</div>
+                        </div>
+                        <div class="selection-price">R$ ${product.currentPrice.toFixed(2)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderKits() {
+            const container = document.getElementById('kitsContainer');
+            container.innerHTML = kits.map(kit => `
+                <div class="kit-option">
+                    <div class="kit-option-header">
+                        <div class="kit-name">${kit.name}</div>
+                        <div class="kit-badge">OBRIGATÓRIO</div>
+                    </div>
+                    <div class="kit-description">${kit.description}</div>
+                    <div class="kit-price">${kit.price}</div>
+                    <button class="kit-select-btn" onclick="selectKit(this)">Escolher</button>
+                </div>
+            `).join('');
+        }
+
+        function selectProduct(productId) {
+            selectedProduct = productId - 1;
+            goToStep(1);
+        }
+
+        function selectProductForStep2(index) {
+            selectedProduct = index;
+            renderSelections();
+        }
+
+        function selectKit(element) {
+            element.textContent = 'Selecionado ✓';
+            element.disabled = true;
+            setTimeout(() => nextStep(), 500);
+        }
+
+        function selectDeliveryOption(element, option) {
+            document.querySelectorAll('.delivery-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDeliveryOption = option;
+        }
+
+        function increaseQuantity() {
+            quantity++;
+            updateQuantityDisplay();
+        }
+
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                updateQuantityDisplay();
+            }
+        }
+
+        function updateQuantityDisplay() {
+            document.getElementById('quantityDisplay').textContent = quantity;
+            const product = products[selectedProduct];
+            const total = product.currentPrice * quantity;
+            document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        function copyPixCode() {
+            const pixCode = document.getElementById('pixCode').textContent;
+            navigator.clipboard.writeText(pixCode).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copiado!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < 7) {
+                if (currentStep === 5) {
+                    goToStep(6);
+                    setTimeout(() => goToStep(7), 2000);
+                    setTimeout(() => goToStep(8), 4000);
+                } else {
+                    goToStep(currentStep + 1);
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                goToStep(currentStep - 1);
+            }
+        }
+
+        function goToStep(step) {
+            currentStep = step;
+            updateUI();
+        }
+
+        function updateUI() {
+            // Hide all steps
+            document.querySelectorAll('[class^="step-"]').forEach(el => el.classList.remove('active'));
+            
+            // Show current step
+            document.querySelector(`.step-${currentStep}`).classList.add('active');
+
+            // Update progress dots
+            document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index <= currentStep);
+            });
+
+            // Update back button
+            const backBtn = document.getElementById('backBtn');
+            const backBtnFooter = document.getElementById('backBtnFooter');
+            backBtn.style.display = currentStep > 0 ? 'block' : 'none';
+            backBtnFooter.classList.toggle('hidden', currentStep <= 0);
+
+            // Update next button
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentStep === 8) {
+                nextBtn.textContent = 'Finalizar Pedido';
+            } else if (currentStep === 7) {
+                nextBtn.textContent = 'Aguardando...';
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.textContent = 'Continuar';
+                nextBtn.disabled = false;
+            }
+
+            // Update header title
+            const titles = [
+                'Sabor Brasileiro',
+                'Selecione a Marmita',
+                'Adicionar Itens',
+                'Kit Delivery',
+                'Confirmar Localização',
+                'Resumo do Pedido',
+                'Processando',
+                'Pagamento PIX'
+            ];
+            document.getElementById('headerTitle').textContent = titles[currentStep];
+
+            // Update summary
+            if (currentStep >= 5) {
+                const product = products[selectedProduct];
+                document.getElementById('summaryItem').textContent = `${product.name} x${quantity}`;
+                document.getElementById('summaryPrice').textContent = `R$ ${(product.currentPrice * quantity).toFixed(2)}`;
+                document.getElementById('totalPrice').textContent = `R$ ${(product.currentPrice * quantity).toFixed(2)}`;
+            }
+        }
+    </script>
+</body>
+</html>
