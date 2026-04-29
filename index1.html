@@ -109,6 +109,7 @@
             flex: 1;
             overflow-y: auto;
             padding-bottom: 80px;
+            scroll-behavior: smooth;
         }
 
         .step {
@@ -1175,14 +1176,14 @@
         </div>
 
         <!-- CONTENT -->
-        <div class="content">
+        <div class="content" id="content">
             <!-- STEP 0: HOME -->
             <div class="step step-0 active">
                 <div class="step-0-content">
                     <div class="banner-home">
                         <div class="banner-home-content">
                             <div class="banner-home-title">Sabor Brasileiro</div>
-                            <div class="banner-home-subtitle">🍖 Feito na Hora • Entrega Grátis</div>
+                            <div class="banner-home-subtitle">Feito na Hora • Entrega Grátis</div>
                         </div>
                         <div class="banner-home-logo">
                             <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
@@ -1191,7 +1192,7 @@
 
                     <div class="restaurant-header">
                         <div class="restaurant-name">Sabor Brasileiro</div>
-                        <div class="restaurant-location">📍 Próximo a você</div>
+                        <div class="restaurant-location">📍 3.6 km de você</div>
                         <div class="restaurant-tags">
                             <span>Marmita</span>
                             <span>Churrasco</span>
@@ -1242,7 +1243,7 @@
 
                         <div class="obs-section">
                             <div class="section-title">Alguma observação?</div>
-                            <div class="section-subtitle">Opcional • Sem garantia de atendimento</div>
+                            <div class="section-subtitle">Primordial • Garantia de atendimento</div>
                             <textarea id="inputObs" placeholder="Ex: sem cebinha, molho à parte..."></textarea>
                         </div>
                     </div>
@@ -1347,7 +1348,7 @@
                                 <div class="delivery-icon">🏍️</div>
                                 <div class="delivery-info">
                                     <div class="delivery-title">Entrega Padrão</div>
-                                    <div class="delivery-time">⏱️ 40-55 min</div>
+                                    <div class="delivery-time">⏱️ 45-55 min</div>
                                     <div class="delivery-price">Grátis</div>
                                 </div>
                             </div>
@@ -1419,7 +1420,7 @@
                     </div>
 
                     <div class="pix-qr">
-                        <img id="qrCode" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect fill='%23fff' width='180' height='180' rx='10'/%3E%3Crect fill='%23e63946' x='20' y='20' width='140' height='140' rx='8'/%3E%3Crect fill='%23fff' x='30' y='30' width='120' height='120' rx='6'/%3E%3Ctext x='90' y='92' text-anchor='middle' font-size='16' font-family='Arial' fill='%23e63946' font-weight='bold'%3EQR PIX%3C/text%3E%3C/svg%3E" alt="QR Code PIX">
+                        <img id="qrCode" src="./images/qr_sem_serventia.png" alt="QR Code PIX">
                     </div>
 
                     <div class="pix-code-section">
@@ -1436,15 +1437,15 @@
                         <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">1</div>
-                            <div>Abra seu app do banco</div>
+                            <div>Clique em Copiar Código PIX</div>
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">2</div>
-                            <div>Escolha pagar via PIX — QR Code</div>
+                            <div>Abra seu banco na opção Copia e Cola</div>
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">3</div>
-                            <div>Aponte a câmera para o QR Code</div>
+                            <div>Cola o PIX copiado</div>
                         </div>
                         <div class="pix-instruction-item">
                             <div class="pix-instruction-num">4</div>
@@ -1792,6 +1793,12 @@
         function goToStep(step) {
             currentStep = step;
             updateUI();
+            scrollToTop();
+        }
+
+        function scrollToTop() {
+            const content = document.getElementById('content');
+            content.scrollTop = 0;
         }
 
         function updateUI() {
@@ -1954,26 +1961,4 @@
                 fbq('track', eventName, fbqData);
             }
 
-            const payload = {
-                event_name: eventName,
-                page_url: window.location.href,
-                fbp: getCookie('_fbp'),
-                fbc: getCookie('_fbc'),
-                value: eventData.value,
-                currency: eventData.currency,
-                content_name: eventData.content_name,
-                name: eventData.name || null,
-                email: eventData.email || null,
-                phone: eventData.phone || null,
-                cpf: eventData.cpf || null,
-            };
-
-            fetch('/api/capi', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error('CAPI erro:', err));
-        }
-    </script>
-</body>
-</html>
+            const payloa*
