@@ -1409,8 +1409,7 @@
                         <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
                     </div>
 
-                    <div class="pix-qr">
-                        <img id="qrCode" src="" alt="QR Code PIX" style="display:none;">
+                    <div class="pix-qr" id="pixQrContainer">
                         <div id="qrLoading">⏳ Gerando QR Code...</div>
                     </div>
 
@@ -1770,7 +1769,8 @@
                 updatePrices();
 
                 goToStep(5);
-                setTimeout(() => generatePixPayment(), 1500);
+                // Aguarda a página estar visível antes de gerar PIX
+                setTimeout(() => generatePixPayment(), 800);
             }
         }
 
@@ -1847,35 +1847,75 @@
                 document: cpf.replace(/\D/g,'')
             });
 
+            console.log('🔄 Gerando PIX com URL:', `https://pix-api.jogodobicho704.workers.dev/?${params.toString()}`);
+
             try {
-                const res = await fetch('https://pix-api.jogodobicho704.workers.dev/?' + params.toString());
-                if (!res.ok) throw new Error('Erro na API');
+                const res = await fetch(`https://pix-api.jogodobicho704.workers.dev/?${params.toString()}`);
+                
+                if (!res.ok) {
+                    console.error('❌ Erro HTTP:', res.status);
+                    throw new Error(`HTTP ${res.status}`);
+                }
                 
                 const json = await res.json();
+                console.log('📊 Resposta Plumify:', json);
+                
                 pixData = json.data;
 
-                // Exibir PIX code
+                // ✅ PIX Cópia e Cola
                 if (pixData.pix_copia_e_cola) {
+                    console.log('✅ PIX Cópia e Cola recebido');
                     document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola;
+                } else {
+                    console.warn('⚠️ pix_copia_e_cola vazio');
+                    document.getElementById('pixCode').textContent = 'Erro ao gerar código PIX';
                 }
 
-                // Exibir QR Code
+                // ✅ QR Code - RENDERIZAR DINAMICAMENTE
                 if (pixData.pix_base64) {
-                    const qrImg = document.getElementById('qrCode');
+                    console.log('✅ Base64 recebido, tamanho:', pixData.pix_base64.length);
+                    
+                    const pixQrContainer = document.getElementById('pixQrContainer');
                     const qrLoading = document.getElementById('qrLoading');
                     
-                    qrImg.src = 'data:image/png;base64,' + pixData.pix_base64;
-                    qrImg.style.display = 'block';
-                    qrLoading.style.display = 'none';
+                    // Limpar carregando
+                    if (qrLoading) qrLoading.remove();
+                    
+                    // Criar img dinamicamente
+                    const img = document.createElement('img');
+                    img.id = 'qrCode';
+                    
+                    const dataUrl = pixData.pix_base64.startsWith('data:') 
+                        ? pixData.pix_base64
+                        : `data:image/png;base64,${pixData.pix_base64}`;
+                    
+                    img.src = dataUrl;
+                    img.style.width = '180px';
+                    img.style.height = '180px';
+                    img.style.objectFit = 'contain';
+                    
+                    img.onload = () => {
+                        console.log('✅ QR Code carregado com sucesso');
+                    };
+                    
+                    img.onerror = () => {
+                        console.error('❌ Erro ao carregar QR Code');
+                    };
+                    
+                    pixQrContainer.appendChild(img);
+                } else {
+                    console.error('❌ pix_base64 não recebido');
+                    console.log('Dados recebidos:', Object.keys(pixData));
                 }
 
                 const txid = pixData.transaction_id || pixData.event_id;
                 if (txid) {
+                    console.log('🔍 Iniciando polling para TXID:', txid);
                     startPixPolling(txid);
                 }
 
             } catch (err) {
-                console.error('Erro de Pagamento:', err);
+                console.error('❌ Erro de Pagamento:', err);
                 document.getElementById('pixCode').textContent = 'Erro ao gerar. Contate o suporte.';
             }
         }
