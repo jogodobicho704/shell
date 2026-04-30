@@ -105,8 +105,24 @@ export default async function handler(req, res) {
     custom_data.currency = data.currency || 'BRL';
   }
 
+  // ── TRACKING DATA ──
+  // Adiciona parametros de rastreamento ao event_source_url
+  const trackingParams = new URLSearchParams();
+  if (data.utm_source) trackingParams.append('utm_source', data.utm_source);
+  if (data.utm_medium) trackingParams.append('utm_medium', data.utm_medium);
+  if (data.utm_campaign) trackingParams.append('utm_campaign', data.utm_campaign);
+  if (data.utm_content) trackingParams.append('utm_content', data.utm_content);
+  if (data.utm_term) trackingParams.append('utm_term', data.utm_term);
+  if (data.fbclid) trackingParams.append('fbclid', data.fbclid);
+  if (data.xcod) trackingParams.append('xcod', data.xcod);
+  if (data.sck) trackingParams.append('sck', data.sck);
+
+  const finalEventSourceUrl = trackingParams.toString() 
+    ? `${event_source_url}?${trackingParams.toString()}`
+    : event_source_url;
+
   // Log para debug (remover em produção)
-  console.log(`[CAPI] Event: ${event_name} | Email: ${email_raw} | Phone: ${phone_raw} | CPF: ${cpf_raw} | Value: ${value}`);
+  console.log(`[CAPI] Event: ${event_name} | Email: ${email_raw} | Phone: ${phone_raw} | CPF: ${cpf_raw} | Value: ${value} | UTM_Source: ${data.utm_source}`);
 
   // ── PAYLOAD ──
   const payload = {
@@ -115,7 +131,7 @@ export default async function handler(req, res) {
       event_time:       event_time,
       event_id:         event_id,
       action_source:    'website',
-      event_source_url: event_source_url,
+      event_source_url: finalEventSourceUrl,
       user_data,
       custom_data,
     }],
