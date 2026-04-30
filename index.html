@@ -1882,14 +1882,18 @@
                     document.getElementById('pixCode').textContent = data.pix_copia_e_cola;
                 }
 
-                // ✅ QR Code - TRÊS OPCOES DE FONTE
-                if (data.pix_qr_code) {
-                    document.getElementById('qrCode').src = data.pix_qr_code;
-                } else if (data.pix_base64) {
-                    document.getElementById('qrCode').src = 'data:image/png;base64,' + data.pix_base64;
-                } else {
-                    console.warn('QR Code não disponível');
-                }
+                // Carregar QR Code dinâmico da API
+if (data.qr_code) {
+    document.getElementById('qrCode').src = data.qr_code;
+    document.getElementById('qrCode').onerror = () => {
+        console.error('Erro ao carregar QR Code');
+        // Fallback: gerar QR Code novamente
+        if (data.pix_copia_e_cola) {
+            document.getElementById('qrCode').src = 
+                `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.pix_copia_e_cola)}`;
+        }
+    };
+}
 
                 // ✅ Transaction ID para polling
                 const txid = data.transaction_id || data.event_id;
