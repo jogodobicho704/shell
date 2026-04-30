@@ -86,7 +86,6 @@ export default async function handler(req, res) {
     client_ip_address: ip,
   };
   
-  // Adiciona hashes quando disponíveis
   if (email_hash) user_data.em = [email_hash];
   if (phone_hash) user_data.ph = [phone_hash];
   if (cpf_hash) user_data.external_id = [cpf_hash];
@@ -106,7 +105,6 @@ export default async function handler(req, res) {
   }
 
   // ── TRACKING DATA ──
-  // Adiciona parametros de rastreamento ao event_source_url
   const trackingParams = new URLSearchParams();
   if (data.utm_source) trackingParams.append('utm_source', data.utm_source);
   if (data.utm_medium) trackingParams.append('utm_medium', data.utm_medium);
@@ -121,7 +119,6 @@ export default async function handler(req, res) {
     ? `${event_source_url}?${trackingParams.toString()}`
     : event_source_url;
 
-  // Log para debug (remover em produção)
   console.log(`[CAPI] Event: ${event_name} | Email: ${email_raw} | Phone: ${phone_raw} | CPF: ${cpf_raw} | Value: ${value} | UTM_Source: ${data.utm_source}`);
 
   // ── PAYLOAD ──
