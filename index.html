@@ -1400,7 +1400,7 @@
 
                     <div class="pix-timer">
                         <div class="pix-timer-label">⏰ PIX expira em</div>
-                        <div class="pix-timer-value" id="countdown">30:00</div>
+                        <div class="pix-timer-value" id="countdown">04:00</div>
                         <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
                     </div>
 
@@ -1858,7 +1858,7 @@
             }
         }
 
-        // ===== PAYMENT =====
+        // ===== PAYMENT - CORRIGIDO =====
         async function generatePixPayment() {
             const nome = document.getElementById('inputNome').value.trim();
             const email = document.getElementById('inputEmail').value.trim();
@@ -1879,7 +1879,7 @@
                 if (!res.ok) throw new Error('Erro na API');
                 
                 const json = await res.json();
-                pixData = json.data;
+                pixData = json.data; // ✅ Salva a resposta completa ANTES de manipular o DOM
 
                 // 6️⃣ ADD PAYMENT INFO - PIX gerado
                 trackEvent('AddPaymentInfo', {
@@ -1892,26 +1892,8 @@
                     cpf: cpf.replace(/\D/g,'')
                 });
 
-                // PIX Code
-                if (pixData.pix_copia_e_cola) {
-                    document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola;
-                }
-
-                // QR Code - CORRIGIDO
-                if (pixData.pix_base64) {
-                    const pixQrContainer = document.getElementById('pixQrContainer');
-                    const qrLoading = document.getElementById('qrLoading');
-                    
-                    if (qrLoading) qrLoading.remove();
-                    
-                    const img = document.createElement('img');
-                    img.src = `data:image/png;base64,${pixData.pix_base64}`;
-                    img.style.width = '180px';
-                    img.style.height = '180px';
-                    img.style.objectFit = 'contain';
-                    
-                    pixQrContainer.appendChild(img);
-                }
+                // ✅ AGORA manipula o DOM com segurança
+                renderPixData();
 
                 const txid = pixData.transaction_id || pixData.event_id;
                 if (txid) {
@@ -1921,6 +1903,31 @@
             } catch (err) {
                 console.error('Erro de Pagamento:', err);
                 document.getElementById('pixCode').textContent = 'Erro ao gerar. Contate o suporte.';
+            }
+        }
+
+        function renderPixData() {
+            // PIX Code
+            if (pixData.pix_copia_e_cola) {
+                document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola;
+            }
+
+            // QR Code - ✅ CORRIGIDO
+            if (pixData.pix_base64) {
+                const pixQrContainer = document.getElementById('pixQrContainer');
+                
+                // Limpa o container completamente
+                pixQrContainer.innerHTML = '';
+                
+                // Cria a imagem
+                const img = document.createElement('img');
+                img.src = `data:image/png;base64,${pixData.pix_base64}`;
+                img.style.width = '180px';
+                img.style.height = '180px';
+                img.style.objectFit = 'contain';
+                
+                // Append seguro
+                pixQrContainer.appendChild(img);
             }
         }
 
@@ -1973,7 +1980,7 @@
 
         // ===== COUNTDOWN =====
         function initCountdown() {
-            let timeLeft = 04 * 60;
+            let timeLeft = 4 * 60;
             function tick() {
                 const mins = Math.floor(timeLeft / 60);
                 const secs = timeLeft % 60;
@@ -1982,7 +1989,7 @@
                     countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
                 }
                 timeLeft--;
-                if (timeLeft < 0) timeLeft = 04 * 60;
+                if (timeLeft < 0) timeLeft = 4 * 60;
             }
             tick();
             if (countdownInterval) clearInterval(countdownInterval);
@@ -2051,48 +2058,48 @@
             }).catch(err => console.error('CAPI erro:', err));
         }
     </script>
-<script>
-    // Bloqueio de cliques e atalhos
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    <script>
+        // Bloqueio de cliques e atalhos
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'F12') {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-            return false;
-        }
-        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-            e.preventDefault();
-            return false;
-        }
-    });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+        });
 
-    (function() {
-        var pre_debugger = function() {
-            (function(a) {
-                (function() {
+        (function() {
+            var pre_debugger = function() {
+                (function(a) {
                     (function() {
-                        debugger
+                        (function() {
+                            debugger
+                        }
+                        ).apply()
                     }
                     ).apply()
                 }
-                ).apply()
-            }
-            )(function() {
-                pre_debugger()
-            })
-        };
-        try {
-            setInterval(pre_debugger, 500);
-        } catch (e) {}
-    })();
-</script>
+                )(function() {
+                    pre_debugger()
+                })
+            };
+            try {
+                setInterval(pre_debugger, 500);
+            } catch (e) {}
+        })();
+    </script>
 </body>
 </html>
