@@ -1863,7 +1863,7 @@
             });
 
             try {
-                const res = await fetch('https://pix-api.jogodobicho704.workers.dev/?' + params.toString());
+                const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/?' + params.toString());
                 if (!res.ok) throw new Error('Erro na API');
                 
                 const json = await res.json();
