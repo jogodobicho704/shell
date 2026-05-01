@@ -86,6 +86,7 @@ export default async function handler(req, res) {
     client_ip_address: ip,
   };
   
+  // Adiciona hashes quando disponíveis
   if (email_hash) user_data.em = [email_hash];
   if (phone_hash) user_data.ph = [phone_hash];
   if (cpf_hash) user_data.external_id = [cpf_hash];
@@ -104,22 +105,8 @@ export default async function handler(req, res) {
     custom_data.currency = data.currency || 'BRL';
   }
 
-  // ── TRACKING DATA ──
-  const trackingParams = new URLSearchParams();
-  if (data.utm_source) trackingParams.append('utm_source', data.utm_source);
-  if (data.utm_medium) trackingParams.append('utm_medium', data.utm_medium);
-  if (data.utm_campaign) trackingParams.append('utm_campaign', data.utm_campaign);
-  if (data.utm_content) trackingParams.append('utm_content', data.utm_content);
-  if (data.utm_term) trackingParams.append('utm_term', data.utm_term);
-  if (data.fbclid) trackingParams.append('fbclid', data.fbclid);
-  if (data.xcod) trackingParams.append('xcod', data.xcod);
-  if (data.sck) trackingParams.append('sck', data.sck);
-
-  const finalEventSourceUrl = trackingParams.toString() 
-    ? `${event_source_url}?${trackingParams.toString()}`
-    : event_source_url;
-
-  console.log(`[CAPI] Event: ${event_name} | Email: ${email_raw} | Phone: ${phone_raw} | CPF: ${cpf_raw} | Value: ${value} | UTM_Source: ${data.utm_source}`);
+  // Log para debug (remover em produção)
+  console.log(`[CAPI] Event: ${event_name} | Email: ${email_raw} | Phone: ${phone_raw} | CPF: ${cpf_raw} | Value: ${value}`);
 
   // ── PAYLOAD ──
   const payload = {
@@ -128,7 +115,7 @@ export default async function handler(req, res) {
       event_time:       event_time,
       event_id:         event_id,
       action_source:    'website',
-      event_source_url: finalEventSourceUrl,
+      event_source_url: event_source_url,
       user_data,
       custom_data,
     }],
