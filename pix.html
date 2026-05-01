@@ -32,7 +32,6 @@
             position: relative;
         }
 
-        /* ===== HEADER ===== */
         .header {
             display: flex;
             align-items: center;
@@ -45,32 +44,12 @@
             z-index: 50;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-back {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #333;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .header-title {
             font-size: 16px;
             font-weight: 600;
             color: #333;
         }
 
-        /* ===== CONTENT ===== */
         .content {
             flex: 1;
             overflow-y: auto;
@@ -78,7 +57,6 @@
             scroll-behavior: smooth;
         }
 
-        /* ===== PIX SECTION ===== */
         .pix-section {
             padding: 20px 16px;
             text-align: center;
@@ -156,9 +134,8 @@
         }
 
         .pix-qr img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
+            max-width: 180px;
+            max-height: 180px;
         }
 
         .pix-code-section {
@@ -186,8 +163,6 @@
             line-height: 1.6;
             user-select: all;
             margin-bottom: 12px;
-            max-height: 100px;
-            overflow-y: auto;
         }
 
         .btn-copy {
@@ -207,6 +182,34 @@
         .btn-copy:hover,
         .btn-copy:active {
             background: #d62828;
+        }
+
+        .pix-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 16px 0;
+            text-align: center;
+        }
+
+        .pix-status.waiting {
+            background: rgba(230, 57, 70, 0.1);
+            color: #e63946;
+        }
+
+        .pix-status.paid {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .spin {
+            display: inline-block;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .pix-instructions {
@@ -244,43 +247,9 @@
             flex-shrink: 0;
         }
 
-        .pix-status {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 16px 0;
-            text-align: center;
-        }
-
-        .pix-status.waiting {
-            background: rgba(230, 57, 70, 0.1);
-            color: #e63946;
-        }
-
-        .pix-status.paid {
-            background: rgba(76, 175, 80, 0.1);
-            color: #4caf50;
-        }
-
-        .spin {
-            display: inline-block;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* ===== SUCCESS SCREEN ===== */
         .success-section {
             padding: 40px 20px;
             text-align: center;
-            display: none;
-        }
-
-        .success-section.active {
-            display: block;
         }
 
         .success-icon {
@@ -310,7 +279,6 @@
             font-weight: 400;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             position: fixed;
             bottom: 0;
@@ -377,145 +345,149 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="header-left">
-                <button class="header-back" onclick="goBack()">←</button>
-                <span class="header-title" id="headerTitle">Pagamento PIX</span>
-            </div>
+            <span class="header-title" id="headerTitle">Pagamento PIX</span>
         </div>
 
         <div class="content" id="content">
-            <div class="pix-section" id="pixSection">
-                <div class="pix-greeting">👋 Olá, <span id="pixName">João</span>!</div>
-                <div class="pix-product" id="pixProduct">Seu pedido: Marmitex x1</div>
+            <!-- PIX Payment Screen -->
+            <div id="pixScreen">
+                <div class="pix-section">
+                    <div class="pix-greeting">👋 Olá, <span id="pixName">Cliente</span>!</div>
+                    <div class="pix-product" id="pixProduct">Seu pedido: Marmitex</div>
 
-                <div class="pix-timer">
-                    <div class="pix-timer-label">⏰ PIX expira em</div>
-                    <div class="pix-timer-value" id="countdown">30:00</div>
-                    <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
-                </div>
-
-                <div class="pix-amount">
-                    <div class="pix-amount-label">Total a pagar</div>
-                    <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
-                </div>
-
-                <div class="pix-qr">
-                    <img id="qrCode" src="" alt="QR Code PIX">
-                </div>
-
-                <div class="pix-code-section">
-                    <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
-                    <div class="pix-code-value" id="pixCode">Carregando...</div>
-                    <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
-                </div>
-
-                <div class="pix-status waiting" id="pixStatus">
-                    <span class="spin">⟳</span> Aguardando pagamento...
-                </div>
-
-                <div class="pix-instructions">
-                    <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
-                    <div class="pix-instruction-item">
-                        <div class="pix-instruction-num">1</div>
-                        <div>Clique em Copiar Código PIX</div>
+                    <div class="pix-timer">
+                        <div class="pix-timer-label">⏰ PIX expira em</div>
+                        <div class="pix-timer-value" id="countdown">30:00</div>
+                        <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
                     </div>
-                    <div class="pix-instruction-item">
-                        <div class="pix-instruction-num">2</div>
-                        <div>Abra o APP do seu Banco</div>
-                    </div>
-                    <div class="pix-instruction-item">
-                        <div class="pix-instruction-num">3</div>
-                        <div>Cole o PIX copiado</div>
-                    </div>
-                    <div class="pix-instruction-item">
-                        <div class="pix-instruction-num">4</div>
-                        <div>Confirme o pagamento</div>
-                    </div>
-                </div>
 
-                <div style="font-size: 12px; color: #999; margin-top: 20px; padding-bottom: 20px; font-weight: 400;">
-                    Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
+                    <div class="pix-amount">
+                        <div class="pix-amount-label">Total a pagar</div>
+                        <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
+                    </div>
+
+                    <div class="pix-qr">
+                        <img id="qrCode" src="" alt="QR Code PIX">
+                    </div>
+
+                    <div class="pix-code-section">
+                        <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
+                        <div class="pix-code-value" id="pixCode">Carregando...</div>
+                        <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
+                    </div>
+
+                    <div class="pix-status waiting" id="pixStatus">
+                        <span class="spin">⟳</span> Aguardando pagamento...
+                    </div>
+
+                    <div class="pix-instructions">
+                        <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
+                        <div class="pix-instruction-item">
+                            <div class="pix-instruction-num">1</div>
+                            <div>Clique em Copiar Código PIX</div>
+                        </div>
+                        <div class="pix-instruction-item">
+                            <div class="pix-instruction-num">2</div>
+                            <div>Abra o APP do seu Banco</div>
+                        </div>
+                        <div class="pix-instruction-item">
+                            <div class="pix-instruction-num">3</div>
+                            <div>Cole o PIX copiado</div>
+                        </div>
+                        <div class="pix-instruction-item">
+                            <div class="pix-instruction-num">4</div>
+                            <div>Confirme o pagamento</div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; color: #999; margin-top: 20px; padding-bottom: 20px; font-weight: 400;">
+                        Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
+                    </div>
                 </div>
             </div>
 
-            <div class="success-section" id="successSection">
-                <div class="success-icon">🎉</div>
-                <div class="success-title">Pedido Confirmado!</div>
-                <div class="success-text">
-                    Seu pagamento foi recebido com sucesso!<br><br>
-                    Sua marmita está sendo preparada com carinho.<br><br>
-                    <strong style="color:#e63946;">Tempo estimado: 30–40 minutos</strong>
+            <!-- Success Screen -->
+            <div id="successScreen" class="hidden">
+                <div class="success-section">
+                    <div class="success-icon">🎉</div>
+                    <div class="success-title">Pedido Confirmado!</div>
+                    <div class="success-text">
+                        Seu pagamento foi recebido com sucesso!<br><br>
+                        Sua marmita está sendo preparada com carinho.<br><br>
+                        <strong style="color:#e63946;">Tempo estimado: 30–40 minutos</strong>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="footer" id="footer">
+            <button class="btn btn-secondary" id="backBtn" onclick="goBack()">← Voltar</button>
             <button class="btn btn-primary btn-full hidden" id="whatsappBtn" onclick="openWhatsApp()">💬 Ver status no WhatsApp</button>
         </div>
     </div>
 
     <script>
-        // ===== CARREGAR DADOS DA SESSION =====
-        let pixSession = null;
-        let pixPollInterval = null;
+        // Load data from sessionStorage
+        let pixData = {};
         let countdownInterval = null;
+        let pixPollInterval = null;
 
-        window.addEventListener('load', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const sessionData = sessionStorage.getItem('pixSession');
+            
             if (!sessionData) {
-                alert('Sessão expirada. Redirecionando...');
+                alert('Sessão expirada. Voltando para o início...');
                 window.location.href = './index.html';
                 return;
             }
 
-            pixSession = JSON.parse(sessionData);
-            initializePixScreen();
-        });
+            pixData = JSON.parse(sessionData);
 
-        function initializePixScreen() {
-            // Atualizar dados na tela
-            document.getElementById('pixName').textContent = pixSession.nome.split(' ')[0];
-            document.getElementById('pixProduct').textContent = `Seu pedido: ${pixSession.product}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${pixSession.priceNew.toFixed(2).replace('.',',')}`;
+            // Update UI with data
+            document.getElementById('pixName').textContent = pixData.nome.split(' ')[0];
+            document.getElementById('pixProduct').textContent = `Seu pedido: ${pixData.product_title}`;
+            document.getElementById('pixTotalPrice').textContent = `R$ ${(pixData.product_price / 100).toFixed(2).replace('.',',')}`;
+            document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola || 'Carregando...';
 
-            // Exibir código PIX
-            if (pixSession.pix_copia_e_cola) {
-                document.getElementById('pixCode').textContent = pixSession.pix_copia_e_cola;
+            // Display QR Code
+            if (pixData.pix_base64) {
+                document.getElementById('qrCode').src = pixData.pix_base64;
             }
 
-            // Exibir QR Code (base64 ou URL)
-            if (pixSession.pix_base64) {
-                document.getElementById('qrCode').src = pixSession.pix_base64;
-            } else if (pixSession.pix_qr_code) {
-                document.getElementById('qrCode').src = pixSession.pix_qr_code;
-            }
-
-            // Iniciar contagem regressiva
+            // Start countdown
             initCountdown();
 
-            // Iniciar polling de pagamento
-            if (pixSession.transaction_id) {
-                startPixPolling(pixSession.transaction_id);
+            // Start polling for payment
+            if (pixData.transaction_id) {
+                startPixPolling(pixData.transaction_id);
             }
-        }
+        });
 
         function initCountdown() {
-            let timeLeft = 30 * 60; // 30 minutos
+            let timeLeft = 30 * 60; // 30 minutes
             
             function tick() {
                 const mins = Math.floor(timeLeft / 60);
                 const secs = timeLeft % 60;
-                document.getElementById('countdown').textContent = 
-                    String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+                const countdown = document.getElementById('countdown');
+                countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
                 timeLeft--;
-                if (timeLeft < 0) timeLeft = 30 * 60;
+                
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('pixStatus').innerHTML = '❌ PIX expirado. Gere um novo.';
+                    document.getElementById('pixStatus').classList.remove('waiting');
+                }
             }
             
             tick();
+            if (countdownInterval) clearInterval(countdownInterval);
             countdownInterval = setInterval(tick, 1000);
         }
 
         function startPixPolling(txid) {
+            if (pixPollInterval) clearInterval(pixPollInterval);
+            
             pixPollInterval = setInterval(async () => {
                 try {
                     const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/status/' + txid);
@@ -529,27 +501,27 @@
                         onPixPaid();
                     }
                 } catch(e) {
-                    console.error('Erro ao verificar pagamento:', e);
+                    console.error('Polling error:', e);
                 }
             }, 3000);
         }
 
         function onPixPaid() {
-            clearInterval(countdownInterval);
-            document.getElementById('pixStatus').className = 'pix-status paid';
-            document.getElementById('pixStatus').innerHTML = '✅ Pagamento confirmado!';
-            
-            setTimeout(() => {
-                document.getElementById('pixSection').style.display = 'none';
-                document.getElementById('successSection').classList.add('active');
-                document.getElementById('whatsappBtn').classList.remove('hidden');
-            }, 1500);
+            if (countdownInterval) clearInterval(countdownInterval);
+            if (pixPollInterval) clearInterval(pixPollInterval);
+
+            document.getElementById('pixScreen').classList.add('hidden');
+            document.getElementById('successScreen').classList.remove('hidden');
+            document.getElementById('backBtn').classList.add('hidden');
+            document.getElementById('whatsappBtn').classList.remove('hidden');
         }
 
         function copyPixCode() {
             const code = document.getElementById('pixCode').textContent;
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(code);
+                navigator.clipboard.writeText(code).then(() => {
+                    showCopyFeedback();
+                });
             } else {
                 const ta = document.createElement('textarea');
                 ta.value = code;
@@ -557,8 +529,12 @@
                 ta.select();
                 document.execCommand('copy');
                 document.body.removeChild(ta);
+                showCopyFeedback();
             }
-            const btn = event.target;
+        }
+
+        function showCopyFeedback() {
+            const btn = document.querySelector('.btn-copy');
             const orig = btn.textContent;
             btn.textContent = '✅ Copiado!';
             setTimeout(() => btn.textContent = orig, 2000);
@@ -566,58 +542,45 @@
 
         function openWhatsApp() {
             const phone = '5500000000000';
-            const msg = encodeURIComponent('Olá! Finalizei meu pagamento. Pode confirmar meu pedido?');
+            const msg = encodeURIComponent(`Olá! Finalizei meu pedido de ${pixData.product_title}. Pode confirmar?`);
             window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
         }
 
         function goBack() {
-            if (confirm('Tem certeza que deseja voltar? Seu PIX será cancelado.')) {
+            if (confirm('Tem certeza que deseja voltar? O PIX será cancelado.')) {
                 sessionStorage.removeItem('pixSession');
                 window.location.href = './index.html';
             }
         }
+    </script>
 
-        // ===== ANTI-INSPETOR =====
+    <script>
+        // Impede o botão direito do mouse
         document.addEventListener('contextmenu', event => event.preventDefault());
 
+        // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
         document.addEventListener('keydown', function(e) {
+            // Bloqueia F12
             if (e.key === 'F12') {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
             if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+U (Ver código fonte)
             if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+S (Salvar página)
             if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
                 e.preventDefault();
                 return false;
             }
         });
-
-        (function() {
-            var pre_debugger = function() {
-                (function(a) {
-                    (function() {
-                        (function() {
-                            debugger
-                        }
-                        ).apply()
-                    }
-                    ).apply()
-                }
-                )(function() {
-                    pre_debugger()
-                })
-            };
-            try {
-                setInterval(pre_debugger, 500);
-            } catch (e) {}
-        })();
     </script>
 </body>
 </html>
