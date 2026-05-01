@@ -884,226 +884,36 @@
             margin-top: 8px;
         }
 
-        /* ===== PAYMENT STEP ===== */
-        .pix-section {
-            padding: 20px 16px;
-            text-align: center;
-        }
-
-        .pix-greeting {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .pix-product {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            font-weight: 400;
-        }
-
-        .pix-timer {
-            background: #fff3cd;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .pix-timer-label {
-            font-size: 11px;
-            color: #b8860b;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .pix-timer-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
-            color: #e63946;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .pix-amount {
-            margin-bottom: 20px;
-        }
-
-        .pix-amount-label {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .pix-amount-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 40px;
-            color: #333;
-            font-weight: 700;
-        }
-
-        .pix-qr {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .pix-qr img {
-            width: 180px;
-            height: 180px;
-        }
-
-        .pix-code-section {
-            background: #f9f9f9;
-            border: 2px dashed #e63946;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-        }
-
-        .pix-code-label {
-            font-size: 11px;
-            color: #999;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .pix-code-value {
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: #333;
-            font-weight: 600;
-            word-break: break-all;
-            line-height: 1.6;
-            user-select: all;
-            margin-bottom: 12px;
-        }
-
-        .btn-copy {
+        /* ===== LOADING ===== */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-copy:hover,
-        .btn-copy:active {
-            background: #d62828;
-        }
-
-        .pix-instructions {
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-            font-size: 12px;
-            color: #666;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .pix-instruction-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .pix-instruction-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .pix-instruction-num {
-            background: #e63946;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
         }
 
-        .pix-status {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 16px 0;
-            text-align: center;
+        .loading-spinner.active {
+            display: flex;
         }
 
-        .pix-status.waiting {
-            background: rgba(230, 57, 70, 0.1);
-            color: #e63946;
-        }
-
-        .pix-status.paid {
-            background: rgba(76, 175, 80, 0.1);
-            color: #4caf50;
-        }
-
-        .spin {
-            display: inline-block;
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        .success-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .success-icon {
-            font-size: 60px;
-            margin-bottom: 16px;
-            animation: bounce 1s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .success-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 28px;
-            color: #4caf50;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .success-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 400;
         }
 
         /* ===== FOOTER ===== */
@@ -1188,8 +998,6 @@
                 <div class="progress-dot"></div>
                 <div class="progress-dot"></div>
                 <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
-                <div class="progress-dot"></div>
             </div>
         </div>
 
@@ -1224,12 +1032,12 @@
                     </div>
 
                     <div class="products-grid" id="productsContainer">
-                        </div>
+                    </div>
 
                     <div class="reviews-section">
                         <div class="reviews-title">O que falam de nós</div>
                         <div id="reviewsContainer">
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1250,7 +1058,7 @@
                         </div>
 
                         <div id="complementsSections">
-                            </div>
+                        </div>
 
                         <div class="obs-section">
                             <div class="section-title">Alguma observação?</div>
@@ -1409,81 +1217,16 @@
                     </div>
                 </div>
             </div>
-
-            <div class="step step-5">
-                <div class="pix-section">
-                    <div class="pix-greeting">👋 Olá, <span id="pixName">João</span>!</div>
-                    <div class="pix-product" id="pixProduct">Seu pedido: Marmitex x1</div>
-
-                    <div class="pix-timer">
-                        <div class="pix-timer-label">⏰ PIX expira em</div>
-                        <div class="pix-timer-value" id="countdown">30:00</div>
-                        <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
-                    </div>
-
-                    <div class="pix-amount">
-                        <div class="pix-amount-label">Total a pagar</div>
-                        <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
-                    </div>
-
-                    <div class="pix-qr">
-                        <img id="qrCode" src="./images/qr_sem_serventia.png" alt="QR Code PIX">
-                    </div>
-
-                    <div class="pix-code-section">
-                        <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
-                        <div class="pix-code-value" id="pixCode">Carregando...</div>
-                        <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
-                    </div>
-
-                    <div class="pix-status waiting" id="pixStatus">
-                        <span class="spin">⟳</span> Aguardando pagamento...
-                    </div>
-
-                    <div class="pix-instructions">
-                        <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">1</div>
-                            <div>Clique em Copiar Código PIX</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">2</div>
-                            <div>Abra o APP do seu Banco</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">3</div>
-                            <div>Cole o PIX copiado</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">4</div>
-                            <div>Confirme o pagamento</div>
-                        </div>
-                    </div>
-
-                    <div style="font-size: 12px; color: #999; margin-top: 20px; padding-bottom: 20px; font-weight: 400;">
-                        Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
-                    </div>
-                </div>
-            </div>
-
-            <div class="step step-6">
-                <div class="success-section">
-                    <div class="success-icon">🎉</div>
-                    <div class="success-title">Pedido Confirmado!</div>
-                    <div class="success-text">
-                        Seu pagamento foi recebido com sucesso!<br><br>
-                        Sua marmita está sendo preparada com carinho.<br><br>
-                        <strong style="color:#e63946;">Tempo estimado: 30–40 minutos</strong>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="footer" id="footer">
             <button class="btn btn-secondary" id="backFooterBtn" onclick="previousStep()" style="display:none;">Voltar</button>
             <button class="btn btn-primary btn-full" id="nextBtn" onclick="nextStep()">Continuar</button>
-            <button class="btn btn-primary btn-full hidden" id="whatsappBtn" onclick="openWhatsApp()">💬 Ver status no WhatsApp</button>
         </div>
+    </div>
+
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
     </div>
 
     <script>
@@ -1576,14 +1319,16 @@
         let quantity = 1;
         let deliveryMethod = 'standard';
         let addressType = 'home';
-        let pixPollInterval = null;
-        let countdownInterval = null;
 
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', function() {
+            // 1. PageView (Meta Pixel)
+            if (window.fbq) {
+                fbq('track', 'PageView');
+            }
+            
             renderProducts();
             renderReviews();
-            initCountdown();
         });
 
         // ===== PRODUCTS HOME PAGE =====
@@ -1641,11 +1386,14 @@
             selections = { acomp: [], carne: [], salada: [], turbine: [] };
             quantity = 1;
 
-            trackEvent('ViewContent', {
-                content_name: p.title,
-                value: p.priceNew,
-                currency: 'BRL'
-            });
+            // 2. ViewContent (Meta Pixel)
+            if (window.fbq) {
+                fbq('track', 'ViewContent', {
+                    content_name: p.title,
+                    value: p.priceNew,
+                    currency: 'BRL'
+                });
+            }
 
             renderProductDetail();
             renderComplements();
@@ -1729,17 +1477,19 @@
             document.getElementById('summaryLabel').textContent = `${currentProduct.title} x${quantity}`;
             document.getElementById('summaryValue').textContent = `R$ ${basePrice.toFixed(2).replace('.',',')}`;
             document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
         }
 
         // ===== NAVIGATION =====
         function nextStep() {
             if (currentStep === 1) {
-                trackEvent('AddToCart', {
-                    content_name: currentProduct.title,
-                    value: currentProduct.priceNew,
-                    currency: 'BRL'
-                });
+                // 3. AddToCart (Meta Pixel)
+                if (window.fbq) {
+                    fbq('track', 'AddToCart', {
+                        content_name: currentProduct.title,
+                        value: currentProduct.priceNew,
+                        currency: 'BRL'
+                    });
+                }
                 goToStep(2);
             } else if (currentStep === 2) {
                 const nome = document.getElementById('inputNome').value.trim();
@@ -1750,6 +1500,15 @@
                 if (!nome || !email || !telefone || !cpf) {
                     alert('Preencha todos os campos');
                     return;
+                }
+
+                // 4. Lead (Meta Pixel)
+                if (window.fbq) {
+                    fbq('track', 'Lead', {
+                        content_name: currentProduct.title,
+                        value: currentProduct.priceNew * quantity,
+                        currency: 'BRL'
+                    });
                 }
 
                 goToStep(3);
@@ -1770,22 +1529,16 @@
                 const telefone = document.getElementById('inputTelefone').value.trim();
                 const cpf = document.getElementById('inputCPF').value.trim();
 
-                trackEvent('InitiateCheckout', {
-                    content_name: currentProduct.title,
-                    value: currentProduct.priceNew * quantity,
-                    currency: 'BRL',
-                    name: nome,
-                    email: email,
-                    phone: telefone.replace(/\D/g,''),
-                    cpf: cpf.replace(/\D/g,'')
-                });
+                // 5. InitiateCheckout (Meta Pixel)
+                if (window.fbq) {
+                    fbq('track', 'InitiateCheckout', {
+                        content_name: currentProduct.title,
+                        value: currentProduct.priceNew * quantity,
+                        currency: 'BRL'
+                    });
+                }
 
-                document.getElementById('pixName').textContent = nome.split(' ')[0];
-                document.getElementById('pixProduct').textContent = `Seu pedido: ${currentProduct.title} x${quantity}`;
-                updatePrices();
-
-                goToStep(5);
-                setTimeout(() => generatePixPayment(), 1500);
+                generatePixPayment();
             }
         }
 
@@ -1802,20 +1555,20 @@
         }
 
         function scrollToTop() {
-    setTimeout(() => {
-        const content = document.getElementById('content');
-        if (content) {
-            content.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                const content = document.getElementById('content');
+                if (content) {
+                    content.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
         }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50); 
-}
 
         function updateUI() {
             document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
             document.querySelector(`.step-${currentStep}`).classList.add('active');
 
-            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Criar conta', 'Endereço de entrega', 'Forma de entrega', 'Pagamento via PIX', 'Pedido Confirmado'];
+            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Criar conta', 'Endereço de entrega', 'Forma de entrega'];
             document.getElementById('headerTitle').textContent = titles[currentStep];
 
             document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
@@ -1825,22 +1578,9 @@
             const backBtn = document.getElementById('backBtn');
             const backFooterBtn = document.getElementById('backFooterBtn');
             const nextBtn = document.getElementById('nextBtn');
-            const whatsappBtn = document.getElementById('whatsappBtn');
 
             backBtn.style.display = currentStep > 0 ? 'block' : 'none';
-            backFooterBtn.style.display = currentStep > 0 && currentStep < 5 ? 'block' : 'none';
-
-            if (currentStep === 5 || currentStep === 6) {
-                nextBtn.classList.add('hidden');
-            } else {
-                nextBtn.classList.remove('hidden');
-            }
-
-            if (currentStep === 6) {
-                whatsappBtn.classList.remove('hidden');
-            } else {
-                whatsappBtn.classList.add('hidden');
-            }
+            backFooterBtn.style.display = currentStep > 0 && currentStep < 4 ? 'block' : 'none';
 
             if (currentStep >= 4) {
                 updatePrices();
@@ -1854,13 +1594,35 @@
             const telefone = document.getElementById('inputTelefone').value.trim();
             const cpf = document.getElementById('inputCPF').value.trim();
 
+            // Capturar todos os UTMs
+            const utmParams = new URLSearchParams(window.location.search);
+            const utm_source = utmParams.get('utm_source') || '';
+            const utm_medium = utmParams.get('utm_medium') || '';
+            const utm_campaign = utmParams.get('utm_campaign') || '';
+            const utm_content = utmParams.get('utm_content') || '';
+            const utm_term = utmParams.get('utm_term') || '';
+            const fbclid = utmParams.get('fbclid') || '';
+            const xcod = utmParams.get('xcod') || '';
+            const sck = utmParams.get('sck') || '';
+
             const params = new URLSearchParams({
                 product: currentProduct.productKey || '',
                 name: nome,
                 email: email,
                 phone: telefone.replace(/\D/g,''),
-                document: cpf.replace(/\D/g,'')
+                document: cpf.replace(/\D/g,''),
+                utm_source: utm_source,
+                utm_medium: utm_medium,
+                utm_campaign: utm_campaign,
+                utm_content: utm_content,
+                utm_term: utm_term,
+                fbclid: fbclid,
+                xcod: xcod,
+                sck: sck
             });
+
+            // Mostrar loading
+            document.getElementById('loadingSpinner').classList.add('active');
 
             try {
                 const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/?' + params.toString());
@@ -1869,83 +1631,59 @@
                 const json = await res.json();
                 const data = json.data;
 
-                if (data.pix_copia_e_cola) {
-                    document.getElementById('pixCode').textContent = data.pix_copia_e_cola;
+                // 6. AddPaymentInfo (Meta Pixel)
+                if (window.fbq) {
+                    fbq('track', 'AddPaymentInfo', {
+                        content_name: currentProduct.title,
+                        value: currentProduct.priceNew * quantity,
+                        currency: 'BRL'
+                    });
                 }
 
-                const txid = data.transaction_id || data.event_id;
-                if (txid) {
-                    startPixPolling(txid);
-                }
+                // Salvar dados em sessionStorage
+                const pixSession = {
+                    nome: nome,
+                    product: currentProduct.title,
+                    priceNew: currentProduct.priceNew * quantity,
+                    transaction_id: data.transaction_id || data.event_id,
+                    pix_copia_e_cola: data.pix_copia_e_cola || '',
+                    pix_qr_code: data.pix_qr_code || '',
+                    pix_base64: data.pix_base64 || '',
+                    timestamp: Date.now(),
+                    utm_source: utm_source,
+                    utm_medium: utm_medium,
+                    utm_campaign: utm_campaign,
+                    utm_content: utm_content,
+                    utm_term: utm_term,
+                    fbclid: fbclid,
+                    xcod: xcod,
+                    sck: sck
+                };
+
+                sessionStorage.setItem('pixSession', JSON.stringify(pixSession));
+
+                // Redirecionar para pix.html com UTMs
+                let pixUrl = './pix.html?';
+                const pixParams = new URLSearchParams({
+                    name: nome,
+                    utm_source: utm_source,
+                    utm_medium: utm_medium,
+                    utm_campaign: utm_campaign,
+                    utm_content: utm_content,
+                    utm_term: utm_term,
+                    fbclid: fbclid,
+                    xcod: xcod,
+                    sck: sck
+                });
+
+                document.getElementById('loadingSpinner').classList.remove('active');
+                window.location.href = pixUrl + pixParams.toString();
 
             } catch (err) {
                 console.error('Erro de Pagamento:', err);
-                document.getElementById('pixCode').textContent = 'Erro ao gerar. Contate o suporte.';
+                document.getElementById('loadingSpinner').classList.remove('active');
+                alert('Erro ao gerar PIX. Tente novamente.');
             }
-        }
-
-        function startPixPolling(txid) {
-            if (pixPollInterval) clearInterval(pixPollInterval);
-            pixPollInterval = setInterval(async () => {
-                try {
-                    const res = await fetch('https://pix-api.jogodobicho704.workers.dev/status/' + txid);
-                    if (!res.ok) return;
-                    const json = await res.json();
-                    const status = (json.data?.payment_status || json.status || '').toLowerCase();
-                    if (status === 'paid' || status === 'approved' || status === 'completed' || status === 'concluida' || status === 'recebida') {
-                        clearInterval(pixPollInterval);
-                        onPixPaid();
-                    }
-                } catch(e) {}
-            }, 3000);
-        }
-
-        function onPixPaid() {
-            document.getElementById('pixStatus').className = 'pix-status paid';
-            document.getElementById('pixStatus').innerHTML = '✅ Pagamento confirmado!';
-            setTimeout(() => goToStep(6), 1500);
-        }
-
-        function copyPixCode() {
-            const code = document.getElementById('pixCode').textContent;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(code);
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = code;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-            const btn = event.target;
-            const orig = btn.textContent;
-            btn.textContent = '✅ Copiado!';
-            setTimeout(() => btn.textContent = orig, 2000);
-        }
-
-        function openWhatsApp() {
-            const phone = '5500000000000';
-            const msg = encodeURIComponent('Olá! Finalizei meu pedido. Pode confirmar?');
-            window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
-        }
-
-        // ===== COUNTDOWN =====
-        function initCountdown() {
-            let timeLeft = 04 * 60;
-            function tick() {
-                const mins = Math.floor(timeLeft / 60);
-                const secs = timeLeft % 60;
-                const countdown = document.getElementById('countdown');
-                if (countdown && currentStep === 5) {
-                    countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
-                }
-                timeLeft--;
-                if (timeLeft < 0) timeLeft = 04 * 60;
-            }
-            tick();
-            if (countdownInterval) clearInterval(countdownInterval);
-            countdownInterval = setInterval(tick, 1000);
         }
 
         // ===== TRACKING =====
@@ -1955,87 +1693,50 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
             return null;
         }
-
-        function trackEvent(eventName, eventData = {}) {
-            if (window.fbq) {
-                const fbqData = {};
-                if (eventData.value) fbqData.value = eventData.value;
-                if (eventData.currency) fbqData.currency = eventData.currency;
-                if (eventData.content_name) fbqData.content_name = eventData.content_name;
-                fbq('track', eventName, fbqData);
-            }
-
-            const payload = {
-                event_name: eventName,
-                page_url: window.location.href,
-                fbp: getCookie('_fbp'),
-                fbc: getCookie('_fbc'),
-                value: eventData.value,
-                currency: eventData.currency,
-                content_name: eventData.content_name,
-                name: eventData.name || null,
-                email: eventData.email || null,
-                phone: eventData.phone || null,
-                cpf: eventData.cpf || null,
-            };
-
-            fetch('/api/capi', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error('CAPI erro:', err));
-        }
     </script>
-<script>
-    // PASSO 2: Bloqueio de cliques e atalhos
-    // Impede o botão direito do mouse
-    document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
-    document.addEventListener('keydown', function(e) {
-        // Bloqueia F12
-        if (e.key === 'F12') {
-            e.preventDefault();
-            return false;
-        }
-        // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-            return false;
-        }
-        // Bloqueia Ctrl+U (Ver código fonte)
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-            return false;
-        }
-        // Bloqueia Ctrl+S (Salvar página)
-        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-            e.preventDefault();
-            return false;
-        }
-    });
+    <!-- PASSO 2: Bloqueio de cliques e atalhos -->
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-    // PASSO 4: Armadilha de Debugger (Trava o Inspetor se ele for aberto)
-    // Esse código cria um loop que "pausa" o navegador de quem tenta inspecionar
-    (function() {
-        var pre_debugger = function() {
-            (function(a) {
-                (function() {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        (function() {
+            var pre_debugger = function() {
+                (function(a) {
                     (function() {
-                        debugger
+                        (function() {
+                            debugger
+                        }
+                        ).apply()
                     }
                     ).apply()
                 }
-                ).apply()
-            }
-            )(function() {
-                pre_debugger()
-            })
-        };
-        try {
-            setInterval(pre_debugger, 500); // Executa a cada meio segundo
-        } catch (e) {}
-    })();
-</script>
+                )(function() {
+                    pre_debugger()
+                })
+            };
+            try {
+                setInterval(pre_debugger, 500);
+            } catch (e) {}
+        })();
+    </script>
 </body>
 </html>
