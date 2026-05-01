@@ -446,12 +446,13 @@
             // Update UI with data
             document.getElementById('pixName').textContent = pixData.nome.split(' ')[0];
             document.getElementById('pixProduct').textContent = `Seu pedido: ${pixData.product_title}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${(pixData.product_price / 100).toFixed(2).replace('.',',')}`;
+            document.getElementById('pixTotalPrice').textContent = `R$ ${parseFloat(pixData.product_price).toFixed(2).replace('.',',')}`;
             document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola || 'Carregando...';
 
             // Display QR Code
             if (pixData.pix_base64) {
-                document.getElementById('qrCode').src = pixData.pix_base64;
+                const b64 = pixData.pix_base64;
+                document.getElementById('qrCode').src = b64.startsWith('data:') ? b64 : 'data:image/png;base64,' + b64;
             }
 
             // Start countdown
