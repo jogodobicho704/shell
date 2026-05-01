@@ -121,21 +121,29 @@
             font-weight: 700;
         }
 
+        /* ===== QR Code Display Design Improvement ===== */
         .pix-qr {
             background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px;
-            margin: 20px 0;
+            border: 2px dashed #e0e0e0;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 220px;
+            width: fit-content;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .pix-qr:hover {
+            transform: scale(1.02);
         }
 
         .pix-qr img {
-            max-width: 180px;
-            max-height: 180px;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
         }
 
         .pix-code-section {
@@ -427,45 +435,63 @@
     </div>
 
     <script>
-        // Load data from sessionStorage
-        let pixData = {};
         let countdownInterval = null;
         let pixPollInterval = null;
 
         document.addEventListener('DOMContentLoaded', function() {
-            const sessionData = sessionStorage.getItem('pixSession');
+            // Obter os dados diretamente da URL
+            const urlParams = new URLSearchParams(window.location.search);
             
-            if (!sessionData) {
-                alert('Sessão expirada. Voltando para o início...');
+            const pixCode = urlParams.get('pix');
+            const qrUrl = urlParams.get('qr');
+            const txid = urlParams.get('txid');
+            const nameParam = urlParams.get('name') || 'Cliente';
+            const priceParam = urlParams.get('price') || '0';
+            const productParam = urlParams.get('product') || 'Marmitex';
+
+            if (!pixCode) {
+                alert('Link inválido ou expirado. Voltando para o início...');
                 window.location.href = './index.html';
                 return;
             }
 
-            pixData = JSON.parse(sessionData);
+            // Atualizar UI com os dados obtidos
+            document.getElementById('pixName').textContent = nameParam.split(' ')[0];
+            document.getElementById('pixProduct').textContent = `Seu pedido: ${productParam}`;
+            document.getElementById('pixTotalPrice').textContent = `R$ ${parseFloat(priceParam).toFixed(2).replace('.',',')}`;
+            document.getElementById('pixCode').textContent = pixCode;
 
-            // Update UI with data
-            document.getElementById('pixName').textContent = pixData.nome.split(' ')[0];
-            document.getElementById('pixProduct').textContent = `Seu pedido: ${pixData.product_title}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${parseFloat(pixData.product_price).toFixed(2).replace('.',',')}`;
-            document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola || 'Carregando...';
-
-            // Display QR Code
-            if (pixData.pix_base64) {
-                const b64 = pixData.pix_base64;
-                document.getElementById('qrCode').src = b64.startsWith('data:') ? b64 : 'data:image/png;base64,' + b64;
+            // ===== Correção Bug Exibição QR Code =====
+            const qrImage = document.getElementById('qrCode');
+            if (qrUrl) {
+                // Caso a API tenha devolvido a imagem crua (data:image) ou o link direto 
+                if (qrUrl.startsWith('http') || qrUrl.startsWith('data:')) {
+                    qrImage.src = qrUrl;
+                } else {
+                    // Fallback para caso venha um base64 puro e incompleto
+                    qrImage.src = 'data:image/png;base64,' + qrUrl;
+                }
+            } else {
+                // Se tudo falhar, geramos a imagem via API pública passando o PIX copia e cola
+                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}`;
             }
 
-            // Start countdown
+            // Guardar globalmente apenas para uso do botão final do zap (Success Screen)
+            window.pixData = {
+                product_title: productParam
+            };
+
+            // Iniciar contagem
             initCountdown();
 
-            // Start polling for payment
-            if (pixData.transaction_id) {
-                startPixPolling(pixData.transaction_id);
+            // Iniciar verificação de status caso haja um transaction_id
+            if (txid) {
+                startPixPolling(txid);
             }
         });
 
         function initCountdown() {
-            let timeLeft = 04 * 60; // 5 minutes
+            let timeLeft = 04 * 60; // 5 minutos
             
             function tick() {
                 const mins = Math.floor(timeLeft / 60);
@@ -542,14 +568,14 @@
         }
 
         function openWhatsApp() {
-            const phone = '5500000000000';
-            const msg = encodeURIComponent(`Olá! Finalizei meu pedido de ${pixData.product_title}. Pode confirmar?`);
+            const phone = '5500000000000'; // Substitua pelo seu telefone
+            const product = window.pixData ? window.pixData.product_title : 'Marmitex';
+            const msg = encodeURIComponent(`Olá! Finalizei meu pedido de ${product}. Pode confirmar?`);
             window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
         }
 
         function goBack() {
             if (confirm('Tem certeza que deseja voltar? O PIX será cancelado.')) {
-                sessionStorage.removeItem('pixSession');
                 window.location.href = './index.html';
             }
         }
@@ -559,24 +585,20 @@
         // Impede o botão direito do mouse
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
+        // Impede atalhos de teclado
         document.addEventListener('keydown', function(e) {
-            // Bloqueia F12
             if (e.key === 'F12') {
                 e.preventDefault();
                 return false;
             }
-            // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
             if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
                 e.preventDefault();
                 return false;
             }
-            // Bloqueia Ctrl+U (Ver código fonte)
             if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
                 e.preventDefault();
                 return false;
             }
-            // Bloqueia Ctrl+S (Salvar página)
             if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
                 e.preventDefault();
                 return false;
