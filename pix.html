@@ -518,7 +518,7 @@
         function startPixPolling(txid) {
             pixPollInterval = setInterval(async () => {
                 try {
-                    const res = await fetch('https://pix-api.jogodobicho704.workers.dev/status/' + txid);
+                    const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/status/' + txid);
                     if (!res.ok) return;
                     
                     const json = await res.json();
