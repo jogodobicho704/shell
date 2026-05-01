@@ -884,36 +884,37 @@
             margin-top: 8px;
         }
 
-        /* ===== LOADING ===== */
-        .loading-spinner {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* ===== SUCCESS SECTION ===== */
+        .success-section {
+            padding: 40px 20px;
+            text-align: center;
         }
 
-        .loading-spinner.active {
-            display: flex;
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+            animation: bounce 1s ease;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .success-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            color: #4caf50;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .success-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
         }
 
         /* ===== FOOTER ===== */
@@ -989,6 +990,7 @@
     <div class="container">
         <div class="header">
             <div class="header-left">
+                <button class="header-back" id="backBtn" onclick="previousStep()" style="display:none;">←</button>
                 <span class="header-title" id="headerTitle">Sabor Brasileiro</span>
             </div>
             <div class="header-progress" id="headerProgress">
@@ -1224,10 +1226,6 @@
         </div>
     </div>
 
-    <div class="loading-spinner" id="loadingSpinner">
-        <div class="spinner"></div>
-    </div>
-
     <script>
         // ===== PRODUCTS DATA =====
         const PRODUCTS = {
@@ -1238,7 +1236,8 @@
                 priceOld: 24.90,
                 priceNew: 16.90,
                 servings: 1,
-                badge: null
+                badge: null,
+                productKey: 'pequena'
             },
             grande: {
                 title: '2 Marmitex Média com Churrasco',
@@ -1247,7 +1246,8 @@
                 priceOld: 43.80,
                 priceNew: 28.90,
                 servings: 2,
-                badge: null
+                badge: null,
+                productKey: 'grande'
             },
             kit3: {
                 title: '3 Kit Família Grande com Churrasco',
@@ -1256,7 +1256,8 @@
                 priceOld: 59.80,
                 priceNew: 39.90,
                 servings: 3,
-                badge: '⭐ MAIS VENDIDO'
+                badge: '⭐ MAIS VENDIDO',
+                productKey: 'kit3'
             },
             milanesa: {
                 title: '1 Marmitex Média com Bife Milanesa Frango',
@@ -1265,7 +1266,8 @@
                 priceOld: 24.90,
                 priceNew: 16.90,
                 servings: 1,
-                badge: null
+                badge: null,
+                productKey: 'milanesa'
             },
             strog: {
                 title: '2 Marmitex Média com Strogonof',
@@ -1274,7 +1276,8 @@
                 priceOld: 45.80,
                 priceNew: 25.90,
                 servings: 2,
-                badge: null
+                badge: null,
+                productKey: 'strog'
             },
             costela: {
                 title: '2 Marmitex Grande de Costela Assada',
@@ -1283,7 +1286,8 @@
                 priceOld: 49.80,
                 priceNew: 29.90,
                 servings: 2,
-                badge: null
+                badge: null,
+                productKey: 'costela'
             },
             parmegiana: {
                 title: '2 Marmitex Grande Parmegiana Frango',
@@ -1292,7 +1296,8 @@
                 priceOld: 35.80,
                 priceNew: 25.90,
                 servings: 2,
-                badge: '🏆 MAIS PEDIDA'
+                badge: '🏆 MAIS PEDIDA',
+                productKey: 'parmegiana'
             }
         };
 
@@ -1321,10 +1326,8 @@
 
         // ===== INIT =====
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. PageView (Meta Pixel)
-            if (window.fbq) {
-                fbq('track', 'PageView');
-            }
+            // Track PageView
+            trackEvent('PageView', {});
             
             renderProducts();
             renderReviews();
@@ -1381,18 +1384,16 @@
 
         function selectProduct(productId) {
             const p = PRODUCTS[productId];
-            currentProduct = { ...p, productKey: productId };
+            currentProduct = { ...p };
             selections = { acomp: [], carne: [], salada: [], turbine: [] };
             quantity = 1;
 
-            // 2. ViewContent (Meta Pixel)
-            if (window.fbq) {
-                fbq('track', 'ViewContent', {
-                    content_name: p.title,
-                    value: p.priceNew,
-                    currency: 'BRL'
-                });
-            }
+            // Track ViewContent
+            trackEvent('ViewContent', {
+                content_name: p.title,
+                value: p.priceNew,
+                currency: 'BRL'
+            });
 
             renderProductDetail();
             renderComplements();
@@ -1481,14 +1482,12 @@
         // ===== NAVIGATION =====
         function nextStep() {
             if (currentStep === 1) {
-                // 3. AddToCart (Meta Pixel)
-                if (window.fbq) {
-                    fbq('track', 'AddToCart', {
-                        content_name: currentProduct.title,
-                        value: currentProduct.priceNew,
-                        currency: 'BRL'
-                    });
-                }
+                // Track AddToCart
+                trackEvent('AddToCart', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew,
+                    currency: 'BRL'
+                });
                 goToStep(2);
             } else if (currentStep === 2) {
                 const nome = document.getElementById('inputNome').value.trim();
@@ -1501,14 +1500,13 @@
                     return;
                 }
 
-                // 4. Lead (Meta Pixel)
-                if (window.fbq) {
-                    fbq('track', 'Lead', {
-                        content_name: currentProduct.title,
-                        value: currentProduct.priceNew * quantity,
-                        currency: 'BRL'
-                    });
-                }
+                // Track Lead
+                trackEvent('Lead', {
+                    name: nome,
+                    email: email,
+                    phone: telefone.replace(/\D/g,''),
+                    cpf: cpf.replace(/\D/g,'')
+                });
 
                 goToStep(3);
             } else if (currentStep === 3) {
@@ -1528,15 +1526,18 @@
                 const telefone = document.getElementById('inputTelefone').value.trim();
                 const cpf = document.getElementById('inputCPF').value.trim();
 
-                // 5. InitiateCheckout (Meta Pixel)
-                if (window.fbq) {
-                    fbq('track', 'InitiateCheckout', {
-                        content_name: currentProduct.title,
-                        value: currentProduct.priceNew * quantity,
-                        currency: 'BRL'
-                    });
-                }
+                // Track InitiateCheckout
+                trackEvent('InitiateCheckout', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew * quantity,
+                    currency: 'BRL',
+                    name: nome,
+                    email: email,
+                    phone: telefone.replace(/\D/g,''),
+                    cpf: cpf.replace(/\D/g,'')
+                });
 
+                // Prepare PIX data
                 generatePixPayment();
             }
         }
@@ -1581,6 +1582,12 @@
             backBtn.style.display = currentStep > 0 ? 'block' : 'none';
             backFooterBtn.style.display = currentStep > 0 && currentStep < 4 ? 'block' : 'none';
 
+            if (currentStep === 4) {
+                nextBtn.textContent = 'Finalizar Pedido';
+            } else {
+                nextBtn.textContent = 'Continuar';
+            }
+
             if (currentStep >= 4) {
                 updatePrices();
             }
@@ -1594,15 +1601,15 @@
             const cpf = document.getElementById('inputCPF').value.trim();
 
             // Capturar todos os UTMs
-            const utmParams = new URLSearchParams(window.location.search);
-            const utm_source = utmParams.get('utm_source') || '';
-            const utm_medium = utmParams.get('utm_medium') || '';
-            const utm_campaign = utmParams.get('utm_campaign') || '';
-            const utm_content = utmParams.get('utm_content') || '';
-            const utm_term = utmParams.get('utm_term') || '';
-            const fbclid = utmParams.get('fbclid') || '';
-            const xcod = utmParams.get('xcod') || '';
-            const sck = utmParams.get('sck') || '';
+            const urlParams = new URLSearchParams(window.location.search);
+            const utm_source = urlParams.get('utm_source') || '';
+            const utm_medium = urlParams.get('utm_medium') || '';
+            const utm_campaign = urlParams.get('utm_campaign') || '';
+            const utm_content = urlParams.get('utm_content') || '';
+            const utm_term = urlParams.get('utm_term') || '';
+            const fbclid = urlParams.get('fbclid') || '';
+            const xcod = urlParams.get('xcod') || '';
+            const sck = urlParams.get('sck') || '';
 
             const params = new URLSearchParams({
                 product: currentProduct.productKey || '',
@@ -1620,9 +1627,6 @@
                 sck: sck
             });
 
-            // Mostrar loading
-            document.getElementById('loadingSpinner').classList.add('active');
-
             try {
                 const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/?' + params.toString());
                 if (!res.ok) throw new Error('Erro na API');
@@ -1630,41 +1634,32 @@
                 const json = await res.json();
                 const data = json.data;
 
-                // 6. AddPaymentInfo (Meta Pixel)
-                if (window.fbq) {
-                    fbq('track', 'AddPaymentInfo', {
-                        content_name: currentProduct.title,
-                        value: currentProduct.priceNew * quantity,
-                        currency: 'BRL'
-                    });
-                }
+                // Track AddPaymentInfo
+                trackEvent('AddPaymentInfo', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew * quantity,
+                    currency: 'BRL'
+                });
 
-                // Salvar dados em sessionStorage
+                // Salvar dados no sessionStorage
                 const pixSession = {
-                    nome: nome,
-                    product: currentProduct.title,
-                    priceNew: currentProduct.priceNew * quantity,
                     transaction_id: data.transaction_id || data.event_id,
+                    event_id: data.event_id,
+                    payment_status: data.payment_status || 'pending',
                     pix_copia_e_cola: data.pix_copia_e_cola || '',
                     pix_qr_code: data.pix_qr_code || '',
                     pix_base64: data.pix_base64 || '',
-                    timestamp: Date.now(),
-                    utm_source: utm_source,
-                    utm_medium: utm_medium,
-                    utm_campaign: utm_campaign,
-                    utm_content: utm_content,
-                    utm_term: utm_term,
-                    fbclid: fbclid,
-                    xcod: xcod,
-                    sck: sck
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    product_title: currentProduct.title,
+                    product_price: currentProduct.priceNew * quantity
                 };
 
                 sessionStorage.setItem('pixSession', JSON.stringify(pixSession));
 
-                // Redirecionar para pix.html com UTMs
-                let pixUrl = './pix.html?';
-                const pixParams = new URLSearchParams({
-                    name: nome,
+                // Redirecionar para pix.html
+                window.location.href = './pix.html?' + new URLSearchParams({
                     utm_source: utm_source,
                     utm_medium: utm_medium,
                     utm_campaign: utm_campaign,
@@ -1673,15 +1668,11 @@
                     fbclid: fbclid,
                     xcod: xcod,
                     sck: sck
-                });
-
-                document.getElementById('loadingSpinner').classList.remove('active');
-                window.location.href = pixUrl + pixParams.toString();
+                }).toString();
 
             } catch (err) {
                 console.error('Erro de Pagamento:', err);
-                document.getElementById('loadingSpinner').classList.remove('active');
-                alert('Erro ao gerar PIX. Tente novamente.');
+                alert('Erro ao gerar PIX. Por favor, tente novamente.');
             }
         }
 
@@ -1692,50 +1683,65 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
             return null;
         }
+
+        function trackEvent(eventName, eventData = {}) {
+            if (window.fbq) {
+                const fbqData = {};
+                if (eventData.value) fbqData.value = eventData.value;
+                if (eventData.currency) fbqData.currency = eventData.currency;
+                if (eventData.content_name) fbqData.content_name = eventData.content_name;
+                fbq('track', eventName, fbqData);
+            }
+
+            const payload = {
+                event_name: eventName,
+                page_url: window.location.href,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc'),
+                value: eventData.value,
+                currency: eventData.currency,
+                content_name: eventData.content_name,
+                name: eventData.name || null,
+                email: eventData.email || null,
+                phone: eventData.phone || null,
+                cpf: eventData.cpf || null,
+            };
+
+            fetch('/api/capi', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error('CAPI erro:', err));
+        }
     </script>
 
-    <!-- PASSO 2: Bloqueio de cliques e atalhos -->
     <script>
+        // Impede o botão direito do mouse
         document.addEventListener('contextmenu', event => event.preventDefault());
 
+        // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
         document.addEventListener('keydown', function(e) {
+            // Bloqueia F12
             if (e.key === 'F12') {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
             if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+U (Ver código fonte)
             if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
                 e.preventDefault();
                 return false;
             }
+            // Bloqueia Ctrl+S (Salvar página)
             if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
                 e.preventDefault();
                 return false;
             }
         });
-
-        (function() {
-            var pre_debugger = function() {
-                (function(a) {
-                    (function() {
-                        (function() {
-                            debugger
-                        }
-                        ).apply()
-                    }
-                    ).apply()
-                }
-                )(function() {
-                    pre_debugger()
-                })
-            };
-            try {
-                setInterval(pre_debugger, 500);
-            } catch (e) {}
-        })();
     </script>
 </body>
 </html>
