@@ -9,14 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
-    
-    <!-- Meta Pixel - Reordenado para fluxo correto -->
     <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '26526640770318634');
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '26526640770318634');fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=26526640770318634&ev=PageView&noscript=1"/></noscript>
-
-    <!-- Pixel UTMIFY -->
     <script>
       window.pixelId = "69e38ec2db04a358c41c2a71";
       var a = document.createElement("script");
@@ -75,132 +71,887 @@
             font-size: 24px;
             cursor: pointer;
             color: #333;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-title {
             font-size: 16px;
             font-weight: 600;
+            color: #333;
         }
 
-        /* ===== STEPS ===== */
-        .steps-container {
-            display: none;
-            padding: 20px 16px;
-            gap: 16px;
-            flex-direction: column;
-        }
-
-        .steps-container.active {
+        .header-progress {
             display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #e63946;
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        /* ===== CONTENT ===== */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 80px;
+            scroll-behavior: smooth;
         }
 
         .step {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .step.active {
             display: block;
         }
 
-        .step-header {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== STEP 0: HOME ===== */
+        .step-0-content {
+            position: relative;
+        }
+
+        .banner-home {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+        }
+
+        .banner-home::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px);
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .banner-home-logo {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .banner-home-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-home-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .banner-home-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .banner-home-subtitle {
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+
+        .restaurant-header {
+            padding: 20px 16px 12px;
+        }
+
+        .restaurant-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+            letter-spacing: -0.5px;
+        }
+
+        .restaurant-location {
+            font-size: 14px;
+            color: #e63946;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .restaurant-tags {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            font-weight: 400;
+        }
+
+        .restaurant-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: #666;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat .rating {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .status-open {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .minimum-order {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .products-grid {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
-        .step-title {
-            font-size: 20px;
+        /* ===== PRODUCT CARDS ===== */
+        .product-card-home {
+            background: white;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card-home:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 160px;
+            background: #f5f5f5;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ffc107;
+            color: #1a0a00;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .product-servings {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 400;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .price-original {
+            font-size: 11px;
+            color: #999;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .price-current {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e63946;
+        }
+
+        /* ===== REVIEWS SECTION ===== */
+        .reviews-section {
+            padding: 20px 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .reviews-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .review-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 3px solid #ffc107;
+        }
+
+        .review-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .review-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-stars {
+            font-size: 11px;
+            color: #ffc107;
+        }
+
+        .review-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        /* ===== STEP 1: PRODUCT DETAIL ===== */
+        .step-1-content {
+            padding: 0;
+        }
+
+        .product-detail-image {
+            width: 100%;
+            height: 240px;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+
+        .product-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-detail-info {
+            padding: 20px 16px;
+        }
+
+        .product-detail-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 8px;
+            color: #333;
         }
 
-        .step-subtitle {
-            font-size: 14px;
+        .product-detail-desc {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .product-detail-servings {
+            font-size: 13px;
             color: #666;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 400;
         }
 
-        /* ===== PRODUTOS ===== */
-        .produtos-grid {
+        .product-detail-prices {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .price-detail-old {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .price-detail-new {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e63946;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin: 20px 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 11px;
+            color: #999;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* ===== COMPLEMENTS ===== */
+        .option-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .option-item {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-item:hover {
+            border-color: #e63946;
+        }
+
+        .option-item.selected {
+            border-color: #e63946;
+            background: #fff5f6;
+        }
+
+        .option-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .option-item.selected .option-check {
+            background: #e63946;
+            border-color: #e63946;
+            color: white;
+        }
+
+        .option-label {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* ===== OBSERVATIONS ===== */
+        .obs-section {
+            padding: 0 16px;
+        }
+
+        textarea {
+            width: 100%;
+            background: #f9f9f9;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+            margin-top: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            font-weight: 400;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #e63946;
+            background: white;
+        }
+
+        /* ===== QUANTITY & ADD ===== */
+        .add-section {
+            display: flex;
+            gap: 12px;
+            padding: 0 16px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 2px solid #e63946;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: white;
+            color: #e63946;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .qty-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .qty-display {
+            width: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: #666;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-add-cart:hover {
+            background: #555;
+        }
+
+        /* ===== FORMS ===== */
+        input {
+            width: 100%;
+            background: white;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            margin-bottom: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            font-weight: 400;
+        }
+
+        input::placeholder {
+            color: #bbb;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e63946;
+            background: white;
+        }
+
+        .form-row {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-row input {
+            margin-bottom: 0;
+        }
+
+        /* ===== ADDRESS FIELDS ===== */
+        .address-section {
+            padding: 0 16px;
+        }
+
+        .field-group {
+            margin-bottom: 16px;
+        }
+
+        .field-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .address-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 16px;
         }
 
-        .produto-card {
-            padding: 16px;
+        .address-type-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .address-type-btn.selected {
+            border-color: #e63946;
+            color: #e63946;
+            background: #fff5f6;
+        }
+
+        /* ===== DELIVERY OPTIONS ===== */
+        .delivery-options {
+            padding: 0 16px;
+        }
+
+        .delivery-option {
+            background: white;
             border: 2px solid #e0e0e0;
             border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: white;
+            position: relative;
         }
 
-        .produto-card:hover {
-            border-color: #dc5d2e;
-            background: #fff8f5;
+        .delivery-option.selected {
+            border-color: #e63946;
+            background: #fff5f6;
         }
 
-        .produto-card.selected {
-            border-color: #dc5d2e;
-            background: #fef3ef;
+        .delivery-option-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
         }
 
-        .produto-label {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .delivery-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
-        .produto-preco {
-            font-size: 18px;
-            font-weight: 700;
-            color: #dc5d2e;
-        }
-
-        /* ===== FORM ===== */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #dc5d2e;
-        }
-
-        /* ===== BOTÕES ===== */
-        .btn {
-            width: 100%;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #dc5d2e;
+        .delivery-option.selected .delivery-icon {
+            background: #e63946;
             color: white;
         }
 
-        .btn-primary:hover:not(:disabled) {
-            background: #c94a1f;
+        .delivery-info {
+            flex: 1;
+        }
+
+        .delivery-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .delivery-time {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 400;
+        }
+
+        .delivery-price {
+            font-size: 13px;
+            color: #4caf50;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .delivery-radio {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delivery-option.selected .delivery-radio {
+            background: #e63946;
+            border-color: #e63946;
+            color: white;
+        }
+
+        /* ===== ORDER SUMMARY ===== */
+        .order-summary {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 16px 0;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .summary-divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 8px 0;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-top: 8px;
+        }
+
+        /* ===== SUCCESS SECTION ===== */
+        .success-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+            animation: bounce 1s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .success-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 28px;
+            color: #4caf50;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .success-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 12px 16px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn-primary {
+            background: #e63946;
+            color: white;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:active {
+            background: #d62828;
         }
 
         .btn-primary:disabled {
@@ -209,334 +960,788 @@
         }
 
         .btn-secondary {
-            background: white;
-            color: #dc5d2e;
-            border: 2px solid #dc5d2e;
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
         }
 
-        .btn-secondary:hover:not(:disabled) {
-            background: #fef3ef;
+        .btn-secondary:hover,
+        .btn-secondary:active {
+            background: #eeeeee;
         }
 
-        /* ===== LOADING ===== */
-        .loading {
+        .btn-full {
+            width: 100%;
+        }
+
+        .hidden {
             display: none;
-            text-align: center;
-            padding: 40px 20px;
         }
 
-        .loading.active {
-            display: block;
-        }
-
-        .spinner {
-            border: 4px solid #f0f0f0;
-            border-top: 4px solid #dc5d2e;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .gap-16 {
-            gap: 16px;
-            display: flex;
-            flex-direction: column;
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <button class="header-back" onclick="goBack()" style="display: none;" id="backBtn">←</button>
-            <div class="header-title">Sabor Brasileiro</div>
-            <div style="width: 24px;"></div>
-        </div>
-
-        <div class="steps-container active" id="stepsContainer">
-            <!-- STEP 1: SELEÇÃO DE PRODUTO -->
-            <div class="step active" id="step1">
-                <div class="step-header">
-                    <div class="step-title">Escolha seu Sabor</div>
-                    <div class="step-subtitle">Selecione a marmita que deseja</div>
-                </div>
-                <div class="produtos-grid" id="produtosGrid"></div>
-                <button class="btn btn-primary" onclick="goToStep(2)" id="btnStep1">Continuar</button>
+            <div class="header-left">
+                <button class="header-back" id="backBtn" onclick="previousStep()" style="display:none;">←</button>
+                <span class="header-title" id="headerTitle">Sabor Brasileiro</span>
             </div>
-
-            <!-- STEP 2: FORMULÁRIO (LEAD) -->
-            <div class="step" id="step2">
-                <div class="step-header">
-                    <div class="step-title">Seus Dados</div>
-                    <div class="step-subtitle">Precisamos de seus dados para a entrega</div>
-                </div>
-                <form onsubmit="goToStep(3); return false;" class="gap-16">
-                    <div class="form-group">
-                        <label class="form-label">Nome Completo</label>
-                        <input type="text" class="form-input" id="inputName" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-input" id="inputEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Telefone</label>
-                        <input type="tel" class="form-input" id="inputPhone" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">CPF</label>
-                        <input type="text" class="form-input" id="inputCPF">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Continuar para Pagamento</button>
-                </form>
-            </div>
-
-            <!-- STEP 3: RESUMO + FINALIZAÇÃO -->
-            <div class="step" id="step3">
-                <div class="step-header">
-                    <div class="step-title">Resumo do Pedido</div>
-                    <div class="step-subtitle">Revise os dados antes de pagar</div>
-                </div>
-                <div style="background: #f8f8f8; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                        <span id="resumoProduto">Marmita</span>
-                        <span id="resumoValor">R$ 0,00</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 16px; border-top: 1px solid #e0e0e0; padding-top: 12px;">
-                        <span>Total</span>
-                        <span id="totalValor">R$ 0,00</span>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="criarPIX()">Gerar PIX para Pagamento</button>
+            <div class="header-progress" id="headerProgress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
             </div>
         </div>
 
-        <!-- LOADING -->
-        <div class="loading" id="loadingDiv">
-            <div class="spinner"></div>
-            <p>Processando seu pedido...</p>
+        <div class="content" id="content">
+            <div class="step step-0 active">
+                <div class="step-0-content">
+                    <div class="banner-home">
+                        <div class="banner-home-content">
+                            <div class="banner-home-title"></div>
+                            <div class="banner-home-subtitle"></div>
+                        </div>
+                        <div class="banner-home-logo">
+                            <img src="./images/sabor.jpeg" alt="Sabor Brasileiro" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">Sabor Brasileiro</div>
+                        <div class="restaurant-location">📍 3,6 km</div>
+                        <div class="restaurant-tags">
+                            <span>Marmita</span>
+                            <span>Churrasco</span>
+                            <span>Brasileiro</span>
+                        </div>
+                        <div class="restaurant-stats">
+                            <div class="stat">⭐ <span class="rating">5,0</span> (1.360)</div>
+                            <div class="stat">🛵 30-40 min</div>
+                            <div class="stat">Entrega Grátis •</div>
+                        </div>
+                        <div class="status-open">ABERTO AGORA</div>
+                        <div class="minimum-order">Pedido mínimo: R$ 16,90</div>
+                    </div>
+
+                    <div class="products-grid" id="productsContainer">
+                    </div>
+
+                    <div class="reviews-section">
+                        <div class="reviews-title">O que falam de nós</div>
+                        <div id="reviewsContainer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-1">
+                <div class="step-1-content">
+                    <div class="product-detail-image">
+                        <img id="detailImage" src="" alt="">
+                    </div>
+
+                    <div class="product-detail-info">
+                        <div class="product-detail-title" id="detailTitle"></div>
+                        <div class="product-detail-desc" id="detailDesc"></div>
+                        <div class="product-detail-servings" id="detailServings"></div>
+                        <div class="product-detail-prices">
+                            <span class="price-detail-old" id="detailPriceOld"></span>
+                            <span class="price-detail-new" id="detailPriceNew"></span>
+                        </div>
+
+                        <div id="complementsSections">
+                        </div>
+
+                        <div class="obs-section">
+                            <div class="section-title">Alguma observação?</div>
+                            <div class="section-subtitle">Primordial • Garantia de atendimento</div>
+                            <textarea id="inputObs" placeholder="Ex: sem cebolinha, molho à parte..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-2">
+                <div style="padding: 20px 16px;">
+                    <div class="section-title" style="margin-top: 0;">Criar conta</div>
+                    <div style="font-size: 12px; color: #999; margin-bottom: 20px; font-weight: 400;">Para finalizar o pedido precisamos de alguns dados</div>
+
+                    <div class="field-group">
+                        <div class="field-label">CPF</div>
+                        <input type="text" id="inputCPF" placeholder="000.000.000-00" maxlength="14">
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">Nome Completo</div>
+                        <input type="text" id="inputNome" placeholder="Seu nome completo">
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">E-Mail</div>
+                        <input type="email" id="inputEmail" placeholder="seu@email.com">
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">Telefone / WhatsApp</div>
+                        <input type="tel" id="inputTelefone" placeholder="(11) 99999-9999">
+                    </div>
+
+                    <div style="font-size: 11px; color: #999; margin-top: 12px; line-height: 1.5; padding-bottom: 80px; font-weight: 400;">
+                        Ao continuar, você concorda com os <strong>Termos de Uso</strong> e <strong>Política de Privacidade</strong>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-3">
+                <div class="address-section" style="padding-top: 20px;">
+                    <div class="section-title" style="margin-top: 0;">Endereço de entrega</div>
+
+                    <div class="field-group">
+                        <div class="field-label">Rua / Avenida</div>
+                        <input type="text" id="inputRua" placeholder="Rua, avenida...">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field-group">
+                            <div class="field-label">Número</div>
+                            <input type="text" id="inputNumero" placeholder="Sem número">
+                        </div>
+                        <div class="field-group">
+                            <div class="field-label">Bairro</div>
+                            <input type="text" id="inputBairro" placeholder="Nome do bairro">
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">Complemento (Opcional)</div>
+                        <input type="text" id="inputComplemento" placeholder="Apto, bloco, casa...">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="checkComplemento">
+                            <label for="checkComplemento">Endereço sem complemento</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">Ponto de Referência (Opcional)</div>
+                        <input type="text" id="inputReferencia" placeholder="Ex: próximo ao mercado, portão azul...">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="checkReferencia">
+                            <label for="checkReferencia">Endereço sem ponto de referência</label>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <div class="field-label">Endereço de</div>
+                        <div class="address-type-selector">
+                            <button class="address-type-btn selected" onclick="selectAddressType('home')" data-type="home">
+                                🏠 Casa
+                            </button>
+                            <button class="address-type-btn" onclick="selectAddressType('work')" data-type="work">
+                                💼 Trabalho
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="padding-bottom: 80px;"></div>
+                </div>
+            </div>
+
+            <div class="step step-4">
+                <div style="padding: 20px 0;">
+                    <div class="delivery-options" style="padding: 20px 16px;">
+                        <div class="section-title" style="margin-top: 0;">Escolha como receber seu pedido</div>
+
+                        <div class="delivery-option selected" onclick="selectDelivery(this)">
+                            <div class="delivery-option-content">
+                                <div class="delivery-icon">🏍️</div>
+                                <div class="delivery-info">
+                                    <div class="delivery-title">Entrega Padrão</div>
+                                    <div class="delivery-time">⏱️ 45-55 min</div>
+                                    <div class="delivery-price">Grátis</div>
+                                </div>
+                            </div>
+                            <div class="delivery-radio"></div>
+                        </div>
+
+                        <div class="delivery-option" onclick="selectDelivery(this)">
+                            <div class="delivery-option-content">
+                                <div class="delivery-icon">⚡</div>
+                                <div class="delivery-info">
+                                    <div class="delivery-title">Entrega Rápida</div>
+                                    <div class="delivery-time">⏱️ 20-30 min</div>
+                                    <div class="delivery-price">Grátis</div>
+                                </div>
+                            </div>
+                            <div class="delivery-radio"></div>
+                        </div>
+
+                        <div class="delivery-option" onclick="selectDelivery(this)">
+                            <div class="delivery-option-content">
+                                <div class="delivery-icon">📅</div>
+                                <div class="delivery-info">
+                                    <div class="delivery-title">Agendar Entrega</div>
+                                    <div class="delivery-time">Escolha dia e horário ideal</div>
+                                    <div class="delivery-price">Grátis</div>
+                                </div>
+                            </div>
+                            <div class="delivery-radio"></div>
+                        </div>
+                    </div>
+
+                    <div style="padding: 0 16px; margin-top: 20px; padding-bottom: 80px;">
+                        <div class="section-title">Resumo do pedido</div>
+                        <div class="order-summary">
+                            <div class="summary-item">
+                                <span class="summary-label" id="summaryLabel">Marmitex x1</span>
+                                <span class="summary-value" id="summaryValue">R$ 0,00</span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-item">
+                                <span class="summary-label">Entrega</span>
+                                <span class="summary-value">Grátis</span>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-total">
+                                <span>Total</span>
+                                <span id="totalPrice">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer" id="footer">
+            <button class="btn btn-secondary" id="backFooterBtn" onclick="previousStep()" style="display:none;">Voltar</button>
+            <button class="btn btn-primary btn-full" id="nextBtn" onclick="nextStep()">Continuar</button>
         </div>
     </div>
 
     <script>
-        // ===== DADOS GLOBAIS =====
-        let produtoSelecionado = null;
-        let leadData = {};
-        let pixData = {};
-
-        // ===== PASSO 1: PIXEL PAGEVIEW =====
-        document.addEventListener('DOMContentLoaded', () => {
-            fbq('track', 'PageView');
-            renderProdutos();
-        });
-
-        // ===== PRODUTOS =====
-        const PRODUTOS = {
-            pequena: { label: '1 Marmitex Pequena com Churrasco', preco: 1490 },
-            grande: { label: '2 Marmitex Média com Churrasco', preco: 2890 },
-            kit3: { label: '3 Kit Família Grande com Churrasco', preco: 3990 },
-            milanesa: { label: '1 Marmitex Média com Bife Milanesa Frango', preco: 1690 },
-            strog: { label: '2 Marmitex Média Strogonof', preco: 2590 },
-            costela: { label: '2 Marmitex Grande Costela Assada', preco: 2990 },
-            parmegiana: { label: '2 Marmitex Grande Parmegiana Frango', preco: 2590 }
+        // ===== PRODUCTS DATA =====
+        const PRODUCTS = {
+            pequena: {
+                title: '1 Marmitex Pequena com Churrasco',
+                desc: '🎁 Complementos Grátis',
+                img: './images/pequena.jpg',
+                priceOld: 24.90,
+                priceNew: 16.90,
+                servings: 1,
+                badge: null,
+                productKey: 'pequena'
+            },
+            grande: {
+                title: '2 Marmitex Média com Churrasco',
+                desc: '🎁 Complementos Grátis',
+                img: './images/grande.jpg',
+                priceOld: 43.80,
+                priceNew: 28.90,
+                servings: 2,
+                badge: null,
+                productKey: 'grande'
+            },
+            kit3: {
+                title: '3 Kit Família Grande com Churrasco',
+                desc: '🎁 Complementos Grátis',
+                img: './images/kitnovo.jpg',
+                priceOld: 59.80,
+                priceNew: 39.90,
+                servings: 3,
+                badge: '⭐ MAIS VENDIDO',
+                productKey: 'kit3'
+            },
+            milanesa: {
+                title: '1 Marmitex Média com Bife Milanesa Frango',
+                desc: '🎁 Complementos Grátis',
+                img: './images/milanesa.jpg',
+                priceOld: 24.90,
+                priceNew: 16.90,
+                servings: 1,
+                badge: null,
+                productKey: 'milanesa'
+            },
+            strog: {
+                title: '2 Marmitex Média com Strogonof',
+                desc: '🎁 Complementos Grátis',
+                img: './images/strog.jpg',
+                priceOld: 45.80,
+                priceNew: 25.90,
+                servings: 2,
+                badge: null,
+                productKey: 'strog'
+            },
+            costela: {
+                title: '2 Marmitex Grande de Costela Assada',
+                desc: '🎁 Complementos Grátis',
+                img: './images/costela1.png',
+                priceOld: 49.80,
+                priceNew: 29.90,
+                servings: 2,
+                badge: null,
+                productKey: 'costela'
+            },
+            parmegiana: {
+                title: '2 Marmitex Grande Parmegiana Frango',
+                desc: '🎁 Complementos Grátis',
+                img: './images/parmegiana.jpg',
+                priceOld: 35.80,
+                priceNew: 25.90,
+                servings: 2,
+                badge: '🏆 MAIS PEDIDA',
+                productKey: 'parmegiana'
+            }
         };
 
-        function renderProdutos() {
-            const grid = document.getElementById('produtosGrid');
-            grid.innerHTML = '';
+        const REVIEWS = [
+            { name: 'Carlos M.', text: 'Simplesmente perfeito! A comida é deliciosa, bem temperada e sempre quentinha.' },
+            { name: 'Ana Paula S.', text: 'Entrega rápida e marmita super bem servida! Dá para ver que os ingredientes são frescos.' },
+            { name: 'Rodrigo L.', text: 'Sabor de comida caseira que lembra a da minha mãe! Sempre no capricho 👏' },
+            { name: 'Fernanda R.', text: 'Melhor custo-benefício! Porção generosa, comida deliciosa e preço justo.' },
+            { name: 'Marcos P.', text: 'Já pedi em várias marmitarias, mas essa aqui superou todas! Sabor incrível.' }
+        ];
+
+        const COMPLEMENTS = [
+            { group: 'acomp', title: '🍚 Acompanhamentos', subtitle: 'Escolha até 4 opções', max: 4, options: ['Arroz Branco', 'Arroz Integral', 'Feijão em Caldo', 'Feijão Tropeiro', 'Purê de Batata', 'Farofa c/ Ovos e Bacon', 'Macarrão Alho e Óleo', 'Tutu de Feijão'] },
+            { group: 'carne', title: '🥩 Carne', subtitle: 'Escolha até 2 opções (~150g cada)', max: 2, options: ['Cupim', 'Fraldinha', 'Filé ao Alho', 'Contra Filé', 'Calabresa (2 un.)', 'Medalhão de Frango (5 un.)'] },
+            { group: 'salada', title: '🥗 Salada', subtitle: 'Escolha até 2 opções', max: 2, options: ['Vinagrete', 'Maionese c/ Batata e Ovos', 'Salpicão', 'Alface', 'Tomate', 'Pepino', 'Brócolis c/ Ovos de Codorna', 'Repolho'] },
+            { group: 'turbine', title: '⚡ Turbine sua Marmita', subtitle: 'Escolha 1 opção — Grátis no 1º pedido!', max: 1, options: ['Ovo Frito (1 un.)', 'Banana à Milanesa', 'Fricassê de Frango (70g)', 'Lasanha 4 Queijos (70g)'] }
+        ];
+
+        // ===== STATE =====
+        let currentStep = 0;
+        let currentProduct = null;
+        let selections = { acomp: [], carne: [], salada: [], turbine: [] };
+        let quantity = 1;
+        let deliveryMethod = 'standard';
+        let addressType = 'home';
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track PageView
+            trackEvent('PageView', {});
             
-            Object.entries(PRODUTOS).forEach(([key, produto]) => {
-                const card = document.createElement('div');
-                card.className = 'produto-card';
-                card.innerHTML = `
-                    <div class="produto-label">${produto.label}</div>
-                    <div class="produto-preco">R$ ${(produto.preco / 100).toFixed(2)}</div>
+            renderProducts();
+            renderReviews();
+        });
+
+        // ===== PRODUCTS HOME PAGE =====
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            const products = [
+                { id: 'pequena' },
+                { id: 'grande' },
+                { id: 'kit3' },
+                { id: 'milanesa' },
+                { id: 'strog' },
+                { id: 'costela' },
+                { id: 'parmegiana' }
+            ];
+
+            container.innerHTML = products.map(p => {
+                const prod = PRODUCTS[p.id];
+                const discount = Math.round(((prod.priceOld - prod.priceNew) / prod.priceOld) * 100);
+                return `
+                    <div class="product-card-home" onclick="selectProduct('${p.id}')">
+                        <div class="product-image">
+                            <img src="${prod.img}" alt="${prod.title}" onerror="this.src='./images/sabor.jpeg'">
+                            ${prod.badge ? `<div class="product-badge">${prod.badge}</div>` : ''}
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">${prod.title}</div>
+                            <div class="product-desc">${prod.desc}</div>
+                            <div class="product-servings">👤 Serve ${prod.servings} ${prod.servings > 1 ? 'pessoas' : 'pessoa'}</div>
+                            <div class="product-price">
+                                <span class="price-original">R$ ${prod.priceOld.toFixed(2).replace('.',',')}</span>
+                                <span class="price-current">R$ ${prod.priceNew.toFixed(2).replace('.',',')}</span>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                
-                card.onclick = () => {
-                    // Remover seleção anterior
-                    document.querySelectorAll('.produto-card').forEach(c => c.classList.remove('selected'));
-                    // Adicionar seleção
-                    card.classList.add('selected');
-                    produtoSelecionado = { key, ...produto };
-                    
-                    // PASSO 2: PIXEL VIEWCONTENT
-                    fbq('track', 'ViewContent', {
-                        content_name: produto.label,
-                        content_type: 'product',
-                        value: produto.preco / 100,
-                        currency: 'BRL'
+            }).join('');
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = REVIEWS.map(review => `
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-name">${review.name}</div>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                    <div class="review-text">"${review.text}"</div>
+                </div>
+            `).join('');
+        }
+
+        function selectProduct(productId) {
+            const p = PRODUCTS[productId];
+            currentProduct = { ...p };
+            selections = { acomp: [], carne: [], salada: [], turbine: [] };
+            quantity = 1;
+
+            // Track ViewContent
+            trackEvent('ViewContent', {
+                content_name: p.title,
+                value: p.priceNew,
+                currency: 'BRL'
+            });
+
+            renderProductDetail();
+            renderComplements();
+            goToStep(1);
+        }
+
+        function renderProductDetail() {
+            const p = currentProduct;
+            document.getElementById('detailImage').src = p.img;
+            document.getElementById('detailImage').onerror = () => document.getElementById('detailImage').src = './images/sabor.jpeg';
+            document.getElementById('detailTitle').textContent = p.title;
+            document.getElementById('detailDesc').textContent = p.desc;
+            document.getElementById('detailServings').innerHTML = `👤 Serve ${p.servings} ${p.servings > 1 ? 'pessoas' : 'pessoa'}`;
+            document.getElementById('detailPriceOld').textContent = `R$ ${p.priceOld.toFixed(2).replace('.',',')}`;
+            document.getElementById('detailPriceNew').textContent = `R$ ${p.priceNew.toFixed(2).replace('.',',')}`;
+        }
+
+        function renderComplements() {
+            const container = document.getElementById('complementsSections');
+            container.innerHTML = COMPLEMENTS.map(comp => `
+                <div>
+                    <div class="section-title">${comp.title}</div>
+                    <div class="section-subtitle">${comp.subtitle}</div>
+                    <div class="option-grid">
+                        ${comp.options.map(opt => `
+                            <div class="option-item" onclick="toggleOption(this,'${comp.group}',${comp.max})" data-val="${opt}">
+                                <div class="option-check">✓</div>
+                                <div class="option-label">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleOption(el, group, maxCount) {
+            const val = el.dataset.val;
+
+            if (el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                selections[group] = selections[group].filter(v => v !== val);
+            } else {
+                if (selections[group].length >= maxCount) {
+                    const firstVal = selections[group].shift();
+                    const allItems = el.closest('.option-grid').querySelectorAll('.option-item');
+                    allItems.forEach(item => {
+                        if (item.dataset.val === firstVal) item.classList.remove('selected');
                     });
-                };
-                
-                grid.appendChild(card);
+                }
+                el.classList.add('selected');
+                selections[group].push(val);
+            }
+        }
+
+        function selectAddressType(type) {
+            addressType = type;
+            document.querySelectorAll('.address-type-btn').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.type === type);
             });
         }
 
-        function goToStep(stepNumber) {
-            if (stepNumber === 2 && !produtoSelecionado) {
-                alert('Selecione um produto!');
-                return;
+        function selectDelivery(el) {
+            document.querySelectorAll('.delivery-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            const title = el.querySelector('.delivery-title').textContent;
+            if (title.includes('Rápida')) {
+                deliveryMethod = 'fast';
+            } else if (title.includes('Agendar')) {
+                deliveryMethod = 'scheduled';
+            } else {
+                deliveryMethod = 'standard';
             }
+            updatePrices();
+        }
 
-            if (stepNumber === 3) {
-                // Coletar dados do formulário
-                leadData = {
-                    name: document.getElementById('inputName').value,
-                    email: document.getElementById('inputEmail').value,
-                    phone: document.getElementById('inputPhone').value,
-                    document: document.getElementById('inputCPF').value
-                };
+        function updatePrices() {
+            const basePrice = currentProduct.priceNew * quantity;
+            const total = basePrice;
 
-                if (!leadData.name || !leadData.email || !leadData.phone) {
-                    alert('Preencha todos os campos obrigatórios!');
+            document.getElementById('summaryLabel').textContent = `${currentProduct.title} x${quantity}`;
+            document.getElementById('summaryValue').textContent = `R$ ${basePrice.toFixed(2).replace('.',',')}`;
+            document.getElementById('totalPrice').textContent = `R$ ${total.toFixed(2).replace('.',',')}`;
+        }
+
+        // ===== NAVIGATION =====
+        function nextStep() {
+            if (currentStep === 1) {
+                // Track AddToCart
+                trackEvent('AddToCart', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew,
+                    currency: 'BRL'
+                });
+                goToStep(2);
+            } else if (currentStep === 2) {
+                const nome = document.getElementById('inputNome').value.trim();
+                const email = document.getElementById('inputEmail').value.trim();
+                const telefone = document.getElementById('inputTelefone').value.trim();
+                const cpf = document.getElementById('inputCPF').value.trim();
+
+                if (!nome || !email || !telefone || !cpf) {
+                    alert('Preencha todos os campos');
                     return;
                 }
 
-                // PASSO 3: PIXEL ADDTOCART
-                fbq('track', 'AddToCart', {
-                    content_name: produtoSelecionado.label,
-                    content_type: 'product',
-                    value: produtoSelecionado.preco / 100,
-                    currency: 'BRL',
-                    content_ids: [produtoSelecionado.key]
+                // Track Lead
+                trackEvent('Lead', {
+                    name: nome,
+                    email: email,
+                    phone: telefone.replace(/\D/g,''),
+                    cpf: cpf.replace(/\D/g,'')
                 });
 
-                // PASSO 4: PIXEL LEAD
-                fbq('track', 'Lead', {
-                    content_name: produtoSelecionado.label,
+                goToStep(3);
+            } else if (currentStep === 3) {
+                const rua = document.getElementById('inputRua').value.trim();
+                const numero = document.getElementById('inputNumero').value.trim();
+                const bairro = document.getElementById('inputBairro').value.trim();
+
+                if (!rua || !numero || !bairro) {
+                    alert('Preencha os campos obrigatórios de endereço');
+                    return;
+                }
+
+                goToStep(4);
+            } else if (currentStep === 4) {
+                const nome = document.getElementById('inputNome').value.trim();
+                const email = document.getElementById('inputEmail').value.trim();
+                const telefone = document.getElementById('inputTelefone').value.trim();
+                const cpf = document.getElementById('inputCPF').value.trim();
+
+                // Track InitiateCheckout
+                trackEvent('InitiateCheckout', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew * quantity,
                     currency: 'BRL',
-                    value: produtoSelecionado.preco / 100
+                    name: nome,
+                    email: email,
+                    phone: telefone.replace(/\D/g,''),
+                    cpf: cpf.replace(/\D/g,'')
                 });
 
-                // Atualizar resumo
-                document.getElementById('resumoProduto').textContent = produtoSelecionado.label;
-                const valor = (produtoSelecionado.preco / 100).toFixed(2);
-                document.getElementById('resumoValor').textContent = `R$ ${valor}`;
-                document.getElementById('totalValor').textContent = `R$ ${valor}`;
+                // Prepare PIX data
+                generatePixPayment();
             }
-
-            // Esconder todos os steps
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            // Mostrar step solicitado
-            document.getElementById(`step${stepNumber}`).classList.add('active');
-            
-            // Mostrar/esconder botão voltar
-            document.getElementById('backBtn').style.display = stepNumber === 1 ? 'none' : 'block';
         }
 
-        function goBack() {
-            const currentStep = Array.from(document.querySelectorAll('.step')).findIndex(s => s.classList.contains('active')) + 1;
-            if (currentStep > 1) {
+        function previousStep() {
+            if (currentStep > 0) {
                 goToStep(currentStep - 1);
             }
         }
 
-        async function criarPIX() {
-            if (!produtoSelecionado || !leadData.name) {
-                alert('Dados incompletos!');
-                return;
-            }
+        function goToStep(step) {
+            currentStep = step;
+            updateUI();
+            scrollToTop();
+        }
 
-            // PASSO 5: PIXEL INITIATECHECKOUT
-            fbq('track', 'InitiateCheckout', {
-                content_name: produtoSelecionado.label,
-                content_type: 'product',
-                value: produtoSelecionado.preco / 100,
-                currency: 'BRL',
-                content_ids: [produtoSelecionado.key]
+        function scrollToTop() {
+            setTimeout(() => {
+                const content = document.getElementById('content');
+                if (content) {
+                    content.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.step-${currentStep}`).classList.add('active');
+
+            const titles = ['Sabor Brasileiro', 'Detalhes do Pedido', 'Criar conta', 'Endereço de entrega', 'Forma de entrega'];
+            document.getElementById('headerTitle').textContent = titles[currentStep];
+
+            document.querySelectorAll('.progress-dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx <= currentStep);
             });
 
-            // Mostrar loading
-            document.getElementById('loadingDiv').classList.add('active');
-            document.getElementById('stepsContainer').style.display = 'none';
+            const backBtn = document.getElementById('backBtn');
+            const backFooterBtn = document.getElementById('backFooterBtn');
+            const nextBtn = document.getElementById('nextBtn');
 
-            try {
-                // Obter UTMs do UTMIFY
-                const params = new URLSearchParams();
-                
-                // Adicionar parâmetros do produto e lead
-                params.append('product', produtoSelecionado.key);
-                params.append('name', leadData.name);
-                params.append('email', leadData.email);
-                params.append('phone', leadData.phone);
-                params.append('document', leadData.document);
+            backBtn.style.display = currentStep > 0 ? 'block' : 'none';
+            backFooterBtn.style.display = currentStep > 0 && currentStep < 4 ? 'block' : 'none';
 
-                // Adicionar UTMs (UTMIFY popula esses valores)
-                const utm_source = new URLSearchParams(window.location.search).get('utm_source') || '';
-                const utm_medium = new URLSearchParams(window.location.search).get('utm_medium') || '';
-                const utm_campaign = new URLSearchParams(window.location.search).get('utm_campaign') || '';
-                const utm_content = new URLSearchParams(window.location.search).get('utm_content') || '';
-                const utm_term = new URLSearchParams(window.location.search).get('utm_term') || '';
-                const fbclid = new URLSearchParams(window.location.search).get('fbclid') || '';
-                const xcod = new URLSearchParams(window.location.search).get('xcod') || '';
-                const sck = new URLSearchParams(window.location.search).get('sck') || '';
+            if (currentStep === 4) {
+                nextBtn.textContent = 'Finalizar Pedido';
+            } else {
+                nextBtn.textContent = 'Continuar';
+            }
 
-                if (utm_source) params.append('utm_source', utm_source);
-                if (utm_medium) params.append('utm_medium', utm_medium);
-                if (utm_campaign) params.append('utm_campaign', utm_campaign);
-                if (utm_content) params.append('utm_content', utm_content);
-                if (utm_term) params.append('utm_term', utm_term);
-                if (fbclid) params.append('fbclid', fbclid);
-                if (xcod) params.append('xcod', xcod);
-                if (sck) params.append('sck', sck);
-
-                // Chamar Worker Cloudflare
-                const response = await fetch(`/create-payment?${params.toString()}`, {
-                    method: 'GET'
-                });
-
-                const result = await response.json();
-
-                if (result.statusCode !== 200 || !result.data) {
-                    throw new Error(result.error || 'Erro ao criar PIX');
-                }
-
-                // Salvar dados completos do PIX
-                pixData = result.data;
-
-                // PASSO 6: PIXEL ADDPAYMENTINFO
-                fbq('track', 'AddPaymentInfo', {
-                    content_name: produtoSelecionado.label,
-                    content_type: 'product',
-                    value: pixData.amount / 100,
-                    currency: 'BRL',
-                    payment_method: 'pix'
-                });
-
-                // Redirecionar para página de PIX com UTMs preservadas
-                const pixPageParams = new URLSearchParams();
-                pixPageParams.append('transaction_id', pixData.transaction_id);
-                pixPageParams.append('pix_code', pixData.pix_copia_e_cola);
-                pixPageParams.append('pix_base64', pixData.pix_base64);
-                pixPageParams.append('amount', pixData.amount);
-                pixPageParams.append('label', pixData.label);
-                pixPageParams.append('name', leadData.name);
-                
-                // Adicionar UTMs na URL de redirecionamento
-                if (utm_source) pixPageParams.append('utm_source', utm_source);
-                if (utm_medium) pixPageParams.append('utm_medium', utm_medium);
-                if (utm_campaign) pixPageParams.append('utm_campaign', utm_campaign);
-                if (utm_content) pixPageParams.append('utm_content', utm_content);
-                if (utm_term) pixPageParams.append('utm_term', utm_term);
-                if (fbclid) pixPageParams.append('fbclid', fbclid);
-                if (xcod) pixPageParams.append('xcod', xcod);
-                if (sck) pixPageParams.append('sck', sck);
-
-                window.location.href = `pix.html?${pixPageParams.toString()}`;
-
-            } catch (error) {
-                document.getElementById('loadingDiv').classList.remove('active');
-                document.getElementById('stepsContainer').style.display = 'flex';
-                alert('Erro: ' + error.message);
+            if (currentStep >= 4) {
+                updatePrices();
             }
         }
+
+        // ===== PAYMENT =====
+        async function generatePixPayment() {
+            const nome = document.getElementById('inputNome').value.trim();
+            const email = document.getElementById('inputEmail').value.trim();
+            const telefone = document.getElementById('inputTelefone').value.trim();
+            const cpf = document.getElementById('inputCPF').value.trim();
+
+            // Capturar todos os UTMs
+            const urlParams = new URLSearchParams(window.location.search);
+            const utm_source = urlParams.get('utm_source') || '';
+            const utm_medium = urlParams.get('utm_medium') || '';
+            const utm_campaign = urlParams.get('utm_campaign') || '';
+            const utm_content = urlParams.get('utm_content') || '';
+            const utm_term = urlParams.get('utm_term') || '';
+            const fbclid = urlParams.get('fbclid') || '';
+            const xcod = urlParams.get('xcod') || '';
+            const sck = urlParams.get('sck') || '';
+
+            const params = new URLSearchParams({
+                product: currentProduct.productKey || '',
+                name: nome,
+                email: email,
+                phone: telefone.replace(/\D/g,''),
+                document: cpf.replace(/\D/g,''),
+                utm_source: utm_source,
+                utm_medium: utm_medium,
+                utm_campaign: utm_campaign,
+                utm_content: utm_content,
+                utm_term: utm_term,
+                fbclid: fbclid,
+                xcod: xcod,
+                sck: sck
+            });
+
+            try {
+                const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/?' + params.toString());
+                if (!res.ok) throw new Error('Erro na API');
+                
+                const json = await res.json();
+                const data = json.data;
+
+                // Track AddPaymentInfo
+                trackEvent('AddPaymentInfo', {
+                    content_name: currentProduct.title,
+                    value: currentProduct.priceNew * quantity,
+                    currency: 'BRL'
+                });
+
+                // Salvar dados no sessionStorage
+                const pixSession = {
+                    transaction_id: data.transaction_id || data.event_id,
+                    event_id: data.event_id,
+                    payment_status: data.payment_status || 'pending',
+                    pix_copia_e_cola: data.pix_copia_e_cola || '',
+                    pix_qr_code: data.pix_qr_code || '',
+                    pix_base64: data.pix_base64 || '',
+                    nome: nome,
+                    email: email,
+                    telefone: telefone,
+                    product_title: currentProduct.title,
+                    product_price: currentProduct.priceNew * quantity
+                };
+
+                sessionStorage.setItem('pixSession', JSON.stringify(pixSession));
+
+                // Redirecionar para pix.html
+                window.location.href = './pix.html?' + new URLSearchParams({
+                    utm_source: utm_source,
+                    utm_medium: utm_medium,
+                    utm_campaign: utm_campaign,
+                    utm_content: utm_content,
+                    utm_term: utm_term,
+                    fbclid: fbclid,
+                    xcod: xcod,
+                    sck: sck
+                }).toString();
+
+            } catch (err) {
+                console.error('Erro de Pagamento:', err);
+                alert('Erro ao gerar PIX. Por favor, tente novamente.');
+            }
+        }
+
+        // ===== TRACKING =====
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function trackEvent(eventName, eventData = {}) {
+            if (window.fbq) {
+                const fbqData = {};
+                if (eventData.value) fbqData.value = eventData.value;
+                if (eventData.currency) fbqData.currency = eventData.currency;
+                if (eventData.content_name) fbqData.content_name = eventData.content_name;
+                fbq('track', eventName, fbqData);
+            }
+
+            const payload = {
+                event_name: eventName,
+                page_url: window.location.href,
+                fbp: getCookie('_fbp'),
+                fbc: getCookie('_fbc'),
+                value: eventData.value,
+                currency: eventData.currency,
+                content_name: eventData.content_name,
+                name: eventData.name || null,
+                email: eventData.email || null,
+                phone: eventData.phone || null,
+                cpf: eventData.cpf || null,
+            };
+
+            fetch('/api/capi', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error('CAPI erro:', err));
+        }
+    </script>
+
+    <script>
+        // Impede o botão direito do mouse
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
+        document.addEventListener('keydown', function(e) {
+            // Bloqueia F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+U (Ver código fonte)
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+            // Bloqueia Ctrl+S (Salvar página)
+            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
