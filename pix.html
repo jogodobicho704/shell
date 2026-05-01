@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
-    <title>Pagamento PIX • Sabor Brasileiro</title>
+    <title>PIX • Sabor Brasileiro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '26526640770318634');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=26526640770318634&ev=PageView&noscript=1"/></noscript>
 
     <style>
         * {
@@ -29,558 +34,278 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
+            padding: 20px 16px;
         }
 
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            border-bottom: 1px solid #f0f0f0;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 50;
+            text-align: center;
+            margin-bottom: 32px;
         }
 
         .header-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 80px;
-            scroll-behavior: smooth;
-        }
-
-        .pix-section {
-            padding: 20px 16px;
-            text-align: center;
-        }
-
-        .pix-greeting {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .pix-product {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            font-weight: 400;
-        }
-
-        .pix-timer {
-            background: #fff3cd;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .pix-timer-label {
-            font-size: 11px;
-            color: #b8860b;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .pix-timer-value {
-            font-family: 'Bebas Neue', sans-serif;
             font-size: 24px;
-            color: #e63946;
             font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .pix-amount {
-            margin-bottom: 20px;
-        }
-
-        .pix-amount-label {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .pix-amount-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 40px;
-            color: #333;
-            font-weight: 700;
-        }
-
-        .pix-qr {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 16px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 220px;
-        }
-
-        .pix-qr img {
-            max-width: 180px;
-            max-height: 180px;
-        }
-
-        .pix-code-section {
-            background: #f9f9f9;
-            border: 2px dashed #e63946;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-        }
-
-        .pix-code-label {
-            font-size: 11px;
-            color: #999;
-            font-weight: 700;
-            text-transform: uppercase;
             margin-bottom: 8px;
         }
 
-        .pix-code-value {
-            font-family: 'Courier New', monospace;
+        .header-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pix-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .qr-code-box {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+
+        .qr-code-box img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+        }
+
+        .pix-info {
+            background: #fef3ef;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #dc5d2e;
+        }
+
+        .pix-info-label {
             font-size: 12px;
-            color: #333;
+            color: #666;
             font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .pix-code {
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
             word-break: break-all;
-            line-height: 1.6;
-            user-select: all;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
             margin-bottom: 12px;
         }
 
         .btn-copy {
             width: 100%;
-            background: #e63946;
+            padding: 12px;
+            background: #dc5d2e;
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-copy:hover,
-        .btn-copy:active {
-            background: #d62828;
-        }
-
-        .pix-status {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 8px 12px;
             border-radius: 6px;
-            margin: 16px 0;
-            text-align: center;
-        }
-
-        .pix-status.waiting {
-            background: rgba(230, 57, 70, 0.1);
-            color: #e63946;
-        }
-
-        .pix-status.paid {
-            background: rgba(76, 175, 80, 0.1);
-            color: #4caf50;
-        }
-
-        .spin {
-            display: inline-block;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .pix-instructions {
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-            font-size: 12px;
-            color: #666;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .pix-instruction-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .pix-instruction-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .pix-instruction-num {
-            background: #e63946;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .success-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .success-icon {
-            font-size: 60px;
-            margin-bottom: 16px;
-            animation: bounce 1s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .success-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 28px;
-            color: #4caf50;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .success-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            padding: 12px 16px 16px;
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn-primary {
-            background: #e63946;
-            color: white;
+        .btn-copy:hover {
+            background: #c94a1f;
         }
 
-        .btn-primary:hover,
-        .btn-primary:active {
-            background: #d62828;
-        }
-
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-            border: 1px solid #e0e0e0;
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:active {
-            background: #eeeeee;
-        }
-
-        .btn-full {
-            width: 100%;
-        }
-
-        .hidden {
+        .copy-feedback {
             display: none;
+            color: #28a745;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: 600;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                max-width: 100%;
-                border-radius: 0;
-            }
+        .copy-feedback.show {
+            display: block;
+        }
+
+        .payment-details {
+            background: #f8f8f8;
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .timer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .lead-name {
+            font-size: 14px;
+            color: #666;
+            margin-top: 16px;
+            text-align: center;
+            padding: 12px;
+            background: #f8f8f8;
+            border-radius: 6px;
+        }
+
+        .instructions {
+            background: #e8f4f8;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            border-left: 4px solid #00a8cc;
+        }
+
+        .instructions-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #00a8cc;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <span class="header-title" id="headerTitle">Pagamento PIX</span>
+            <div class="header-title">PIX Gerado com Sucesso! ✓</div>
+            <div class="header-subtitle">Escaneie o QR Code ou copie a chave</div>
         </div>
 
-        <div class="content" id="content">
-            <!-- PIX Payment Screen -->
-            <div id="pixScreen">
-                <div class="pix-section">
-                    <div class="pix-greeting">👋 Olá, <span id="pixName">Cliente</span>!</div>
-                    <div class="pix-product" id="pixProduct">Seu pedido: Marmitex</div>
+        <div class="pix-content">
+            <!-- QR CODE -->
+            <div class="qr-code-box">
+                <img id="qrImage" src="" alt="QR Code PIX" />
+            </div>
 
-                    <div class="pix-timer">
-                        <div class="pix-timer-label">⏰ PIX expira em</div>
-                        <div class="pix-timer-value" id="countdown">30:00</div>
-                        <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
-                    </div>
+            <!-- CHAVE PIX -->
+            <div class="pix-info">
+                <div class="pix-info-label">Chave PIX (Cópia e Cola)</div>
+                <div class="pix-code" id="pixInput"></div>
+                <button class="btn-copy" onclick="copiarPIX()">Copiar Chave PIX</button>
+                <div class="copy-feedback" id="msgOk">✓ Copiado com sucesso!</div>
+            </div>
 
-                    <div class="pix-amount">
-                        <div class="pix-amount-label">Total a pagar</div>
-                        <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
-                    </div>
-
-                    <div class="pix-qr">
-                        <img id="qrCode" src="" alt="QR Code PIX">
-                    </div>
-
-                    <div class="pix-code-section">
-                        <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
-                        <div class="pix-code-value" id="pixCode">Carregando...</div>
-                        <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
-                    </div>
-
-                    <div class="pix-status waiting" id="pixStatus">
-                        <span class="spin">⟳</span> Aguardando pagamento...
-                    </div>
-
-                    <div class="pix-instructions">
-                        <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">1</div>
-                            <div>Clique em Copiar Código PIX</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">2</div>
-                            <div>Abra o APP do seu Banco</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">3</div>
-                            <div>Cole o PIX copiado</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">4</div>
-                            <div>Confirme o pagamento</div>
-                        </div>
-                    </div>
-
-                    <div style="font-size: 12px; color: #999; margin-top: 20px; padding-bottom: 20px; font-weight: 400;">
-                        Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
-                    </div>
+            <!-- DETALHES DO PAGAMENTO -->
+            <div class="payment-details">
+                <div class="detail-item">
+                    <div class="detail-label">Valor</div>
+                    <div class="detail-value" id="valorPix">R$ 0,00</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Produto</div>
+                    <div class="detail-value" style="font-size: 13px;" id="produtoPix">-</div>
                 </div>
             </div>
 
-            <!-- Success Screen -->
-            <div id="successScreen" class="hidden">
-                <div class="success-section">
-                    <div class="success-icon">🎉</div>
-                    <div class="success-title">Pedido Confirmado!</div>
-                    <div class="success-text">
-                        Seu pagamento foi recebido com sucesso!<br><br>
-                        Sua marmita está sendo preparada com carinho.<br><br>
-                        <strong style="color:#e63946;">Tempo estimado: 30–40 minutos</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- INFORMAÇÕES DO LEAD -->
+            <div class="lead-name" id="leadName">Titular: -</div>
 
-        <div class="footer" id="footer">
-            <button class="btn btn-secondary" id="backBtn" onclick="goBack()">← Voltar</button>
-            <button class="btn btn-primary btn-full hidden" id="whatsappBtn" onclick="openWhatsApp()">💬 Ver status no WhatsApp</button>
+            <!-- CONTADOR -->
+            <div class="timer">
+                <span id="timer">Reserva ativa por 5:00</span>
+            </div>
+
+            <!-- INSTRUÇÕES -->
+            <div class="instructions">
+                <div class="instructions-title">Como Pagar:</div>
+                <ol style="margin-left: 16px;">
+                    <li>Abra o app do seu banco ou carteira digital</li>
+                    <li>Escolha PIX → Código QR ou Chave Cópia e Cola</li>
+                    <li>Digitalize o código ou cole a chave</li>
+                    <li>Confirme o valor e realize o pagamento</li>
+                </ol>
+            </div>
         </div>
     </div>
 
     <script>
-        // Load data from sessionStorage
-        let pixData = {};
-        let countdownInterval = null;
-        let pixPollInterval = null;
+        const params = new URLSearchParams(window.location.search);
+        
+        // Extrair parâmetros
+        const pixCode = params.get('pix_code') || '';
+        const pixBase64 = params.get('pix_base64') || '';
+        const amount = params.get('amount') || '0';
+        const label = params.get('label') || 'Marmita';
+        const name = params.get('name') || 'Cliente';
+        const transactionId = params.get('transaction_id') || '';
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const sessionData = sessionStorage.getItem('pixSession');
-            
-            if (!sessionData) {
-                alert('Sessão expirada. Voltando para o início...');
-                window.location.href = './index.html';
-                return;
-            }
+        // Popular dados
+        document.getElementById('pixInput').textContent = pixCode;
+        document.getElementById('valorPix').textContent = `R$ ${(amount / 100).toFixed(2)}`;
+        document.getElementById('produtoPix').textContent = label;
+        document.getElementById('leadName').innerText = `Titular: ${decodeURIComponent(name)}`;
 
-            pixData = JSON.parse(sessionData);
-
-            // Update UI with data
-            document.getElementById('pixName').textContent = pixData.nome.split(' ')[0];
-            document.getElementById('pixProduct').textContent = `Seu pedido: ${pixData.product_title}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${(pixData.product_price / 100).toFixed(2).replace('.',',')}`;
-            document.getElementById('pixCode').textContent = pixData.pix_copia_e_cola || 'Carregando...';
-
-            // Display QR Code
-            if (pixData.pix_base64) {
-                document.getElementById('qrCode').src = pixData.pix_base64;
-            }
-
-            // Start countdown
-            initCountdown();
-
-            // Start polling for payment
-            if (pixData.transaction_id) {
-                startPixPolling(pixData.transaction_id);
-            }
-        });
-
-        function initCountdown() {
-            let timeLeft = 30 * 60; // 30 minutes
-            
-            function tick() {
-                const mins = Math.floor(timeLeft / 60);
-                const secs = timeLeft % 60;
-                const countdown = document.getElementById('countdown');
-                countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
-                timeLeft--;
-                
-                if (timeLeft < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById('pixStatus').innerHTML = '❌ PIX expirado. Gere um novo.';
-                    document.getElementById('pixStatus').classList.remove('waiting');
-                }
-            }
-            
-            tick();
-            if (countdownInterval) clearInterval(countdownInterval);
-            countdownInterval = setInterval(tick, 1000);
+        // Exibir QR Code
+        if (pixBase64) {
+            const imgSrc = pixBase64.startsWith('data:') 
+                ? pixBase64 
+                : `data:image/png;base64,${pixBase64}`;
+            document.getElementById('qrImage').src = imgSrc;
         }
 
-        function startPixPolling(txid) {
-            if (pixPollInterval) clearInterval(pixPollInterval);
-            
-            pixPollInterval = setInterval(async () => {
+        // Função copiar PIX
+        function copiarPIX() {
+            navigator.clipboard.writeText(pixCode).then(() => {
+                const msgOk = document.getElementById('msgOk');
+                msgOk.classList.add('show');
+                setTimeout(() => {
+                    msgOk.classList.remove('show');
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar');
+            });
+        }
+
+        // Contador 5 minutos
+        let tempo = 300;
+        const timer = document.getElementById("timer");
+
+        setInterval(() => {
+            tempo--;
+            let m = Math.floor(tempo / 60);
+            let s = tempo % 60;
+            timer.textContent = `Reserva ativa por ${m}:${s < 10 ? '0' : ''}${s}`;
+            if (tempo <= 0) timer.textContent = "Tempo expirado. Gere novo código.";
+        }, 1000);
+
+        // Polling de status (opcional)
+        if (transactionId) {
+            setInterval(async () => {
                 try {
-                    const res = await fetch('https://api-boleto.jogodobicho704.workers.dev/status/' + txid);
-                    if (!res.ok) return;
+                    const response = await fetch(`/status/${transactionId}`);
+                    const result = await response.json();
                     
-                    const json = await res.json();
-                    const status = (json.data?.payment_status || json.status || '').toLowerCase();
-                    
-                    if (status === 'paid' || status === 'approved' || status === 'completed' || status === 'concluida' || status === 'recebida') {
-                        clearInterval(pixPollInterval);
-                        onPixPaid();
+                    if (result.data?.payment_status === 'paid' || result.data?.payment_status === 'completed') {
+                        window.location.href = 'sucesso.html';
                     }
-                } catch(e) {
-                    console.error('Polling error:', e);
+                } catch (error) {
+                    console.log('Polling error:', error);
                 }
             }, 3000);
         }
-
-        function onPixPaid() {
-            if (countdownInterval) clearInterval(countdownInterval);
-            if (pixPollInterval) clearInterval(pixPollInterval);
-
-            document.getElementById('pixScreen').classList.add('hidden');
-            document.getElementById('successScreen').classList.remove('hidden');
-            document.getElementById('backBtn').classList.add('hidden');
-            document.getElementById('whatsappBtn').classList.remove('hidden');
-        }
-
-        function copyPixCode() {
-            const code = document.getElementById('pixCode').textContent;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(code).then(() => {
-                    showCopyFeedback();
-                });
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = code;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showCopyFeedback();
-            }
-        }
-
-        function showCopyFeedback() {
-            const btn = document.querySelector('.btn-copy');
-            const orig = btn.textContent;
-            btn.textContent = '✅ Copiado!';
-            setTimeout(() => btn.textContent = orig, 2000);
-        }
-
-        function openWhatsApp() {
-            const phone = '5500000000000';
-            const msg = encodeURIComponent(`Olá! Finalizei meu pedido de ${pixData.product_title}. Pode confirmar?`);
-            window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
-        }
-
-        function goBack() {
-            if (confirm('Tem certeza que deseja voltar? O PIX será cancelado.')) {
-                sessionStorage.removeItem('pixSession');
-                window.location.href = './index.html';
-            }
-        }
-    </script>
-
-    <script>
-        // Impede o botão direito do mouse
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Impede atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
-        document.addEventListener('keydown', function(e) {
-            // Bloqueia F12
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-            // Bloqueia Ctrl+Shift+I (Inspecionar), Ctrl+Shift+J (Console), Ctrl+Shift+C (Elementos)
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-                e.preventDefault();
-                return false;
-            }
-            // Bloqueia Ctrl+U (Ver código fonte)
-            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-                e.preventDefault();
-                return false;
-            }
-            // Bloqueia Ctrl+S (Salvar página)
-            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
