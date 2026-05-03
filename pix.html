@@ -30,23 +30,56 @@
         .header-title { font-size: 16px; font-weight: 600; }
         .content { flex: 1; padding-bottom: 80px; }
         .pix-section { padding: 20px 16px; text-align: center; }
-        .pix-greeting { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
         
-        /* Estilo do Número do Pedido */
-        .order-badge {
-            margin: 15px 0;
-            padding: 10px;
-            background: #fff5f6;
-            border: 1px dashed #e63946;
-            border-radius: 8px;
-            display: inline-block;
+        /* HEADER DO PEDIDO - OTIMIZADO */
+        .greeting-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
-        .order-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; display: block; }
-        .order-number { font-size: 20px; font-weight: 900; color: #e63946; font-family: 'Bebas Neue', sans-serif; }
+
+        .pix-greeting { 
+            font-size: 15px; 
+            font-weight: 600; 
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .order-display {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .order-number-small {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e63946;
+            font-family: 'Bebas Neue', sans-serif;
+        }
+
+        .product-line {
+            font-size: 13px;
+            color: #666;
+            margin: 12px 0;
+            font-weight: 500;
+        }
+
+        .product-name {
+            color: #333;
+            font-weight: 600;
+        }
 
         .pix-product { font-size: 14px; color: #999; margin-bottom: 20px; font-weight: 400; }
         .pix-timer { background: #fff3cd; border-radius: 10px; padding: 12px; margin-bottom: 20px; }
-        .pix-timer-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #e63946; letter-spacing: 2px; }
+        .pix-timer-label { font-size: 11px; color: #b8860b; font-weight: bold; }
+        .pix-timer-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #e63946; letter-spacing: 2px; margin-top: 4px; }
+        
+        .pix-amount { margin: 18px 0; }
+        .pix-amount-label { font-size: 12px; color: #999; margin-bottom: 6px; }
         .pix-amount-value { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #333; }
         
         /* ===== BLOCO DE INCENTIVO / BÔNUS - OTIMIZADO ===== */
@@ -125,6 +158,16 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 480px) {
+            .greeting-header {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .pix-greeting {
+                min-width: auto;
+            }
+
             .bonus-banner {
                 padding: 12px 14px;
                 margin: 16px 0;
@@ -161,30 +204,23 @@
 
         <div class="content">
             <div class="pix-section">
-                <div class="pix-greeting">👋 Quase lá, <span id="pixName">Cliente</span>!</div>
-                
-                <!-- GERADOR DE NÚMERO DE PEDIDO -->
-                <div class="order-badge">
-                    <span class="order-label">Número do Pedido</span>
-                    <span class="order-number" id="orderNumDisplay">#00000</span>
+                <!-- HEADER OTIMIZADO: NOME + NÚMERO DO PEDIDO -->
+                <div class="greeting-header">
+                    <div class="pix-greeting">👋 Quase lá, <span id="pixName">Cliente</span>!</div>
+                    <div class="order-display">
+                        <span class="order-number-small" id="orderNumDisplay">#00000</span>
+                    </div>
                 </div>
 
-                <div class="pix-product" id="pixProduct">Carregando pedido...</div>
-
-                <div class="pix-timer">
-                    <div style="font-size: 11px; color: #b8860b; font-weight: bold;">O CÓDIGO EXPIRA EM:</div>
-                    <div class="pix-timer-value" id="countdown">05:00</div>
+                <!-- LINHA DO PRODUTO -->
+                <div class="product-line">
+                    <span class="product-name" id="pixProduct">Marmitex</span>: <span id="pixProductDesc">2 sabores</span>
                 </div>
 
-                <div class="pix-amount">
-                    <div style="font-size: 12px; color: #999;">Valor Total</div>
-                    <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
-                </div>
-
-                <!-- NOVO: BLOCO DE INCENTIVO COM BÔNUS - OTIMIZADO -->
+                <!-- BLOCO DE INCENTIVO -->
                 <div class="bonus-banner">
                     <div class="bonus-content">
-                        <div class="bonus-title">🎁 Parabéns! Seu pedido vai com 1 Coca-Cola 1,5L GRÁTIS</div>
+                        <div class="bonus-title">🎁 Pode comemorar! Seu pedido vai com uma Coca-Cola 1,5L GRÁTIS</div>
                         <div class="bonus-row">
                             <div class="bonus-subtitle">⚡ Válido apenas para PIX hoje</div>
                             <span class="bonus-separator">—</span>
@@ -194,20 +230,36 @@
                     </div>
                 </div>
 
+                <!-- VALOR -->
+                <div class="pix-amount">
+                    <div class="pix-amount-label">Valor Total</div>
+                    <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
+                </div>
+
+                <!-- TIMER -->
+                <div class="pix-timer">
+                    <div class="pix-timer-label">O CÓDIGO EXPIRA EM:</div>
+                    <div class="pix-timer-value" id="countdown">05:00</div>
+                </div>
+
+                <!-- QR CODE -->
                 <div class="pix-qr">
                     <img id="qrCode" src="" alt="QR Code PIX">
                 </div>
 
+                <!-- CÓDIGO PIX -->
                 <div class="pix-code-section">
                     <span style="font-size: 10px; font-weight: bold; color: #999; display: block; margin-bottom: 5px;">PIX COPIA E COLA</span>
                     <span class="pix-code-value" id="pixCode">...</span>
                     <button class="btn-copy" onclick="copyPixCode()">Copiar Código PIX</button>
                 </div>
 
+                <!-- STATUS -->
                 <div class="pix-status">
                     <span class="spin">↻</span> Aguardando pagamento...
                 </div>
 
+                <!-- INSTRUÇÕES -->
                 <div class="pix-instructions">
                     <div class="instruction-step">
                         <div class="step-num">1</div>
