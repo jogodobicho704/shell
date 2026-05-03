@@ -1119,37 +1119,14 @@
                             <div class="delivery-option-content">
                                 <div class="delivery-icon">🏍️</div>
                                 <div class="delivery-info">
-                                    <div class="delivery-title">Entrega Padrão</div>
-                                    <div class="delivery-time">⏱️ 45-55 min</div>
-                                    <div class="delivery-price">Grátis</div>
-                                </div>
-                            </div>
-                            <div class="delivery-radio"></div>
-                        </div>
-
-                        <div class="delivery-option" onclick="selectDelivery(this)">
-                            <div class="delivery-option-content">
-                                <div class="delivery-icon">⚡</div>
-                                <div class="delivery-info">
                                     <div class="delivery-title">Entrega Rápida</div>
-                                    <div class="delivery-time">⏱️ 20-30 min</div>
+                                    <div class="delivery-time">⏱️ 30-40 min</div>
                                     <div class="delivery-price">Grátis</div>
                                 </div>
                             </div>
                             <div class="delivery-radio"></div>
                         </div>
 
-                        <div class="delivery-option" onclick="selectDelivery(this)">
-                            <div class="delivery-option-content">
-                                <div class="delivery-icon">📅</div>
-                                <div class="delivery-info">
-                                    <div class="delivery-title">Agendar Entrega</div>
-                                    <div class="delivery-time">Escolha dia e horário ideal</div>
-                                    <div class="delivery-price">Grátis</div>
-                                </div>
-                            </div>
-                            <div class="delivery-radio"></div>
-                        </div>
                     </div>
 
                     <div style="padding: 0 16px; margin-top: 20px; padding-bottom: 80px;">
@@ -1186,37 +1163,37 @@
         const PRODUCTS = {
             pequena: {
                 title: '1 Marmitex Pequena com Churrasco',
-                desc: '🎁 Complementos Grátis',
+                desc: '🔥 A partir de R$16,90',
                 img: './images/pequena.jpg',
                 priceOld: 24.90,
                 priceNew: 16.90,
                 servings: 1,
-                badge: null,
+                badge: 'Promoção do dia',
                 productKey: 'pequena'
             },
             grande: {
                 title: '2 Marmitex Média com Churrasco',
-                desc: '🎁 Complementos Grátis',
+                desc: '👥 Ideal para 2 pessoas',
                 img: './images/grande.jpg',
                 priceOld: 43.80,
                 priceNew: 28.90,
                 servings: 2,
-                badge: null,
+                badge: 'Mais pedido hoje',
                 productKey: 'grande'
             },
             kit3: {
                 title: '3 Kit Família Grande com Churrasco',
-                desc: '🎁 Complementos Grátis',
+                desc: '💰 Melhor custo-benefício',
                 img: './images/kitnovo.jpg',
                 priceOld: 59.80,
                 priceNew: 39.90,
                 servings: 3,
-                badge: '⭐ MAIS VENDIDO',
+                badge: '⭐ Escolha inteligente',
                 productKey: 'kit3'
             },
             milanesa: {
                 title: '1 Marmitex Média com Bife Milanesa Frango',
-                desc: '🎁 Complementos Grátis',
+                desc: '🍽️ Opção individual',
                 img: './images/milanesa.jpg',
                 priceOld: 24.90,
                 priceNew: 16.90,
@@ -1226,7 +1203,7 @@
             },
             strog: {
                 title: '2 Marmitex Média com Strogonof',
-                desc: '🎁 Complementos Grátis',
+                desc: '🤤 Cremoso e favorito',
                 img: './images/strog.jpg',
                 priceOld: 45.80,
                 priceNew: 25.90,
@@ -1236,7 +1213,7 @@
             },
             costela: {
                 title: '2 Marmitex Grande de Costela Assada',
-                desc: '🎁 Complementos Grátis',
+                desc: '🥩 Mais carne, mais sabor',
                 img: './images/costela1.png',
                 priceOld: 49.80,
                 priceNew: 29.90,
@@ -1246,12 +1223,12 @@
             },
             parmegiana: {
                 title: '2 Marmitex Grande Parmegiana Frango',
-                desc: '🎁 Complementos Grátis',
+                desc: '🧀 Clássico que nunca falha',
                 img: './images/parmegiana.jpg',
                 priceOld: 35.80,
                 priceNew: 25.90,
                 servings: 2,
-                badge: '🏆 MAIS PEDIDA',
+                badge: null,
                 productKey: 'parmegiana'
             }
         };
