@@ -7,603 +7,249 @@
     <title>Pagamento PIX • Sabor Brasileiro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+     <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+    
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '26526640770318634');fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=26526640770318634&ev=PageView&noscript=1"/></noscript>
+    <script>
+      window.pixelId = "69e38ec2db04a358c41c2a71";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f8f8f8;
-            color: #333;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            border-bottom: 1px solid #f0f0f0;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 50;
-        }
-
-        .header-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 80px;
-            scroll-behavior: smooth;
-        }
-
-        .pix-section {
-            padding: 20px 16px;
-            text-align: center;
-        }
-
-        .pix-greeting {
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .pix-product {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: #f9f9f9;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8f8f8; color: #333; }
+        .container { width: 100%; max-width: 500px; margin: 0 auto; background: white; min-height: 100vh; display: flex; flex-direction: column; }
+        .header { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #f0f0f0; background: white; }
+        .header-title { font-size: 16px; font-weight: 600; }
+        .content { flex: 1; padding-bottom: 80px; }
+        .pix-section { padding: 20px 16px; text-align: center; }
+        .pix-greeting { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        
+        /* Estilo do Número do Pedido */
+        .order-badge {
+            margin: 15px 0;
+            padding: 10px;
+            background: #fff5f6;
+            border: 1px dashed #e63946;
             border-radius: 8px;
-            font-weight: 400;
+            display: inline-block;
+        }
+        .order-label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; display: block; }
+        .order-number { font-size: 20px; font-weight: 900; color: #e63946; font-family: 'Bebas Neue', sans-serif; }
+
+        .pix-product { font-size: 14px; color: #999; margin-bottom: 20px; font-weight: 400; }
+        .pix-timer { background: #fff3cd; border-radius: 10px; padding: 12px; margin-bottom: 20px; }
+        .pix-timer-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #e63946; letter-spacing: 2px; }
+        .pix-amount-value { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: #333; }
+        
+        /* ===== BLOCO DE INCENTIVO / BÔNUS ===== */
+        .bonus-banner {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #2e7d32;
         }
 
-        .pix-timer {
-            background: #fff3cd;
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .pix-timer-label {
-            font-size: 11px;
-            color: #b8860b;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .pix-timer-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
-            color: #e63946;
+        .bonus-title {
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 2px;
+            color: white;
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
 
-        .pix-amount {
-            margin-bottom: 20px;
-        }
-
-        .pix-amount-label {
+        .bonus-subtitle {
             font-size: 12px;
-            color: #999;
-            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
             font-weight: 500;
         }
 
-        .pix-amount-value {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 40px;
-            color: #333;
-            font-weight: 700;
-        }
-
-        /* ===== QR Code Display Design Improvement ===== */
-        .pix-qr {
-            background: white;
-            border: 2px dashed #e0e0e0;
-            border-radius: 16px;
-            padding: 24px;
-            margin: 24px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: fit-content;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .pix-qr:hover {
-            transform: scale(1.02);
-        }
-
-        .pix-qr img {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-        }
-
-        .pix-code-section {
-            background: #f9f9f9;
-            border: 2px dashed #e63946;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-        }
-
-        .pix-code-label {
-            font-size: 11px;
-            color: #999;
-            font-weight: 700;
-            text-transform: uppercase;
+        .bonus-cta {
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
             margin-bottom: 8px;
         }
 
-        .pix-code-value {
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: #333;
-            font-weight: 600;
-            word-break: break-all;
-            line-height: 1.6;
-            user-select: all;
-            margin-bottom: 12px;
+        .bonus-timer {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
         }
-
-        .btn-copy {
-            width: 100%;
-            background: #e63946;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-copy:hover,
-        .btn-copy:active {
-            background: #d62828;
-        }
-
-        .pix-status {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 16px 0;
-            text-align: center;
-        }
-
-        .pix-status.waiting {
-            background: rgba(230, 57, 70, 0.1);
-            color: #e63946;
-        }
-
-        .pix-status.paid {
-            background: rgba(76, 175, 80, 0.1);
-            color: #4caf50;
-        }
-
-        .spin {
-            display: inline-block;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .pix-instructions {
-            background: #f9f9f9;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 20px 0;
-            font-size: 12px;
-            color: #666;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .pix-instruction-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .pix-instruction-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .pix-instruction-num {
-            background: #e63946;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .success-section {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .success-icon {
-            font-size: 60px;
-            margin-bottom: 16px;
-            animation: bounce 1s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .success-title {
-            font-family: 'Inter', sans-serif;
-            font-size: 28px;
-            color: #4caf50;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .success-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            padding: 12px 16px 16px;
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-primary {
-            background: #e63946;
-            color: white;
-        }
-
-        .btn-primary:hover,
-        .btn-primary:active {
-            background: #d62828;
-        }
-
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-            border: 1px solid #e0e0e0;
-        }
-
-        .btn-secondary:hover,
-        .btn-secondary:active {
-            background: #eeeeee;
-        }
-
-        .btn-full {
-            width: 100%;
-        }
-
-        .hidden {
-            display: none;
-        }
+        
+        .pix-qr { background: white; border: 2px dashed #e0e0e0; border-radius: 16px; padding: 20px; margin: 20px auto; width: fit-content; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .pix-qr img { width: 200px; height: 200px; display: block; }
+        
+        .pix-code-section { background: #f9f9f9; border: 2px dashed #e63946; border-radius: 10px; padding: 16px; margin: 20px 0; }
+        .pix-code-value { font-family: monospace; font-size: 11px; color: #333; word-break: break-all; margin-bottom: 12px; display: block; }
+        
+        .btn-copy { width: 100%; background: #e63946; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .pix-status { font-size: 12px; font-weight: 600; padding: 8px; border-radius: 6px; margin: 16px 0; background: rgba(230, 57, 70, 0.1); color: #e63946; }
+        
+        .pix-instructions { background: #f9f9f9; border-radius: 10px; padding: 16px; margin: 20px 0; text-align: left; font-size: 13px; }
+        .instruction-step { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .step-num { background: #e63946; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; flex-shrink: 0; }
+        
+        .footer { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e0e0e0; padding: 12px 16px; max-width: 500px; margin: 0 auto; }
+        .hidden { display: none; }
+        .spin { display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 480px) {
-            .container {
-                max-width: 100%;
-                border-radius: 0;
+            .bonus-banner {
+                margin: 16px 0;
+                padding: 14px;
+            }
+
+            .bonus-title {
+                font-size: 13px;
+            }
+
+            .bonus-subtitle {
+                font-size: 11px;
+            }
+
+            .bonus-cta {
+                font-size: 11px;
             }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
-            <span class="header-title" id="headerTitle">Pagamento PIX</span>
+            <span class="header-title">Finalizar Pagamento</span>
         </div>
 
-        <div class="content" id="content">
-            <!-- PIX Payment Screen -->
-            <div id="pixScreen">
-                <div class="pix-section">
-                    <div class="pix-greeting">👋 Olá, <span id="pixName">Cliente</span>!</div>
-                    <div class="pix-product" id="pixProduct">Seu pedido: Marmitex</div>
-
-                    <div class="pix-timer">
-                        <div class="pix-timer-label">⏰ PIX expira em</div>
-                        <div class="pix-timer-value" id="countdown">05:00</div>
-                        <div style="font-size: 11px; color: #b8860b; margin-top: 4px;">Pague antes que o código expire</div>
-                    </div>
-
-                    <div class="pix-amount">
-                        <div class="pix-amount-label">Total a pagar</div>
-                        <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
-                    </div>
-
-                    <div class="pix-qr">
-                        <img id="qrCode" src="" alt="QR Code PIX">
-                    </div>
-
-                    <div class="pix-code-section">
-                        <div class="pix-code-label">OU COPIE O CÓDIGO PIX</div>
-                        <div class="pix-code-value" id="pixCode">Carregando...</div>
-                        <button class="btn-copy" onclick="copyPixCode()">📋 Copiar Código PIX</button>
-                    </div>
-
-                    <div class="pix-status waiting" id="pixStatus">
-                        <span class="spin">⟳</span> Aguardando pagamento...
-                    </div>
-
-                    <div class="pix-instructions">
-                        <div style="font-weight: 700; margin-bottom: 12px;">Como pagar</div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">1</div>
-                            <div>Clique em Copiar Código PIX</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">2</div>
-                            <div>Abra o APP do seu Banco</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">3</div>
-                            <div>Cole o PIX copiado</div>
-                        </div>
-                        <div class="pix-instruction-item">
-                            <div class="pix-instruction-num">4</div>
-                            <div>Confirme o pagamento</div>
-                        </div>
-                    </div>
-
-                    <div style="font-size: 12px; color: #999; margin-top: 20px; padding-bottom: 20px; font-weight: 400;">
-                        Após o pagamento, confirmaremos seu pedido via WhatsApp em até 2 minutos.
-                    </div>
+        <div class="content">
+            <div class="pix-section">
+                <div class="pix-greeting">👋 Quase lá, <span id="pixName">Cliente</span>!</div>
+                
+                <!-- GERADOR DE NÚMERO DE PEDIDO -->
+                <div class="order-badge">
+                    <span class="order-label">Número do Pedido</span>
+                    <span class="order-number" id="orderNumDisplay">#00000</span>
                 </div>
-            </div>
 
-            <!-- Success Screen -->
-            <div id="successScreen" class="hidden">
-                <div class="success-section">
-                    <div class="success-icon">🎉</div>
-                    <div class="success-title">Pedido Confirmado!</div>
-                    <div class="success-text">
-                        Seu pagamento foi recebido com sucesso!<br><br>
-                        Sua marmita está sendo preparada com carinho.<br><br>
-                        <strong style="color:#e63946;">Tempo estimado: 30–40 minutos</strong>
+                <div class="pix-product" id="pixProduct">Carregando pedido...</div>
+
+                <div class="pix-timer">
+                    <div style="font-size: 11px; color: #b8860b; font-weight: bold;">O CÓDIGO EXPIRA EM:</div>
+                    <div class="pix-timer-value" id="countdown">05:00</div>
+                </div>
+
+                <div class="pix-amount">
+                    <div style="font-size: 12px; color: #999;">Valor Total</div>
+                    <div class="pix-amount-value" id="pixTotalPrice">R$ 0,00</div>
+                </div>
+
+                <!-- NOVO: BLOCO DE INCENTIVO COM BÔNUS -->
+                <div class="bonus-banner">
+                    <div class="bonus-title">🎁 Parabéns! Seu pedido vai com 1 Coca-Cola 1,5L GRÁTIS</div>
+                    <div class="bonus-subtitle">⚡ Promoção válida apenas para pagamento via Pix hoje</div>
+                    <div class="bonus-cta">Finalize agora para garantir seu brinde</div>
+                    <div class="bonus-timer">⏳ Oferta por tempo limitado</div>
+                </div>
+
+                <div class="pix-qr">
+                    <img id="qrCode" src="" alt="QR Code PIX">
+                </div>
+
+                <div class="pix-code-section">
+                    <span style="font-size: 10px; font-weight: bold; color: #999; display: block; margin-bottom: 5px;">PIX COPIA E COLA</span>
+                    <span class="pix-code-value" id="pixCode">...</span>
+                    <button class="btn-copy" onclick="copyPixCode()">Copiar Código PIX</button>
+                </div>
+
+                <div class="pix-status">
+                    <span class="spin">↻</span> Aguardando pagamento...
+                </div>
+
+                <div class="pix-instructions">
+                    <div class="instruction-step">
+                        <div class="step-num">1</div>
+                        <div>Copie o código acima</div>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-num">2</div>
+                        <div>Abra o aplicativo do seu banco</div>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-num">3</div>
+                        <div>Pague via <strong>PIX Copia e Cola</strong></div>
+                    </div>
+                    <div class="instruction-step">
+                        <div class="step-num">4</div>
+                        <div>Receba confirmação do pedido <strong>Whatsapp</strong></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="footer" id="footer">
-            <button class="btn btn-secondary" id="backBtn" onclick="goBack()">← Voltar</button>
-            <button class="btn btn-primary btn-full hidden" id="whatsappBtn" onclick="openWhatsApp()">💬 Ver status no WhatsApp</button>
-        </div>
-    </div>
 
     <script>
-        let countdownInterval = null;
-        let pixPollInterval = null;
-
         document.addEventListener('DOMContentLoaded', function() {
-            // Obter os dados diretamente da URL
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            const pixCode = urlParams.get('pix');
-            const qrUrl = urlParams.get('qr');
-            const txid = urlParams.get('txid');
-            const nameParam = urlParams.get('name') || 'Cliente';
-            const priceParam = urlParams.get('price') || '0';
-            const productParam = urlParams.get('product') || 'Marmitex';
+            // 1. GERA NÚMERO ALEATÓRIO DE 5 DÍGITOS NA HORA
+            const randomOrder = Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('orderNumDisplay').textContent = '#' + randomOrder;
 
-            if (!pixCode) {
-                alert('Link inválido ou expirado. Voltando para o início...');
-                window.location.href = './index.html';
-                return;
-            }
+            // 2. CAPTURA DADOS DA URL
+            const params = new URLSearchParams(window.location.search);
+            const pixCode = params.get('pix');
+            const qrUrl = params.get('qr');
+            const name = params.get('name') || 'Cliente';
+            const price = params.get('price') || '0.00';
+            const product = params.get('product') || 'Marmitex';
 
-            // Atualizar UI com os dados obtidos
-            document.getElementById('pixName').textContent = nameParam.split(' ')[0];
-            document.getElementById('pixProduct').textContent = `Seu pedido: ${productParam}`;
-            document.getElementById('pixTotalPrice').textContent = `R$ ${parseFloat(priceParam).toFixed(2).replace('.',',')}`;
+            // 3. PREENCHE A TELA
+            document.getElementById('pixName').textContent = name.split(' ')[0];
+            document.getElementById('pixProduct').textContent = product;
+            document.getElementById('pixTotalPrice').textContent = 'R$ ' + parseFloat(price).toFixed(2).replace('.', ',');
             document.getElementById('pixCode').textContent = pixCode;
 
-            // ===== Correção Bug Exibição QR Code =====
-            const qrImage = document.getElementById('qrCode');
-            if (qrUrl) {
-                // Caso a API tenha devolvido a imagem crua (data:image) ou o link direto 
-                if (qrUrl.startsWith('http') || qrUrl.startsWith('data:')) {
-                    qrImage.src = qrUrl;
-                } else {
-                    // Fallback para caso venha um base64 puro e incompleto
-                    qrImage.src = 'data:image/png;base64,' + qrUrl;
-                }
+            // 4. TRATA O QR CODE
+            const qrImg = document.getElementById('qrCode');
+            if (qrUrl && qrUrl.startsWith('http')) {
+                qrImg.src = qrUrl;
             } else {
-                // Se tudo falhar, geramos a imagem via API pública passando o PIX copia e cola
-                qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}`;
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(pixCode)}`;
             }
 
-            // Guardar globalmente apenas para uso do botão final do zap (Success Screen)
-            window.pixData = {
-                product_title: productParam
-            };
-
-            // Iniciar contagem
-            initCountdown();
-
-            // Iniciar verificação de status caso haja um transaction_id
-            if (txid) {
-                startPixPolling(txid);
-            }
+            // 5. TIMER REVERSO
+            let timer = 300;
+            const display = document.getElementById('countdown');
+            setInterval(() => {
+                let minutes = Math.floor(timer / 60);
+                let seconds = timer % 60;
+                display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                if (--timer < 0) timer = 0;
+            }, 1000);
         });
 
-        function initCountdown() {
-            let timeLeft = 04 * 60; // 5 minutos
-            
-            function tick() {
-                const mins = Math.floor(timeLeft / 60);
-                const secs = timeLeft % 60;
-                const countdown = document.getElementById('countdown');
-                countdown.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
-                timeLeft--;
-                
-                if (timeLeft < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById('pixStatus').innerHTML = '❌ PIX expirado. Gere um novo.';
-                    document.getElementById('pixStatus').classList.remove('waiting');
-                }
-            }
-            
-            tick();
-            if (countdownInterval) clearInterval(countdownInterval);
-            countdownInterval = setInterval(tick, 1000);
-        }
-
-        function startPixPolling(txid) {
-            if (pixPollInterval) clearInterval(pixPollInterval);
-            
-            pixPollInterval = setInterval(async () => {
-                try {
-                    const res = await fetch('https://pix-api.jogodobicho704.workers.dev/status/' + txid);
-                    if (!res.ok) return;
-                    
-                    const json = await res.json();
-                    const status = (json.data?.payment_status || json.status || '').toLowerCase();
-                    
-                    if (status === 'paid' || status === 'approved' || status === 'completed' || status === 'concluida' || status === 'recebida') {
-                        clearInterval(pixPollInterval);
-                        onPixPaid();
-                    }
-                } catch(e) {
-                    console.error('Polling error:', e);
-                }
-            }, 3000);
-        }
-
-        function onPixPaid() {
-            if (countdownInterval) clearInterval(countdownInterval);
-            if (pixPollInterval) clearInterval(pixPollInterval);
-
-            document.getElementById('pixScreen').classList.add('hidden');
-            document.getElementById('successScreen').classList.remove('hidden');
-            document.getElementById('backBtn').classList.add('hidden');
-            document.getElementById('whatsappBtn').classList.remove('hidden');
-        }
-
+        // FUNÇÃO COPIAR
         function copyPixCode() {
             const code = document.getElementById('pixCode').textContent;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(code).then(() => {
-                    showCopyFeedback();
-                });
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = code;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showCopyFeedback();
-            }
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                const originalText = btn.textContent;
+                btn.textContent = '✅ COPIADO!';
+                btn.style.background = '#4caf50';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#e63946';
+                }, 2000);
+            });
         }
-
-        function showCopyFeedback() {
-            const btn = document.querySelector('.btn-copy');
-            const orig = btn.textContent;
-            btn.textContent = '✅ Copiado!';
-            setTimeout(() => btn.textContent = orig, 2000);
-        }
-
-        function openWhatsApp() {
-            const phone = '5500000000000'; // Substitua pelo seu telefone
-            const product = window.pixData ? window.pixData.product_title : 'Marmitex';
-            const msg = encodeURIComponent(`Olá! Finalizei meu pedido de ${product}. Pode confirmar?`);
-            window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
-        }
-
-        function goBack() {
-            if (confirm('Tem certeza que deseja voltar? O PIX será cancelado.')) {
-                window.location.href = './index.html';
-            }
-        }
-    </script>
-
-    <script>
-        // Impede o botão direito do mouse
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Impede atalhos de teclado
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12') {
-                e.preventDefault();
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-                e.preventDefault();
-                return false;
-            }
-            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-                e.preventDefault();
-                return false;
-            }
-            if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-                e.preventDefault();
-                return false;
-            }
-        });
     </script>
 </body>
 </html>
